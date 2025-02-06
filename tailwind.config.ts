@@ -11,6 +11,7 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        test: "#28A80E", // this is the background color from figma
       },
     },
   },
