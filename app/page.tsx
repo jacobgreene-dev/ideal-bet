@@ -12,7 +12,7 @@ export default function App() {
             <Header />
             <Hero />
             <div className="h-12 bg-apple-500"></div>
-            <LiveGames numberOfGames={3} />
+            <LiveGames numberOfGames={8} />
             <Body />
             <Footer />
         </div>
