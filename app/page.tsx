@@ -4,6 +4,8 @@ import Hero from "./components/_Hero";
 import Body from "./components/_Body";
 import Footer from "./components/_Footer";
 import LiveGames from "./components/_LiveGames";
+import DisplayArticles from "./components/_DisplayArticles";
+
 
 
 export default function App() {
@@ -13,6 +15,7 @@ export default function App() {
             <Hero />
             <div className="h-12 bg-apple-500"></div>
             <LiveGames numberOfGames={8} />
+            <DisplayArticles />
             <Body />
             <Footer />
         </div>
