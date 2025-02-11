@@ -46,12 +46,13 @@ export default function Header() {
   return (
     <header className="bg-white">
       <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-3 lg:px-8">
-        <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Betting Bro</span>
+        <div className="flex lg:flex-1 mr-6">
+          <a href="#" className="-m-1.5 p-1.5 flex items-center">
+            <span className="mr-3 text-lg font-bold text-gray-900">Project Name</span>
+            <p className="sr-only">Betting Analysis</p>
             <img
-              alt=""
-              src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+              alt="Betting Analysis Logo"
+              src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/01/Magik-Header-Image-Cropped.jpg"
               className="h-8 w-auto"
             />
           </a>
@@ -69,7 +70,7 @@ export default function Header() {
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
           <Popover className="relative">
             <PopoverButton className="flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900">
-              Action Items
+              Betting Analysis
               <ChevronDownIcon aria-hidden="true" className="size-5 flex-none text-gray-400" />
             </PopoverButton>
 
@@ -103,7 +104,7 @@ export default function Header() {
             Sports Book Information
           </a>
           <a href="#" className="text-sm/6 font-semibold text-gray-900">
-            Betting
+            Betting History
           </a>
           <a href="#" className="text-sm/6 font-semibold text-gray-900">
             Gambling Helpline
@@ -123,7 +124,7 @@ export default function Header() {
         <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Betting Bro</span>
+              <span className="sr-only">Betting Analysis</span>
               <img
                 alt=""
                 src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
@@ -144,7 +145,7 @@ export default function Header() {
               <div className="space-y-2 py-6">
                 <Disclosure as="div" className="-mx-3">
                   <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pr-3.5 pl-3 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">
-                    Action Items
+                    Betting Analysis
                     <ChevronDownIcon aria-hidden="true" className="size-5 flex-none group-data-open:rotate-180" />
                   </DisclosureButton>
                   <DisclosurePanel className="mt-2 space-y-2">
