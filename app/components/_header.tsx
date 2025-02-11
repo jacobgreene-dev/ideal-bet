@@ -44,7 +44,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="bg-apple-500 relative z-20">
+    <header className="bg-affair-800 relative z-20">
       <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-3 lg:px-8">
         <div className="flex lg:flex-1 mr-6">
           <a href="#" className="-m-1.5 p-1.5 flex items-center">
@@ -76,7 +76,7 @@ export default function Header() {
 
             <PopoverPanel
               transition
-              className="absolute top-full -left-8 z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-apple-400 ring-1 shadow-lg ring-white/5 transition data-closed:translate-y-1 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in"
+              className="absolute top-full -left-8 z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-affair-600 ring-1 shadow-lg ring-white/5 transition data-closed:translate-y-1 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in"
             >
               <div className="p-4">
                 {products.map((item) => (
@@ -117,7 +117,7 @@ export default function Header() {
           <a href="#" className="text-sm/6 font-semibold text-white p-1 bg-black m-1 rounded-lg">
             Log in <span aria-hidden="true"></span>
           </a>
-          <a href="#" className="text-sm/6 font-semibold text-black p-1 bg-apple-200 m-1 rounded-lg">
+          <a href="#" className="text-sm/6 font-semibold text-black p-1 bg-affair-400 m-1 rounded-lg">
             Register <span aria-hidden="true"></span>
           </a>
         </div>
