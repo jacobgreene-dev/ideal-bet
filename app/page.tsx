@@ -11,8 +11,8 @@ export default function App() {
         <div>
             <Header />
             <Hero />
-            <div className="h-12 bg-test"></div>
-            <LiveGames numberOfGames={9} />
+            <div className="h-12 bg-apple-500"></div>
+            <LiveGames numberOfGames={3} />
             <Body />
             <Footer />
         </div>
