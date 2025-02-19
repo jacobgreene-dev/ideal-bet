@@ -14,7 +14,7 @@ export default function Footer(){
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-start">
         {/* Social Icons */}
         <div className="flex flex-col space-y-3">
-          <h3>Project Name</h3>
+          <h3>Ideal Bet</h3>
           <div className="flex space-x-3">
             <a href="#"><Facebook className="w-6 h-6" /></a>
             <a href="#"><Youtube className="w-6 h-6" /></a>

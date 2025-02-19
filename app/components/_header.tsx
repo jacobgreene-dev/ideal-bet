@@ -47,8 +47,8 @@ export default function Header() {
     <header className="bg-affair-800 relative z-20">
       <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-3 lg:px-8">
         <div className="flex lg:flex-1 mr-6">
-          <a href="#" className="-m-1.5 p-1.5 flex items-center">
-            <span className="mr-3 text-lg font-bold text-white">Project Name</span>
+          <a href="/" className="-m-1.5 p-1.5 flex items-center">
+            <span className="mr-3 text-lg font-bold text-white">Ideal Bet</span>
             <p className="sr-only">Betting Analysis</p>
             <img
               alt="Betting Analysis Logo"
@@ -100,16 +100,16 @@ export default function Header() {
             </PopoverPanel>
           </Popover>
 
-          <a href="#" className="text-sm/6 font-semibold text-white">
+          <a href="/information" className="text-sm/6 font-semibold text-white">
             Sports Book Information
           </a>
-          <a href="#" className="text-sm/6 font-semibold text-white">
+          <a href="/history" className="text-sm/6 font-semibold text-white">
             Betting History
           </a>
-          <a href="#" className="text-sm/6 font-semibold text-white">
+          <a href="/helpline" className="text-sm/6 font-semibold text-white">
             Gambling Helpline
           </a>
-          <a href="#" className="text-sm/6 font-semibold text-white">
+          <a href="/contact" className="text-sm/6 font-semibold text-white">
             Contact
           </a>
         </PopoverGroup>
@@ -165,19 +165,19 @@ export default function Header() {
                   </DisclosurePanel>
                 </Disclosure>
                 <a
-                  href="#"
+                  href="/information"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   Sports Book Information
                 </a>
                 <a
-                  href="#"
+                  href="/history"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   Betting History
                 </a>
                 <a
-                  href="#"
+                  href="/helpline"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   Gambling Helpline
