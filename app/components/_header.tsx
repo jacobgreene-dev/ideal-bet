@@ -82,17 +82,17 @@ export default function Header() {
                 {products.map((item) => (
                   <div
                     key={item.name}
-                    className="group relative flex items-start gap-x-6 rounded-lg p-4 text-sm hover:bg-neutral-800"
+                    className="relative flex items-start gap-x-6 rounded-lg p-4 text-sm hover:bg-neutral-800"
                   >
                     <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                       <item.icon aria-hidden="true" className="h-6 w-6 text-gray-600 group-hover:text-black" />
                     </div>
-                    <div className="flex-auto">
+                    <div className="flex-auto text-wrap">
                       <a href={item.href} className="block font-semibold text-white">
                         {item.name}
                         <span className="absolute inset-0" />
                       </a>
-                      <p className="mt-1 text-white break-words">{item.description}</p>
+                      <p className="mt-1 text-white">{item.description}</p>
                     </div>
                   </div>
                 ))}
@@ -100,10 +100,10 @@ export default function Header() {
             </PopoverPanel>
           </Popover>
 
-          <a href="/information" className="text-sm font-semibold text-white">
+          <a href="/information" className="text-sm font-semibold text-white hidden xl:block">
             Sports Book Information
           </a>
-          <a href="/history" className="text-sm font-semibold text-white">
+          <a href="/history" className="text-sm font-semibold text-white hidden xl:block">
             Betting History
           </a>
           <a href="/helpline" className="text-sm font-semibold text-white hidden xl:block">
