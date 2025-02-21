@@ -1,6 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState } from 'react';
+
+import Image from 'next/image';
 
 import {
   Dialog,
@@ -12,17 +14,16 @@ import {
   PopoverButton,
   PopoverGroup,
   PopoverPanel,
-} from '@headlessui/react'
+} from '@headlessui/react';
 
 import {
-
   Bars3Icon,
   XMarkIcon,
-} from '@heroicons/react/24/outline'
+} from '@heroicons/react/24/outline';
 
 import { 
   ChevronDownIcon,
-} from '@heroicons/react/20/solid'
+} from '@heroicons/react/20/solid';
 
 import {
   Vr,
@@ -30,7 +31,7 @@ import {
   GraphUp,
   Person,
   People
-} from 'react-bootstrap-icons'
+} from 'react-bootstrap-icons';
 
 const products = [
   { name: 'Money Line Bet', description: 'Predict which of your favorite teams will win.', href: '#', icon: Vr },
@@ -38,22 +39,23 @@ const products = [
   { name: 'Spread Bet', description: 'Determine if a team will win or lose by a margin.', href: '#', icon: GraphUp },
   { name: 'Players', description: 'Gain insight on performances of you favorite players.', href: '#', icon: Person },
   { name: 'Teams', description: 'Build knowledge on your teams.', href: '#', icon: People },
-]
+];
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="bg-affair-800 relative z-20">
+    <header className="bg-affair-900 relative z-20">
       <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-3 lg:px-8">
         <div className="flex lg:flex-1 mr-6">
-          <a href="/" className="-m-1.5 p-1.5 flex items-center">
-            <span className="mr-3 text-lg font-bold text-white">Ideal Bet</span>
+          <a href="/" className="-m-2 mx-auto p-1.5 flex items-center">
+            <span className="mr-3 text-3xl font-bold text-white">Ideal Bet</span>
             <p className="sr-only">Betting Analysis</p>
-            <img
-              alt="Betting Analysis Logo"
-              src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/01/Magik-Header-Image-Cropped.jpg"
-              className="h-8 w-auto"
+            <Image
+              width={40}
+              height={0}
+              src="/logo.svg"
+              alt='Ideal Bet Logo'
             />
           </a>
         </div>

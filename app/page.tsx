@@ -13,7 +13,7 @@ export default function App() {
         <div>
             <Header />
             <Hero />
-            <LiveGames numberOfGames={8} />
+            <LiveGames numberOfGames={6} />
             <DisplayArticles />
             <Body />
             <Footer />
