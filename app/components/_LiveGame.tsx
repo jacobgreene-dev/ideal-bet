@@ -23,7 +23,8 @@ export default function LiveGame({ gameNumber, team1, team2 }: LiveGameProps) {
       <div className='text-lg font-bold'>
         <a href='#'>
           <h1 className='text-white'>{team1} vs {team2}
-            <span className='text-2xl'>&rarr;</span>
+            {/* Arrow above each individual game */}
+            <span className='text-2xl'>&rarr;</span>  
           </h1>
         </a>
       <div id="1" className='flex flex-row items-center justify-center gap-4 bg-gray-200 rounded-xl p-4'>
