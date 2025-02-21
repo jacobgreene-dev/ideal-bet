@@ -18,14 +18,13 @@ export default function Hero() {
         objectPosition="center"
         style={{ opacity: 0.5 }}
       />
-      <div className="relative z-10 text-center text-white">
+      <div className="absolute z-10 text-left text-white">
         <div className='box-content md:box-border bg-black/55 p-2 rounded-2xl max-w-4xl mx-auto'>
-          <h1 className="text-8xl font-black">Ideal Bet</h1>
-          <div className="flex flex-col items-center justify-center w-1/2 mx-auto">
-            <p className="mt-4 text-lg text-wrap: pretty">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed accumsan purus nisi, nec laoreet quam auctor eleifend. Quisque nisl sapien.</p>
+          <h1 className="text-6xl font-black">THE GAME IS YOURS</h1>
+          <div className="flex flex-col items-start justify-center w-1/2 mx-auto">
+        <p className="mt-4 text-lg">Discover the optimizations in </p>
           </div>
         </div>
-        
       </div>
     </div>
   );
