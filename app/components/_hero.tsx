@@ -21,9 +21,9 @@ export default function Hero() {
       <div className="absolute z-10 text-left text-white">
         <div className='box-content md:box-border bg-black/55 p-2 rounded-2xl max-w-4xl mx-auto'>
           <h1 className="text-6xl font-black">THE GAME IS YOURS</h1>
-          <div className="flex flex-col items-start justify-center w-1/2 mx-auto">
-        <p className="mt-4 text-lg">Discover the optimizations in </p>
-          </div>
+            <div className="flex justify-center w-full mx-auto">
+              <p className="mt-4 text-lg whitespace-nowrap">We can help you with optimizations for your strategy</p>
+            </div>
         </div>
       </div>
     </div>
