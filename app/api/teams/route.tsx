@@ -1,16 +1,25 @@
-// app/api/teams/route.ts
 import { NextResponse } from 'next/server';
-import { getTeams } from '@/lib/apiClient';
+import { getOrSetCache } from '@/lib/cache';
+import { getTeams } from '@/lib/apiClient.server';
+import { TeamsApiResponse } from '@/lib/types/apiTypes';
 
-export async function GET() {
-    try {
-        const data = await getTeams();
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const league = searchParams.get('league') || '12';              // NBA default
+  const season = searchParams.get('season') || '2022-2023';       // Default season
 
-        // Extract only the array of team objects
-        const teams = data;
+  try {
+    const cacheKey = `teams-${league}-${season}`;
 
-        return NextResponse.json(teams);
-    } catch (error) {
-        return NextResponse.json({ error: 'Failed to fetch teams' }, { status: 500 });
-    }
+    // If league/season dynamic, call getTeams(league, season), else fetchNBATeams() for default
+    const teamsData: TeamsApiResponse = await getOrSetCache(cacheKey, async () => {
+      return await getTeams(league, season); // Make sure getTeams exists in apiClient
+    });
+
+    return NextResponse.json(teamsData); // Send the cached or fetched data
+
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
 }

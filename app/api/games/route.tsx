@@ -1,6 +1,6 @@
 // app/api/games/route.ts
 import { NextResponse } from 'next/server';
-import { getScheduledGames } from '@/lib/apiClient';
+import { getScheduledGames } from '@/lib/apiClient.server';
 
 export async function GET() {
     try {
