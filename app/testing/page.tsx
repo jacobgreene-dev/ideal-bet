@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 
-const API_KEY = 'd44330a6-0722-4be1-88d0-36fc054b11c3';
+const API_KEY = '';
 const HEADERS = { 'Authorization': `${API_KEY}` };
 
 interface Team {
