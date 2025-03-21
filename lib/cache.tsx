@@ -33,6 +33,9 @@ export async function getOrSetCache(key: string, fetcher: () => Promise<any>) {
 
   // Check if the data exists in the cache and is still within the TTL window
   if (cache[key] && now - cache[key].timestamp < CACHE_TTL) {
+    if (cache[key].data === null) {
+      console.log(`Cache hit for ${key}, but data is null`);
+    }
     console.log(`Cache hit for ${key}`);
     return cache[key].data;
   }

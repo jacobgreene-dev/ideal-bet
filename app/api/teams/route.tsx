@@ -8,7 +8,7 @@ import { getOrSetCache } from '@/lib/cache';
 import { getTeams } from '@/lib/apiClient.server';
 
 // Imports the expected response type for type safety
-import { TeamsApiResponse } from '@/lib/types/apiTypes';
+import { TeamsApiResponse, TeamResponse } from '@/lib/types/apiTypes';
 
 /**
  * Handles GET requests to the /api/teams endpoint.
@@ -37,7 +37,11 @@ export async function GET(req: Request) {
     });
 
     // Respond with the cached or freshly fetched team data
-    return NextResponse.json(teamsData);
+    console.log('Teams Data:', JSON.stringify(teamsData, null, 2));
+    const filteredTeams: TeamResponse[] = teamsData.response.filter((team) =>
+      team.id >= 132 && team.id <= 161
+    );
+    return NextResponse.json({response: filteredTeams});
   
   } catch (err) {
     // Log the error and respond with a 500 Internal Server Error status
