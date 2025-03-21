@@ -3,11 +3,19 @@
 import { useEffect, useState } from 'react';
 import { TeamResponse } from '@/lib/types/apiTypes';
 
+/**
+ * Renders the NBA Teams page with search functionality.
+ * Fetches team data from the server and allows client-side filtering by team name.
+ */
 export default function TeamsPage() {
   const [teams, setTeams] = useState<TeamResponse[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
+    /**
+     * Fetches the list of NBA teams from the server-side API route.
+     * Stores the result in component state for rendering and filtering.
+     */
     const fetchTeams = async () => {
       try {
         const response = await fetch('/api/teams');
@@ -23,16 +31,16 @@ export default function TeamsPage() {
     fetchTeams();
   }, []);
 
+  // Filters teams based on the current search term (case-insensitive match on team name)
   const filteredTeams = teams.filter(team =>
     team.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  {/* HTML */ }
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">NBA Teams</h1>
 
-      {/* Search Input */}
+      {/* Search input for filtering teams by name */}
       <input
         type="text"
         placeholder="Search teams..."
@@ -41,8 +49,7 @@ export default function TeamsPage() {
         className="border border-gray-300 rounded p-2 w-full mb-6 text-black placeholder-black"
       />
 
-
-      {/* Teams Grid */}
+      {/* Teams grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {filteredTeams.map((team) => (
           <div
@@ -61,12 +68,11 @@ export default function TeamsPage() {
         ))}
       </div>
 
-      {/* No results */}
+      {/* No results message when no teams match the search */}
       {filteredTeams.length === 0 && (
         <p className="container mx-auto max-w-md justify-center text-white mt-4 text-center m-1 p-4 bg-red-500 rounded">
           No teams found matching "{searchTerm}"
         </p>
-
       )}
     </div>
   );

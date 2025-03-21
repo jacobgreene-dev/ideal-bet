@@ -1,5 +1,5 @@
 // Imports necessary TypeScript interfaces for type safety and structure
-import { TeamsApiResponse, Player, Game } from '@/lib/types/apiTypes';
+import { TeamsApiResponse, PlayersAPIResponse, Game } from '@/lib/types/apiTypes';
 
 // Base URL for the API-Sports basketball endpoint
 const API_BASE_URL = 'https://v1.basketball.api-sports.io';
@@ -46,13 +46,21 @@ export async function getTeams(league = '12', season = '2022-2023'): Promise<Tea
 }
 
 /**
- * Retrieves the list of players for the NBA 2022-2023 season.
+ * Retrieves player data for a specific team and season, with optional search by player name.
  * 
- * @returns A promise resolving to an array of Player objects
+ * @param team - The team ID to fetch players for
+ * @param season - The season year (default is '2022-2023')
+ * @param search - Optional search term to filter players by name
+ * @returns A promise resolving to the full Players API response
  */
-export async function getPlayers(): Promise<Player[]> {
-  return fetchData<Player[]>('players', { league: '12', season: '2022-2023' });
+export async function getPlayers(team?: string, season = '2022-2023', search?: string): Promise<PlayersAPIResponse> {
+  const params: Record<string, string> = { season };
+  if (team) params.team = team;
+  if (search) params.search = search;
+
+  return fetchData<PlayersAPIResponse>('players', params);
 }
+
 
 /**
  * Retrieves the scheduled games for the NBA 2022-2023 season.
