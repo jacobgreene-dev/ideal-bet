@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { TeamResponse } from '@/lib/types/apiTypes';
 
 /**
- * Renders the NBA Teams page with search functionality.
+ * Renders the NBA Teams page with search functionality and a modern design.
  * Fetches team data from the server and allows client-side filtering by team name.
  */
 export default function TeamsPage() {
@@ -12,10 +12,6 @@ export default function TeamsPage() {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
-    /**
-     * Fetches the list of NBA teams from the server-side API route.
-     * Stores the result in component state for rendering and filtering.
-     */
     const fetchTeams = async () => {
       try {
         const response = await fetch('/api/teams');
@@ -27,50 +23,50 @@ export default function TeamsPage() {
         console.error(error);
       }
     };
-
     fetchTeams();
   }, []);
 
-  // Filters teams based on the current search term (case-insensitive match on team name)
-  const filteredTeams = teams.filter(team =>
+  const filteredTeams = teams.filter((team) =>
     team.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">NBA Teams</h1>
+    <div className="min-h-screen bg-gradient-to-r from-black via-sky-700 to-sky-500 text-white p-8">
+      <h1 className="text-4xl font-bold mb-8 text-center">NBA Teams</h1>
 
-      {/* Search input for filtering teams by name */}
-      <input
-        type="text"
-        placeholder="Search teams..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="border border-gray-300 rounded p-2 w-full mb-6 text-black placeholder-black"
-      />
+      {/* Search Input */}
+      <div className="flex justify-center mb-8">
+        <input
+          type="text"
+          placeholder="Search teams..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="border border-gray-300 rounded-lg p-4 w-full max-w-lg text-black placeholder-gray-500"
+        />
+      </div>
 
-      {/* Teams grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+      {/* Teams Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
         {filteredTeams.map((team) => (
           <div
             key={team.id}
-            className="flex flex-col items-center border p-4 rounded-lg shadow-md bg-gray-400"
+            className="flex flex-col items-center bg-white text-gray-800 border rounded-xl shadow p-6 hover:shadow-lg transition"
           >
             {team.logo && (
               <img
                 src={team.logo}
                 alt={team.name}
-                className="w-20 h-20 object-contain"
+                className="w-20 h-20 object-contain mb-4"
               />
             )}
-            <p className="mt-2 font-semibold text-center">{team.name}</p>
+            <p className="font-semibold text-center">{team.name}</p>
           </div>
         ))}
       </div>
 
-      {/* No results message when no teams match the search */}
+      {/* No Results */}
       {filteredTeams.length === 0 && (
-        <p className="container mx-auto max-w-md justify-center text-white mt-4 text-center m-1 p-4 bg-red-500 rounded">
+        <p className="mt-12 p-6 bg-red-100 text-red-700 rounded-lg text-center max-w-lg mx-auto">
           No teams found matching "{searchTerm}"
         </p>
       )}
