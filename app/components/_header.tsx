@@ -114,10 +114,10 @@ export default function Header() {
           </a>
         </PopoverGroup>
         <div className="hidden sm:flex sm:flex-1 sm:justify-end">
-          <a href="#" className="text-sm font-semibold text-white p-1 bg-black m-1 rounded-lg">
+          <a href="/login" className="text-sm font-semibold text-white p-1 bg-black m-1 rounded-lg">
             Log in <span aria-hidden="true"></span>
           </a>
-          <a href="#" className="text-sm font-semibold text-black p-1 bg-sky-500 m-1 rounded-lg">
+          <a href="/signup" className="text-sm font-semibold text-black p-1 bg-sky-500 m-1 rounded-lg">
             Register <span aria-hidden="true"></span>
           </a>
         </div>

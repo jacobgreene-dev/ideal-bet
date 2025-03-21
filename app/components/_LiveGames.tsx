@@ -1,7 +1,7 @@
 import React from 'react';
 import LiveGame from './_LiveGame';
 import * as NBAIcon from 'react-nba-logos';
-import { FaBasketballBall } from 'react-icons/fa';
+
 
 type Team = keyof typeof NBAIcon;
 interface LiveGamesProps {
@@ -34,7 +34,6 @@ export default function LiveGames({ numberOfGames }: LiveGamesProps) {
 
         <div className='flex-col items-center'>
           <div className='flex items-center p-4'>
-            <FaBasketballBall className='mr-2' />
             <h1 className='text-5xl'>Live Games</h1>
           </div>
 
