@@ -15,13 +15,34 @@ export interface TeamResponse {
 
 export interface TeamsApiResponse {
     get: string;
-    parameters: { name?: string; id?: string };
+    parameters: {
+        id?: string;
+        name?: string;
+        country_id?: string;
+        country?: string;
+        league?: string;
+        season?: string;
+        search?: string
+    };
     errors: any[];
     results: number;
     response: TeamResponse[];
 }
 
-export interface Player {
+export interface PlayersAPIResponse {
+    get: string;
+    parameters: { 
+        id?: string; 
+        team?: string; 
+        season?: string; 
+        search?: string 
+    };
+    errors: any[];
+    results: number;
+    response: PlayerResponse[];
+}
+
+export interface PlayerResponse {
     id: number;
     name: string;
     number?: string;
