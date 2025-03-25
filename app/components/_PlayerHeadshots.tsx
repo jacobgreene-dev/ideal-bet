@@ -10,6 +10,7 @@ interface PlayerHeadshotProps {
 
 const PlayerHeadshot: React.FC<PlayerHeadshotProps> = ({ playerName, size = 120 }) => {
   const imageSrc = `/nba_headshots/${playerName}.png`;
+  console.log(playerName);
   return (
     <Image
       src={imageSrc}

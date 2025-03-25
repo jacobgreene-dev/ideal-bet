@@ -9,7 +9,7 @@ export default function Login() {
   const [pass, setPass] = useState<string>("");
 
   const inputStyle =
-    "border-[2px] text-black border-silver rounded-lg outline-[#8a4af3] p-2 focus:border-[#8a4af3] ease-linear duration-200 ";
+    "border-[2px] text-black border-silver rounded-lg outline-[#000000] p-2 focus:border-[#000000] ease-linear duration-200 ";
 
   const handleChange = (evt: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = evt.target;
