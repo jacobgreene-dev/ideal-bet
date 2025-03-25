@@ -2,6 +2,7 @@
   "name": "ideal-bet",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -12,7 +13,9 @@
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "bootstrap-icons": "^1.11.3",
-    "next": "15.1.6",
+    "next": "^15.2.4",
+    "pupeteer": "^0.0.1",
+    "puppeteer": "^24.4.0",
     "react": "^19.0.0",
     "react-bootstrap-icons": "^1.11.5",
     "react-dom": "^19.0.0",
