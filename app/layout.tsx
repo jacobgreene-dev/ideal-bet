@@ -50,7 +50,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${robotoSans.className} antialiased`}>
+      <body className={`${robotoSans.className} antialiased min-h-screen flex flex-col`}>
         {children}
       </body>
     </html>
