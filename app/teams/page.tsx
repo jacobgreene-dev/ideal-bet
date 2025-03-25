@@ -1,13 +1,12 @@
 import Header from "../components/_Header";
 import Footer from "../components/_Footer";
-import BettingHistory from "../components/_BettingHistory";
+import TeamsComponent from "../components/_Teams";
 
 export default function App() {
     return(
         <div>
             <Header />
-            {/* <Hero /> */}
-            <BettingHistory />
+            <TeamsComponent />
             <Footer />
         </div>
     );
