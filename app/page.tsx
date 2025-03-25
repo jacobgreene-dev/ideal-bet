@@ -1,8 +1,8 @@
 //import Image from "next/image";
-import Header from "./components/_header";
-import Hero from "./components/_hero";
+import Header from "./components/_Header";
+import Hero from "./components/_Hero";
 import Body from "./components/_Body";
-import Footer from "./components/_footer";
+import Footer from "./components/_Footer";
 import LiveGames from "./components/_LiveGames";
 import DisplayArticles from "./components/_DisplayArticles";
 

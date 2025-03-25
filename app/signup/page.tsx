@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, ChangeEvent } from "react";
-import Header from "../components/_header";
-import Footer from "../components/_footer";
+import Header from "../components/_Header";
+import Footer from "../components/_Footer";
 
 export default function SignUp() {
   const [email, setEmail] = useState<string>("");
