@@ -1,5 +1,7 @@
 'use client';
 
+import PlayerHeadshot from './_PlayerHeadshots';
+
 import { useEffect, useState } from 'react';
 import { TeamResponse, PlayerResponse } from '@/lib/types/apiTypes';
 
@@ -32,6 +34,7 @@ export default function PlayersPage() {
     try {
       const res = await fetch(`/api/players?team=${team.id}`);
       const data = await res.json();
+      console.log(data);
       setPlayers(data.response);
     } catch (err) {
       console.error('Failed to fetch players:', err);
@@ -73,6 +76,7 @@ export default function PlayersPage() {
                     key={player.id}
                     className="flex flex-col items-center bg-white border rounded-xl shadow p-6 hover:shadow-lg transition"
                   >
+                    <PlayerHeadshot playerName={decodeHTML(player.name)} />
                     <p className="font-medium text-center">{decodeHTML(player.name)}</p>
                   </div>
                 ))}
