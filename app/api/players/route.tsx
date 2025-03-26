@@ -25,7 +25,7 @@ function reversePlayerName(name: string): string {
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const team = searchParams.get('team') || '132';
-  const season = searchParams.get('season') || '2022-2023';
+  const season = searchParams.get('season') || '2023-2024';
   const search = searchParams.get('search') || undefined;
 
   if (!team) {

@@ -15,7 +15,7 @@ import { TeamsApiResponse, TeamResponse } from '@/lib/types/apiTypes';
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const league = searchParams.get('league') || '12';            // Default to NBA league ID '12'
-  const season = searchParams.get('season') || '2022-2023';     // Default season if not provided
+  const season = searchParams.get('season') || '2023-2024';     // Default season if not provided
 
   try {
     // Construct a unique cache key based on league and season
