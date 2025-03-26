@@ -2,7 +2,17 @@
 import { NextResponse } from 'next/server';
 import { getOrSetCache } from '@/lib/cache';
 import { getPlayers } from '@/lib/apiClient.server';
-import { PlayersAPIResponse } from '@/lib/types/apiTypes';
+import { PlayerResponse, PlayersAPIResponse } from '@/lib/types/apiTypes';
+
+function reversePlayerName(name: string): string {
+  const parts = name.trim().split(' ');
+  if (parts.length >= 2) {
+    const lastName = parts[0];
+    const firstName = parts.slice(1).join(' ');
+    return `${firstName} ${lastName}`;
+  }
+  return name;
+}
 
 /**
  * Handles GET requests to the /api/players endpoint.
@@ -34,9 +44,18 @@ export async function GET(req: Request) {
       return await getPlayers(team, season, search);
     });
 
-    console.log('Players Data:', JSON.stringify(playersData, null, 2));
+    const filteredPlayersData: PlayerResponse[] = playersData.response.filter(
+      (player: PlayerResponse) => player.position && player.position.trim() !== '')
+      .map((player: PlayerResponse) => ({
+        ...player,
+        reversedName: reversePlayerName(player.name),
+      }));;
+    
+    
 
-    return NextResponse.json({ response: playersData.response });
+    console.log('Players Data:', JSON.stringify(filteredPlayersData, null, 2));
+
+    return NextResponse.json({ response: filteredPlayersData });
   } catch (err) {
     console.error(err);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

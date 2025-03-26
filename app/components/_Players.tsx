@@ -1,8 +1,8 @@
 'use client';
 
 import PlayerHeadshot from './_PlayerHeadshots';
-
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { TeamResponse, PlayerResponse } from '@/lib/types/apiTypes';
 
 const decodeHTML = (str: string) => {
@@ -15,26 +15,34 @@ export default function PlayersPage() {
   const [teams, setTeams] = useState<TeamResponse[]>([]);
   const [players, setPlayers] = useState<PlayerResponse[]>([]);
   const [selectedTeam, setSelectedTeam] = useState<TeamResponse | null>(null);
+  const searchParams = useSearchParams();
+  const teamIdFromQuery = searchParams.get('team');
 
+  // Fetch teams once
   useEffect(() => {
     const fetchTeams = async () => {
       try {
         const res = await fetch('/api/teams');
         const data = await res.json();
         setTeams(data.response);
+
+        // If teamId is present in query, auto-load that team
+        if (teamIdFromQuery) {
+          const team = data.response.find((t: TeamResponse) => String(t.id) === teamIdFromQuery);
+          if (team) handleTeamClick(team);
+        }
       } catch (error) {
         console.error('Failed to fetch teams:', error);
       }
     };
     fetchTeams();
-  }, []);
+  }, [teamIdFromQuery]);
 
   const handleTeamClick = async (team: TeamResponse) => {
     setSelectedTeam(team);
     try {
       const res = await fetch(`/api/players?team=${team.id}`);
       const data = await res.json();
-      console.log(data);
       setPlayers(data.response);
     } catch (err) {
       console.error('Failed to fetch players:', err);
@@ -54,9 +62,7 @@ export default function PlayersPage() {
                 key={team.id}
                 onClick={() => handleTeamClick(team)}
                 className={`cursor-pointer px-4 py-3 rounded-lg transition ${
-                  selectedTeam?.id === team.id
-                    ? 'bg-sky-500 text-white'
-                    : 'hover:bg-gray-200'
+                  selectedTeam?.id === team.id ? 'bg-sky-500 text-white' : 'hover:bg-gray-200'
                 }`}
               >
                 {team.name}
@@ -76,8 +82,8 @@ export default function PlayersPage() {
                     key={player.id}
                     className="flex flex-col items-center bg-white border rounded-xl shadow p-6 hover:shadow-lg transition"
                   >
-                    <PlayerHeadshot playerName={decodeHTML(player.name)} />
-                    <p className="font-medium text-center">{decodeHTML(player.name)}</p>
+                    <PlayerHeadshot playerReversedName={decodeHTML(player.reversedName)} />
+                    <p className="font-medium text-center">{decodeHTML(player.reversedName)}</p>
                   </div>
                 ))}
               </div>
@@ -90,8 +96,8 @@ export default function PlayersPage() {
             </>
           ) : (
             <div className="flex flex-col items-center justify-center h-full text-center">
-              <p className="text-3xl font-semibold mb-4 text-black">Welcome to the NBA Player Viewer</p>
-              <p className="text-lg text-black mb-8">Select a team from the sidebar to load player data</p>
+              <p className="text-3xl font-semibold mb-4 text-white">Welcome to the NBA Player Viewer</p>
+              <p className="text-lg text-white mb-8">Select a team from the sidebar or click "View Players"</p>
               <img src="/icons/basketball.svg" alt="Basketball Icon" className="w-32 h-32 opacity-60" />
             </div>
           )}

@@ -1,26 +1,26 @@
-'use client';
-
 import Image from 'next/image';
-import React from 'react';
+import rawPlayerImages from '@/public/nba_players/playersMap.json';
+
+const playerImages: Record<string, string> = rawPlayerImages;
 
 interface PlayerHeadshotProps {
-  playerName: string;
+  playerReversedName: string;
   size?: number;
 }
 
-const PlayerHeadshot: React.FC<PlayerHeadshotProps> = ({ playerName, size = 120 }) => {
-  const imageSrc = `/nba_headshots/${playerName}.png`;
-  console.log(playerName);
+const PlayerHeadshot: React.FC<PlayerHeadshotProps> = ({ playerReversedName, size = 120 }) => {
+  const playerId = playerImages[playerReversedName];
+  const imageSrc = playerId
+    ? `https://cdn.nba.com/headshots/nba/latest/1040x760/${playerId}.png?imwidth=1040&imheight=760`
+    : `https://cdn.nba.com/headshots/nba/latest/1040x760/1.png?imwidth=1040&imheight=760`;
+
   return (
     <Image
       src={imageSrc}
-      alt={playerName}
+      alt={playerReversedName}
       width={size}
       height={size}
       className="rounded-full object-cover border shadow"
-      onError={(e) => {
-        (e.target as HTMLImageElement).src = '/nba_headshots/default.png';
-      }}
     />
   );
 };

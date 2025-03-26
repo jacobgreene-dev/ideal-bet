@@ -29,7 +29,7 @@ export async function GET(req: Request) {
       return await getTeams(league, season);
     });
 
-    console.log('Teams Data:', JSON.stringify(teamsData, null, 2));
+    // console.log('Teams Data:', JSON.stringify(teamsData, null, 2));
 
     /**
      * Filters the API response to include only teams with IDs between 132 and 161.

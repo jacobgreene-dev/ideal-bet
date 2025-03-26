@@ -45,6 +45,7 @@ export interface PlayersAPIResponse {
 export interface PlayerResponse {
     id: number;
     name: string;
+    reversedName: string;
     number?: string;
     country?: string;
     position?: string;

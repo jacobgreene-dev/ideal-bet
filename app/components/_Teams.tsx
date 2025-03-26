@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { TeamResponse } from '@/lib/types/apiTypes';
+import { Button } from '@headlessui/react';
 
 /**
  * Renders the NBA Teams page with search functionality and a modern design.
@@ -17,7 +18,7 @@ export default function TeamsPage() {
         const response = await fetch('/api/teams');
         if (!response.ok) throw new Error('Failed to fetch teams');
         const data = await response.json();
-        console.log('Fetched Teams:', data.response);
+        // console.log('Fetched Teams:', data.response);
         setTeams(data.response);
       } catch (error) {
         console.error(error);
@@ -50,16 +51,33 @@ export default function TeamsPage() {
         {filteredTeams.map((team) => (
           <div
             key={team.id}
-            className="flex flex-col items-center bg-white text-gray-800 border rounded-xl shadow p-6 hover:shadow-lg transition"
+            className="flex flex-col items-center bg-white text-gray-800 border rounded-xl shadow p-6 hover:shadow-lg transition space-y-4"
           >
             {team.logo && (
               <img
                 src={team.logo}
                 alt={team.name}
-                className="w-20 h-20 object-contain mb-4"
+                className="w-20 h-20 object-contain"
               />
             )}
             <p className="font-semibold text-center">{team.name}</p>
+            {team.id && (
+              <div className="flex w-full gap-4">
+                <a
+                  href={`/teams/${team.id}`}
+                  className="text-center bg-sky-500 text-white py-2 px-4 rounded hover:bg-sky-600 flex-1 min-w-0"
+                >
+                  Team Statistics
+                </a>
+                <a
+                  href={`/players?team=${team.id}`}
+                  className="text-center bg-sky-500 text-white py-2 px-4 rounded hover:bg-sky-600 flex-1 min-w-0"
+                >
+                  View Players
+                </a>
+              </div>
+            )}
+
           </div>
         ))}
       </div>
