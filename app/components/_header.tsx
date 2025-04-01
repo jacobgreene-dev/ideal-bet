@@ -29,9 +29,9 @@ import {
 } from 'react-bootstrap-icons';
 
 const products = [
-  { name: 'Money Line Bet', description: 'Predict which of your favorite teams will win.', href: '#', icon: Vr },
-  { name: 'Over/Under Bet', description: 'Estimate whether the total score will exceed or fall short.', href: '#', icon: DistributeVertical },
-  { name: 'Spread Bet', description: 'Determine if a team will win or lose by a margin.', href: '#', icon: GraphUp },
+  { name: 'Money Line Bet', description: 'Predict which of your favorite teams will win.', href: '/odds/moneyline', icon: Vr },
+  { name: 'Over/Under Bet', description: 'Estimate whether the total score will exceed or fall short.', href: '/odds/over-under', icon: DistributeVertical },
+  { name: 'Spread Bet', description: 'Determine if a team will win or lose by a margin.', href: '/odds/spread', icon: GraphUp },
   { name: 'Players', description: 'Gain insight on performances of your favorite players.', href: '/players', icon: Person },
   { name: 'Teams', description: 'Build knowledge on competing teams.', href: '/teams', icon: People },
 ];
