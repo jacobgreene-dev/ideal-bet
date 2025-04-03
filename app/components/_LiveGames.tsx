@@ -34,7 +34,7 @@ export default function LiveGames({ numberOfGames }: LiveGamesProps) {
 
         <div className='flex-col items-center'>
           <div className='flex items-center p-4'>
-            <h1 className='text-5xl'>Live Games</h1>
+            <h1 className='text-5xl'>Upcoming Games</h1>
           </div>
 
           <div className='p-4'>
