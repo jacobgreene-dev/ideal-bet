@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Article from './_Articles';
+import Article from './Articles';
 
 const articles = [
     {

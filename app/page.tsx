@@ -1,10 +1,10 @@
 //import Image from "next/image";
-import Header from "./components/_header";
-import Hero from "./components/_Hero";
-import Body from "./components/_Body";
-import Footer from "./components/_footer";
-import LiveGames from "./components/_LiveGames";
-import DisplayArticles from "./components/_DisplayArticles";
+import Header from "@/app/components/Header";
+import Hero from "@/app/components/Hero";
+import Body from "@/app/components/Body";
+import Footer from "@/app/components/Footer";
+import LiveGames from "@/app/components/LiveGames";
+import DisplayArticles from "@/app/components/DisplayArticles";
 
 
 

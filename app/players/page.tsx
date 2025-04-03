@@ -1,6 +1,6 @@
-import Header from "../components/_header";
-import Footer from "../components/_footer";
-import PlayersPage from "../components/_Players";
+import Header from "@/app/components/Header";
+import Footer from "@/app/components/Footer";
+import PlayersPage from "@/app/components/Players";
 
 export default function App() {
     return(

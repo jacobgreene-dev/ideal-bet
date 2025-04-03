@@ -1,6 +1,6 @@
-import Header from "../components/_header";
-import Footer from "../components/_footer";
-import GamblingHelpline from "../components/_GamblingHelpline";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import GamblingHelpline from "../components/GamblingHelpline";
 
 export default function App() {
     return (

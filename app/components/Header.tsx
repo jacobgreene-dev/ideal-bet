@@ -17,12 +17,12 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
-import { 
+import {
   ChevronDownIcon,
 } from '@heroicons/react/20/solid';
 import {
   Vr,
-  DistributeVertical, 
+  DistributeVertical,
   GraphUp,
   Person,
   People
@@ -46,8 +46,8 @@ export default function Header() {
           <a href="/" className="flex items-center">
             <p className="sr-only">Betting Analysis</p>
             <Image
-              width={40} 
-              height={40} 
+              width={40}
+              height={40}
               src="/logo.png"
               priority
               unoptimized

@@ -1,7 +1,7 @@
-import Header from "../components/_header";
-import Hero from "../components/_Hero";
-import Contact from "../components/_Contact";
-import Footer from "../components/_footer";
+import Header from "../components/Header";
+import Hero from "../components/Hero";
+import Contact from "../components/Contact";
+import Footer from "../components/Footer";
 
 
 

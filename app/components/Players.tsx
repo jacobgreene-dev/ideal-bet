@@ -1,6 +1,6 @@
 'use client';
 
-import PlayerHeadshot from './_PlayerHeadshots';
+import PlayerHeadshot from './PlayerHeadshots';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { TeamResponse, PlayerResponse } from '@/lib/types/apiTypes';

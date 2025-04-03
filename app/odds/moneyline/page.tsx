@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, ChangeEvent } from "react";
-import Header from "@/app/components/_header";
-import Footer from "@/app/components/_footer";
+import Header from "@/app/components/Header";
+import Footer from "@/app/components/Footer";
 
 const teams = [
   "Los Angeles Lakers",

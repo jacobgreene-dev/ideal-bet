@@ -1,6 +1,6 @@
-import Header from "../components/_header";
-import Footer from "../components/_footer";
-import BettingHistory from "../components/_BettingHistory";
+import Header from "@/app/components/Header";
+import Footer from "@/app/components/Footer";
+import BettingHistory from "@/app/components/BettingHistory";
 
 export default function App() {
     return(

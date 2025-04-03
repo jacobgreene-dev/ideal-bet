@@ -1,5 +1,5 @@
 import React from 'react';
-import LiveGame from './_LiveGame';
+import LiveGame from './LiveGame';
 import * as NBAIcon from 'react-nba-logos';
 
 
