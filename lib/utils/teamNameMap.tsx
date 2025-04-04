@@ -12,6 +12,7 @@ export const fullNameToAbbreviation: Record<string, string> = {
     "Houston Rockets": "HOU",
     "Indiana Pacers": "IND",
     "Los Angeles Clippers": "LAC",
+    "LA Clippers": "LAC",
     "Los Angeles Lakers": "LAL",
     "Memphis Grizzlies": "MEM",
     "Miami Heat": "MIA",
