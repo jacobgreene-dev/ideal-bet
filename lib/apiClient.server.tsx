@@ -1,11 +1,16 @@
 // Imports necessary TypeScript interfaces for type safety and structure
-import { TeamsApiResponse, PlayersAPIResponse, Game } from '@/lib/types/apiTypes';
+import { TeamsApiResponse, PlayersAPIResponse, GameEvent } from '@/lib/types/apiTypes';
 
 // Base URL for the API-Sports basketball endpoint
 const API_BASE_URL = 'https://v1.basketball.api-sports.io';
 
+const ODDS_BASE_URL = 'https://api.the-odds-api.com/v4';
+
 // API key stored securely in environment variables
 const API_KEY = process.env.API_SPORTS_KEY;
+
+// API key stored securely in environment variables
+const ODDS_API_KEY = process.env.ODDS_API_KEY;
 
 /**
  * Generic function to fetch data from the API-Sports endpoint.
@@ -62,11 +67,12 @@ export async function getPlayers(team?: string, season = '2022-2023', search?: s
 }
 
 
-/**
- * Retrieves the scheduled games for the NBA 2022-2023 season.
- * 
- * @returns A promise resolving to an array of Game objects or null if no data is available
- */
-export async function getScheduledGames(): Promise<Game[] | null> {
-  return fetchData<Game[]>('games', { league: '12', season: '2022-2023' });
+export async function getOddsScheduledGames(): Promise<GameEvent[]> {
+  const url = new URL(`${ODDS_BASE_URL}/sports/basketball_nba/events`);
+  url.searchParams.set('apiKey', ODDS_API_KEY || '');
+
+  const res = await fetch(url.toString());
+  if (!res.ok) throw new Error(`Odds API request failed: ${res.statusText}`);
+  return await res.json();
 }
+

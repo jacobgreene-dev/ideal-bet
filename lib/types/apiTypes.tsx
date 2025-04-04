@@ -52,9 +52,15 @@ export interface PlayerResponse {
     age?: number;
 }
 
-export interface Game {
-    id: number;
-    date: string;
-    teams: { home: TeamResponse; away: TeamResponse };
-    status: string;
-}
+// the odds API response
+export interface GameEvent {
+    id: string;
+    sport_key: string;
+    sport_title: string;
+    commence_time: string; // ISO string format
+    home_team: string;
+    away_team: string;
+  }
+  
+
+
