@@ -39,15 +39,18 @@ export default function LiveGames({ numberOfGames }: LiveGamesProps) {
           </div>
         </div>
 
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 pb-8'>
-          {games.slice(0, numberOfGames).map((game, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 px-10 py-8 place-items-center">
+          {games.slice(0, numberOfGames).map((game) => (
             <LiveGame
               key={game.id}
               homeTeam={game.home_team}
               awayTeam={game.away_team}
+              commenceTime={game.commence_time}
             />
           ))}
         </div>
+
+
       </div>
     </div>
   );
