@@ -40,7 +40,7 @@ export default function LiveGame({ homeTeam, awayTeam, commenceTime }: LiveGameP
 
   return (
     <div
-      className={`bg-[#5b3cc4] rounded-2xl shadow-lg px-6 py-5 flex flex-col justify-center items-center w-full max-w-[250px] min-h-[220px] space-y-3 transition-transform hover:scale-[1.02] ${AnekFont.className}`}
+      className={`bg-black rounded-2xl shadow-lg px-6 py-5 flex flex-col justify-center items-center w-full max-w-[250px] min-h-[220px] space-y-3 transition-transform hover:scale-[1.02] ${AnekFont.className}`}
     >
       <div className="flex w-full justify-between items-center">
         <div className="flex flex-col items-center w-[70px] text-center">
