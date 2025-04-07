@@ -1,4 +1,4 @@
-{
+export const playerNameToId: Record<string, string> = {
     "Precious Achiuwa": "1630173",
     "Steven Adams": "203500",
     "Bam Adebayo": "1628389",

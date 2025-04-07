@@ -103,5 +103,3 @@ export interface OnRenderRequest {
     away_team: string,
     user_team: string
 }
-
-

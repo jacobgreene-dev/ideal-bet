@@ -53,7 +53,7 @@ export async function GET(req: Request) {
     
     
 
-    console.log('Players Data:', JSON.stringify(filteredPlayersData, null, 2));
+    // console.log('Players Data:', JSON.stringify(filteredPlayersData, null, 2));
 
     return NextResponse.json({ response: filteredPlayersData });
   } catch (err) {
