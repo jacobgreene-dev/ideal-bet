@@ -44,12 +44,14 @@ export default function LiveGames({ numberOfGames }: LiveGamesProps) {
           <h1 className='text-center text-5xl font-bold'>Games happening soon</h1>
           <div className="grid grid-row-1 sm:grid-row-2 md:grid-cols-2 lg:grid-cols-3 gap-8 px-10 py-8 place-items-center">
             {games.slice(0, numberOfGames).map((game) => (
-              <LiveGame
-                key={game.id}
-                homeTeam={game.home_team}
-                awayTeam={game.away_team}
-                commenceTime={game.commence_time}
-              />
+              <a href='/analysis' key={game.id} className='flex flex-col items-center'>
+                <LiveGame
+                  key={game.id}
+                  homeTeam={game.home_team}
+                  awayTeam={game.away_team}
+                  commenceTime={game.commence_time}
+                />
+              </a>
             ))}
           </div>
         </div>
