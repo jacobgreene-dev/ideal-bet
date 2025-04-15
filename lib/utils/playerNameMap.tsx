@@ -127,7 +127,7 @@ export const playerNameToId: Record<string, string> = {
     "Rob Dillingham": "1642265",
     "Spencer Dinwiddie": "203915",
     "Donte DiVincenzo": "1628978",
-    "Luka Dončić": "1629029",
+    "Luka Doncic": "1629029",
     "Luguentz Dort": "1629652",
     "Ayo Dosunmu": "1630245",
     "Jeff Dowtin Jr.": "1630288",
