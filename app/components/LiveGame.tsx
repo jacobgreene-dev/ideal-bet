@@ -1,3 +1,5 @@
+// app/components/LiveGame.tsx
+
 import React from 'react';
 import * as NBAIcon from 'react-nba-logos';
 import { Anek_Latin } from "next/font/google";

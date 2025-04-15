@@ -1,4 +1,4 @@
-// app/components/_BettingHistory.tsx
+// app/components/BettingHistory.tsx
 
 import React from "react";
 

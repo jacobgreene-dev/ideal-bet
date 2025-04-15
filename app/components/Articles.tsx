@@ -1,3 +1,4 @@
+// app/components/Articles.tsx
 import React from 'react';
 
 interface NewsArticle {

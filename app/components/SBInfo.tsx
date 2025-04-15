@@ -1,3 +1,5 @@
+// app/components/SBInfo.tsx
+
 import React from "react";
 
 export default function SBInfo() {

@@ -1,4 +1,4 @@
-// app/components/_Contact.tsx
+// app/components/Contact.tsx
 
 import React from 'react';
 

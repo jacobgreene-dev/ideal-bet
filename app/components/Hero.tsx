@@ -1,3 +1,5 @@
+// app/components/Hero.tsx
+
 import React from 'react';
 import { Anek_Latin } from 'next/font/google';
 import Image from 'next/image';

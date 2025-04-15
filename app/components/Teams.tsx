@@ -1,8 +1,9 @@
+// app/components/Teams.tsx
+
 'use client';
 
 import { useEffect, useState } from 'react';
 import { TeamResponse } from '@/lib/types/apiTypes';
-import { Button } from '@headlessui/react';
 
 /**
  * Renders the NBA Teams page with search functionality and a modern design.
