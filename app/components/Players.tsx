@@ -49,7 +49,7 @@ export default function PlayersPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-sky-900 text-white flex">
+    <div className="min-h-screen  bg-gradient-to-br from-gray-900 to-sky-900 text-white flex">
       {/* Sidebar */}
       <div className="w-1/4 p-6 bg-gray-800 border-r border-gray-700 overflow-y-auto shadow-xl">
         <h2 className="text-2xl font-bold mb-6 text-center">NBA Teams</h2>

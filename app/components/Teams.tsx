@@ -1,28 +1,21 @@
-// app/components/Teams.tsx
-
 'use client';
 
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { TeamResponse } from '@/lib/types/apiTypes';
 
-/**
- * Renders the NBA Teams page with search functionality and a modern design.
- * Fetches team data from the server and allows client-side filtering by team name.
- */
 export default function TeamsPage() {
   const [teams, setTeams] = useState<TeamResponse[]>([]);
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const response = await fetch('/api/teams');
-        if (!response.ok) throw new Error('Failed to fetch teams');
-        const data = await response.json();
-        // console.log('Fetched Teams:', data.response);
+        const res = await fetch('/api/teams');
+        const data = await res.json();
         setTeams(data.response);
       } catch (error) {
-        console.error(error);
+        console.error('Failed to fetch teams:', error);
       }
     };
     fetchTeams();
@@ -33,61 +26,80 @@ export default function TeamsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-black via-sky-700 to-sky-500 text-white p-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">NBA Teams</h1>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-sky-900 text-white px-6 py-12">
+      <motion.h1
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-4xl sm:text-5xl font-bold text-center mb-10"
+      >
+        NBA Teams
+      </motion.h1>
 
-      {/* Search Input */}
-      <div className="flex justify-center mb-8">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.1, duration: 0.6 }}
+        className="max-w-xl mx-auto mb-10"
+      >
         <input
           type="text"
           placeholder="Search teams..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="border border-gray-300 rounded-lg p-4 w-full max-w-lg text-black placeholder-gray-500"
+          className="w-full p-4 rounded-lg bg-gray-800 border border-gray-600 placeholder-gray-400 text-white shadow focus:outline-none focus:border-blue-500"
         />
-      </div>
+      </motion.div>
 
-      {/* Teams Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-        {filteredTeams.map((team) => (
-          <div
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.6 }}
+        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl mx-auto"
+      >
+        {filteredTeams.map((team, i) => (
+          <motion.div
             key={team.id}
-            className="flex flex-col items-center bg-white text-gray-800 border rounded-xl shadow p-6 hover:shadow-lg transition space-y-4"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: i * 0.02 }}
+            className="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-6 flex flex-col items-center text-center space-y-4 hover:shadow-xl transition"
           >
             {team.logo && (
               <img
                 src={team.logo}
                 alt={team.name}
-                className="w-20 h-20 object-contain"
+                className="w-20 h-20 object-contain rounded-full border border-gray-600 bg-white"
               />
             )}
-            <p className="font-semibold text-center">{team.name}</p>
-            {team.id && (
-              <div className="flex w-full gap-4">
-                <a
-                  href={`/teams/${team.id}`}
-                  className="text-center bg-sky-500 text-white py-2 px-4 rounded hover:bg-sky-600 flex-1 min-w-0"
-                >
-                  Team Statistics
-                </a>
-                <a
-                  href={`/players?team=${team.id}`}
-                  className="text-center bg-sky-500 text-white py-2 px-4 rounded hover:bg-sky-600 flex-1 min-w-0"
-                >
-                  View Players
-                </a>
-              </div>
-            )}
+            <p className="font-semibold text-lg text-white">{team.name}</p>
 
-          </div>
+            <div className="flex gap-3 w-full">
+              <a
+                href={`/teams/${team.id}`}
+                className="flex-1 bg-gradient-to-r from-sky-500 to-cyan-600 text-white py-2 rounded-lg text-sm font-medium hover:opacity-90 transition"
+              >
+                Team Stats
+              </a>
+              <a
+                href={`/players?team=${team.id}`}
+                className="flex-1 bg-gradient-to-r from-sky-500 to-cyan-600 text-white py-2 rounded-lg text-sm font-medium hover:opacity-90 transition"
+              >
+                View Players
+              </a>
+            </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
-      {/* No Results */}
       {filteredTeams.length === 0 && (
-        <p className="mt-12 p-6 bg-red-100 text-red-700 rounded-lg text-center max-w-lg mx-auto">
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="mt-16 bg-red-100 text-red-700 rounded-lg p-6 text-center max-w-md mx-auto shadow"
+        >
           No teams found matching "{searchTerm}"
-        </p>
+        </motion.p>
       )}
     </div>
   );
