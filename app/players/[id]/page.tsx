@@ -61,16 +61,19 @@ export default function PlayerDetailPage() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="max-w-3xl mx-auto bg-gray-800 rounded-2xl shadow-lg p-10 text-center"
+                    className="max-w-5xl mx-auto bg-gray-800 rounded-2xl shadow-lg p-10 text-center"
                 >
-                    <PlayerHeadshot
-                        playerReversedName={decodeHTML(player.reversedName)}
-                        size={150}
-                    />
-                    <h1 className="text-4xl font-bold mt-6 mb-4">{decodeHTML(player.reversedName)}</h1>
-                    <p className="text-lg text-gray-400 mb-8">
-                        Detailed stats and information about the player.
-                    </p>
+                    <div className='flex flex-row items-center justify-center text-center gap-6'>
+                        <PlayerHeadshot
+                            playerReversedName={decodeHTML(player.reversedName)}
+                            size={150}
+                        />
+                        <h1 className="text-4xl font-bold mt-6 mb-4">{decodeHTML(player.reversedName)}</h1>
+                        
+                    </div>
+                    <p className="text-lg text-gray-400 m-8">
+                            Detailed stats and information about the player.
+                        </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 text-left text-sm sm:text-base">
                         <div className="bg-gray-700 p-4 rounded-lg shadow">
                             <p className="text-gray-400">Player ID</p>
