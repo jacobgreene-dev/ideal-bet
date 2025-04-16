@@ -1,31 +1,28 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import Header from "@/app/components/Header";
-import Footer from "@/app/components/Footer";
-import { fullNameToAbbreviation } from "@/lib/utils/teamNameMap";
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import Header from '@/app/components/Header';
+import Footer from '@/app/components/Footer';
+import { fullNameToAbbreviation } from '@/lib/utils/teamNameMap';
+import { GameEvent } from '@/lib/types/apiTypes';
 
-interface Game {
-    id: string;
-    home_team: string;
-    away_team: string;
-}
 
 export default function AnalysisPage() {
-    const [games, setGames] = useState<Game[]>([]);
-    const [selectedGame, setSelectedGame] = useState<Game | null>(null);
-    const [userTeam, setUserTeam] = useState("");
-    const [market, setMarket] = useState("");
+    const [games, setGames] = useState<GameEvent[]>([]);
+    const [selectedGame, setSelectedGame] = useState<GameEvent | null>(null);
+    const [userTeam, setUserTeam] = useState('');
+    const [market, setMarket] = useState('');
     const [prediction, setPrediction] = useState<any>(null);
 
     useEffect(() => {
         const fetchGames = async () => {
             try {
-                const res = await fetch("/api/games");
+                const res = await fetch('/api/games');
                 const data = await res.json();
                 setGames(data.response);
             } catch (error) {
-                console.error("Error fetching games:", error);
+                console.error('Error fetching games:', error);
             }
         };
         fetchGames();
@@ -33,13 +30,7 @@ export default function AnalysisPage() {
 
     const handleAnalyze = async () => {
         if (!selectedGame || !userTeam || !market) {
-            alert("Please select a game, user team, and market.");
-            return;
-        }
-
-        const validMarkets = ["overunder", "moneyline", "spread"];
-        if (!validMarkets.includes(market)) {
-            alert("Invalid market selected. Please choose a valid market.");
+            alert('Please select a game, user team, and market.');
             return;
         }
 
@@ -49,69 +40,89 @@ export default function AnalysisPage() {
             user_team: userTeam,
             market,
             event_id: selectedGame.id,
-            bookmaker: "draftkings",
+            bookmaker: 'draftkings',
         };
 
         try {
-            const res = await fetch("/api/onRender", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
+            const res = await fetch('/api/onRender', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
             });
 
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
-            }
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
             const result = await res.json();
             setPrediction(result);
         } catch (error) {
-            console.error("Error analyzing bet:", error);
-            alert("Failed to analyze bet. Please try again later.");
+            console.error('Error analyzing bet:', error);
+            alert('Failed to analyze bet. Please try again later.');
         }
     };
 
     return (
-        <div>
+        <div className="flex flex-col min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white pt-3">
             <Header />
-            <div className="min-h-screen bg-gradient-to-r from-black via-sky-700 to-sky-500 text-white p-8">
-                <div className="max-w-4xl mx-auto">
-                    <h1 className="text-4xl font-bold mb-8 text-center">Bet Analysis</h1>
-                    <p className="mb-8 text-center text-lg">Select an NBA game and analyze your bet below.</p>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-                        {games.map((game) => (
-                            <div
-                                key={game.id}
-                                className={`cursor-pointer p-6 border rounded-xl shadow transition space-y-2 ${selectedGame?.id === game.id
-                                    ? "bg-blue-100 text-black border-blue-300"
-                                    : "bg-white text-gray-800 hover:shadow-lg"
-                                    }`}
-                                onClick={() => setSelectedGame(game)}
-                            >
-                                <h2 className="text-xl font-semibold">
-                                    {game.home_team} vs {game.away_team}
-                                </h2>
-                                <p className="text-sm">Event ID: {game.id}</p>
-                            </div>
-                        ))}
-                    </div>
+            <motion.section
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-center py-16 px-4 sm:px-8"
+            >
+                <h1 className="text-4xl sm:text-5xl font-bold mb-4">Bet Analysis</h1>
+                <p className="text-lg text-gray-300">Choose a scheduled NBA game and predict your bet outcome.</p>
+            </motion.section>
 
-                    {selectedGame && (
-                        <div className="bg-white text-gray-800 p-6 rounded-xl shadow space-y-6">
-                            <h2 className="text-2xl font-bold mb-2">Selected Game</h2>
+            <div className="flex-grow max-w-8xl mx-auto px-auto sm:px-8 grid gap-12 pb-20">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {games.map((game) => (
+                        <motion.div
+                            key={game.id}
+                            whileHover={{ scale: 1.03 }}
+                            className={`cursor-pointer p-5 rounded-2xl transition shadow-lg border-2 ${selectedGame?.id === game.id
+                                    ? 'bg-white text-gray-900 border-blue-500'
+                                    : 'bg-gray-800 border-gray-700 hover:bg-gray-700'
+                                }`}
+                            onClick={() => setSelectedGame(game)}
+                        >
+                            <h3 className="text-xl font-semibold">{game.home_team} vs {game.away_team}</h3>
+                            <p className="text-sm text-sky-300 font-medium">{game.sport_title}</p>
+                            <p className="text-sm text-gray-400">
+                                Tip-Off: {new Date(game.commence_time).toLocaleString(undefined, {
+                                    weekday: 'short',
+                                    hour: 'numeric',
+                                    minute: '2-digit',
+                                    hour12: true,
+                                    month: 'short',
+                                    day: 'numeric',
+                                })}
+                            </p>
+                        </motion.div>
+                    ))}
+                </div>
+
+                {selectedGame && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="bg-gray-800 rounded-2xl p-8 shadow-xl space-y-6"
+                    >
+                        <h2 className="text-2xl font-bold">Selected Game</h2>
+                        <div className="space-y-2 text-gray-300">
+                            <p><strong>Home:</strong> {selectedGame.home_team}</p>
+                            <p><strong>Away:</strong> {selectedGame.away_team}</p>
+                            <p><strong>Event ID:</strong> {selectedGame.id}</p>
+                        </div>
+
+                        <div className="grid sm:grid-cols-2 gap-6">
                             <div>
-                                <p><strong>Home:</strong> {selectedGame.home_team}</p>
-                                <p><strong>Away:</strong> {selectedGame.away_team}</p>
-                                <p><strong>Event ID:</strong> {selectedGame.id}</p>
-                            </div>
-
-                            <div>
-                                <label className="block mb-2 font-semibold">Your Team</label>
+                                <label className="block mb-2 text-sm font-medium">Your Team</label>
                                 <select
-                                    className="p-3 border rounded w-full"
                                     value={userTeam}
                                     onChange={(e) => setUserTeam(e.target.value)}
+                                    className="w-full p-3 rounded bg-gray-900 text-white border border-gray-600"
                                 >
                                     <option value="">Select</option>
                                     <option value="home">Home</option>
@@ -122,11 +133,11 @@ export default function AnalysisPage() {
                             </div>
 
                             <div>
-                                <label className="block mb-2 font-semibold">Market</label>
+                                <label className="block mb-2 text-sm font-medium">Market</label>
                                 <select
-                                    className="p-3 border rounded w-full"
                                     value={market}
                                     onChange={(e) => setMarket(e.target.value)}
+                                    className="w-full p-3 rounded bg-gray-900 text-white border border-gray-600"
                                 >
                                     <option value="">Select</option>
                                     <option value="moneyline">Moneyline</option>
@@ -134,26 +145,32 @@ export default function AnalysisPage() {
                                     <option value="overunder">Over/Under</option>
                                 </select>
                             </div>
-
-                            <button
-                                className="w-full py-3 bg-sky-600 text-white rounded hover:bg-sky-700 transition"
-                                onClick={handleAnalyze}
-                            >
-                                Analyze Bet
-                            </button>
                         </div>
-                    )}
 
-                    {prediction && (
-                        <div className="mt-8 bg-green-100 text-green-800 p-6 rounded-xl shadow">
-                            <h2 className="text-2xl font-bold mb-4">Prediction Result</h2>
-                            <pre className="overflow-x-auto whitespace-pre-wrap text-sm">
-                                {JSON.stringify(prediction, null, 2)}
-                            </pre>
-                        </div>
-                    )}
-                </div>
+                        <button
+                            onClick={handleAnalyze}
+                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition"
+                        >
+                            Analyze Bet
+                        </button>
+                    </motion.div>
+                )}
+
+                {prediction && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="bg-green-100 text-green-900 p-6 rounded-2xl shadow-lg overflow-auto"
+                    >
+                        <h3 className="text-xl font-bold mb-4">Prediction Result</h3>
+                        <pre className="whitespace-pre-wrap text-sm">
+                            {JSON.stringify(prediction, null, 2)}
+                        </pre>
+                    </motion.div>
+                )}
             </div>
+
             <Footer />
         </div>
     );
