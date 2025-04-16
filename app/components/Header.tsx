@@ -23,14 +23,12 @@ import {
 
 import {
   Vr,
-  DistributeVertical,
-  GraphUp,
   Person,
   People
 } from 'react-bootstrap-icons';
 
 const products = [
-  { name: 'Bet Analysis', description: 'Moneyline, Spread, and Over/Under', href: '/analysis', icon: Vr},
+  { name: 'Bet Analysis', description: 'Moneyline, Spread, and Over/Under', href: '/analysis', icon: Vr },
   { name: 'Players', description: 'Gain insight on performances of your favorite players.', href: '/players', icon: Person },
   { name: 'Teams', description: 'Build knowledge on competing teams.', href: '/teams', icon: People },
 ];
@@ -83,12 +81,12 @@ export default function Header() {
                 <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-white" />
               </PopoverButton>
 
-              <PopoverPanel className="absolute top-full -left-8 z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-sky-700 ring-1 shadow-lg ring-white/5">
+              <PopoverPanel className="absolute top-full z-10 mt-2 w-screen max-w-md overflow-hidden rounded-3xl bg-gray-700 ring-1 shadow-lg ring-white/5">
                 <div className="p-4">
                   {products.map((item) => (
                     <div
                       key={item.name}
-                      className="relative flex items-start gap-x-6 rounded-lg p-4 text-sm hover:bg-neutral-800"
+                      className="relative flex items-start gap-x-6 rounded-lg p-4 text-sm transition-all duration-300 hover:bg-gray-700 hover:scale-105 hover:shadow-lg"
                     >
                       <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                         <item.icon className="h-6 w-6 text-gray-600 group-hover:text-black" />
@@ -116,7 +114,7 @@ export default function Header() {
         {/* Auth Links */}
         <div className="hidden sm:flex sm:flex-1 sm:justify-end">
           <a href="/login" className="text-sm text-white p-1 bg-black m-1 rounded-lg">Log in</a>
-          
+
         </div>
       </nav>
 
