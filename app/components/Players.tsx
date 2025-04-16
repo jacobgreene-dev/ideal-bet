@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import PlayerHeadshot from './PlayerHeadshots';
 import { TeamResponse, PlayerResponse } from '@/lib/types/apiTypes';
 import { motion } from 'framer-motion';
@@ -59,11 +60,10 @@ export default function PlayersPage() {
               key={team.id}
               onClick={() => handleTeamClick(team)}
               whileHover={{ scale: 1.03 }}
-              className={`cursor-pointer px-4 py-3 rounded-lg transition text-sm font-medium ${
-                selectedTeam?.id === team.id
+              className={`cursor-pointer px-4 py-3 rounded-lg transition text-sm font-medium ${selectedTeam?.id === team.id
                   ? 'bg-blue-600 text-white shadow-md'
                   : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-              }`}
+                }`}
             >
               {team.name}
             </motion.li>
@@ -91,18 +91,19 @@ export default function PlayersPage() {
               className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
             >
               {players.map((player, i) => (
-                <motion.div
-                  key={player.id}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.03 }}
-                  className="bg-gray-800 border border-gray-700 rounded-xl p-4 flex flex-col items-center text-center shadow hover:shadow-xl transition"
-                >
-                  <PlayerHeadshot playerReversedName={decodeHTML(player.reversedName)} size={100} />
-                  <p className="mt-4 text-white font-semibold text-sm">
-                    {decodeHTML(player.reversedName)}
-                  </p>
-                </motion.div>
+                <Link key={player.id} href={`/players/${player.id}`} className="contents">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: i * 0.03 }}
+                    className="bg-gray-800 border border-gray-700 rounded-xl p-4 flex flex-col items-center text-center shadow hover:shadow-xl transition hover:scale-[1.03] cursor-pointer"
+                  >
+                    <PlayerHeadshot playerReversedName={decodeHTML(player.reversedName)} size={100} />
+                    <p className="mt-4 text-white font-semibold text-sm">
+                      {decodeHTML(player.reversedName)}
+                    </p>
+                  </motion.div>
+                </Link>
               ))}
             </motion.div>
 
