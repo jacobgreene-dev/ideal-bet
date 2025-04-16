@@ -86,9 +86,9 @@ export default function AnalysisPage() {
                                 }`}
                             onClick={() => setSelectedGame(game)}
                         >
-                            <h3 className="text-xl font-semibold">{game.home_team} vs {game.away_team}</h3>
+                            <h3 className="text-xl font-semibold">{game.home_team} VS. {game.away_team}</h3>
                             <p className="text-sm text-sky-300 font-medium">{game.sport_title}</p>
-                            <p className="text-sm text-gray-400">
+                            <p className={`text-sm ${selectedGame?.id === game.id ? 'text-gray-900' : 'text-gray-400'}`}>
                                 Tip-Off: {new Date(game.commence_time).toLocaleString(undefined, {
                                     weekday: 'short',
                                     hour: 'numeric',
