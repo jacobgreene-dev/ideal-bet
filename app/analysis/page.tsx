@@ -37,6 +37,12 @@ export default function AnalysisPage() {
             return;
         }
 
+        const validMarkets = ["overunder", "moneyline", "spread"];
+        if (!validMarkets.includes(market)) {
+            alert("Invalid market selected. Please choose a valid market.");
+            return;
+        }
+
         const payload = {
             home_team: fullNameToAbbreviation[selectedGame.home_team] || selectedGame.home_team,
             away_team: fullNameToAbbreviation[selectedGame.away_team] || selectedGame.away_team,
@@ -78,8 +84,8 @@ export default function AnalysisPage() {
                             <div
                                 key={game.id}
                                 className={`cursor-pointer p-6 border rounded-xl shadow transition space-y-2 ${selectedGame?.id === game.id
-                                        ? "bg-blue-100 text-black border-blue-300"
-                                        : "bg-white text-gray-800 hover:shadow-lg"
+                                    ? "bg-blue-100 text-black border-blue-300"
+                                    : "bg-white text-gray-800 hover:shadow-lg"
                                     }`}
                                 onClick={() => setSelectedGame(game)}
                             >
@@ -125,7 +131,7 @@ export default function AnalysisPage() {
                                     <option value="">Select</option>
                                     <option value="moneyline">Moneyline</option>
                                     <option value="spread">Spread</option>
-                                    <option value="over_under">Over/Under</option>
+                                    <option value="overunder">Over/Under</option>
                                 </select>
                             </div>
 
