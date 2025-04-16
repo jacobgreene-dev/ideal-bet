@@ -12,20 +12,36 @@ interface LiveGamesProps {
 
 export default function LiveGames({ numberOfGames }: LiveGamesProps) {
   const [games, setGames] = useState<GameEvent[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchGames = async () => {
       try {
         const res = await fetch('/api/games');
         const data = await res.json();
-        setGames(data.response);
+        
+        if (data.error) {
+          setError(data.error);
+          return;
+        }
+        
+        setGames(data.response || []);
       } catch (error) {
         console.error('Error fetching games:', error);
+        setError('Failed to fetch games');
       }
     };
 
     fetchGames();
   }, []);
+
+  if (error) {
+    return (
+      <div className="text-center p-4 text-red-600">
+        {error}
+      </div>
+    );
+  }
 
   return (
     <div className='bg-gradient-to-r from-black bg-sky-500'>
@@ -43,16 +59,22 @@ export default function LiveGames({ numberOfGames }: LiveGamesProps) {
         <div className='m-2 p-2'>
           <h1 className='text-center text-5xl font-bold'>Games happening soon</h1>
           <div className="grid grid-row-1 sm:grid-row-2 md:grid-cols-2 lg:grid-cols-3 gap-8 px-10 py-8 place-items-center">
-            {games.slice(0, numberOfGames).map((game) => (
-              <a href='/analysis' key={game.id} className='flex flex-col items-center'>
-                <LiveGame
-                  key={game.id}
-                  homeTeam={game.home_team}
-                  awayTeam={game.away_team}
-                  commenceTime={game.commence_time}
-                />
-              </a>
-            ))}
+            {games && games.length > 0 ? (
+              games.slice(0, numberOfGames).map((game) => (
+                <a href='/analysis' key={game.id} className='flex flex-col items-center'>
+                  <LiveGame
+                    key={game.id}
+                    homeTeam={game.home_team}
+                    awayTeam={game.away_team}
+                    commenceTime={game.commence_time}
+                  />
+                </a>
+              ))
+            ) : (
+              <div className="text-white text-center col-span-3">
+                No games available at the moment
+              </div>
+            )}
           </div>
         </div>
       </div>
