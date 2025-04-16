@@ -1,75 +1,171 @@
-import Header from "@/app/components/Header";
-import Footer from "@/app/components/Footer";
-import GamblingHelpline from "@/app/components/GamblingHelpline";
+'use client';
 
-export default function App() {
-    return (
-        <div>
-            <Header />
-            <GamblingHelpline/>
+import { motion } from 'framer-motion';
+import Header from '@/app/components/Header';
+import Footer from '@/app/components/Footer';
+import { useEffect, useState } from 'react';
 
-            <div className="text-center mt-6 px-4">
-    <h1 className="text-3xl font-semibold mb-4">Problem Gambling Helpline</h1>
-    <p className="font-bold max-w-2xl mx-auto">
-        We are committed to responsible gambling. If you or someone you 
-        know is struggling with gambling, help is available. Please call 
-        <a href="tel:1-800-662-4357" className="text-red-600 underline font-bold"> 1-800-662-HELP (4357) </a> 
-        or use the resources below to stay in control.
-    </p>
-</div>
+const resources = [
+  {
+    title: 'National Problem Gambling Helpline',
+    phone: '1-800-522-4700',
+    description: '24/7 confidential support for problem gambling',
+    hours: '24/7',
+    website: 'https://www.ncpgambling.org/',
+    icon: '📞'
+  },
+  {
+    title: 'Gamblers Anonymous',
+    phone: '1-855-222-5542',
+    description: 'Support groups and meetings for gambling addiction recovery',
+    hours: '24/7',
+    website: 'https://www.gamblersanonymous.org/',
+    icon: '🤝'
+  },
+  {
+    title: 'National Council on Problem Gambling',
+    phone: '1-800-522-4700',
+    description: 'Resources and information about problem gambling',
+    hours: '24/7',
+    website: 'https://www.ncpgambling.org/',
+    icon: 'ℹ️'
+  }
+];
 
+const warningSigns = [
+  'Gambling with money you cannot afford to lose',
+  'Borrowing money to gamble',
+  'Gambling to escape problems or relieve stress',
+  'Lying to family and friends about gambling',
+  'Neglecting work or family responsibilities due to gambling',
+  'Chasing losses by gambling more',
+  'Feeling restless or irritable when trying to stop gambling'
+];
 
+const selfHelpTips = [
+  'Set strict time and money limits before gambling',
+  'Keep track of your gambling activities',
+  'Take regular breaks from gambling',
+  'Find alternative activities to replace gambling',
+  'Talk to someone you trust about your gambling',
+  'Seek professional help if needed',
+  'Use self-exclusion tools if available'
+];
 
-            <div className="mt-6 px-4 text-center pb-12">
-                <div className="mt-6 px-4 text-center">
-                    <h2 className="text-2xl font-semibold">Set Limits or Self-Exclude</h2>
-                    <p className="mt-2 max-w-2xl mx-auto">
-                        If you need a break, consider setting limits on your deposits, time spent, or self-exclude
-                        from betting for a period of time.
-                    </p>
-                </div>
+export default function HelplinePage() {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+      <Header />
+      
+      {/* Hero Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="pt-20 pb-12 px-4 sm:px-6 lg:px-8"
+      >
+        <h1 className="text-4xl sm:text-5xl font-bold text-center mb-8">
+          Gambling Support & Resources
+        </h1>
+        <p className="text-xl text-gray-300 text-center max-w-3xl mx-auto">
+          If you or someone you know is struggling with gambling, help is available. 
+          You're not alone in this journey.
+        </p>
+      </motion.div>
 
-                <div className="mt-6 px-4">
-                    <h2 className="text-2xl font-semibold text-center">Responsible Gambling Tips</h2>
-                    <ul className="list-disc list-inside mt-4 max-w-2xl mx-auto space-y-2">
-                        <li>Set a budget and stick to it.</li>
-                        <li>Never chase your losses.</li>
-                        <li>Take regular breaks from gambling.</li>
-                        <li>Only gamble for entertainment, not as a source of income.</li>
-                        <li>Know the risks and play responsibly.</li>
-                    </ul>
-                </div>
+      {/* Emergency Contact Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="bg-red-900 rounded-xl p-8 shadow-xl mb-12"
+        >
+          <h2 className="text-3xl font-bold text-center mb-6">
+            Need Immediate Help?
+          </h2>
+          <div className="text-center">
+            <a 
+              href="tel:1-800-522-4700" 
+              className="text-4xl font-bold hover:text-red-300 transition-colors duration-300"
+            >
+              1-800-522-4700
+            </a>
+            <p className="text-xl mt-4">
+              Call the National Problem Gambling Helpline - Available 24/7
+            </p>
+          </div>
+        </motion.div>
 
-                <h2 className="text-2xl font-semibold mt-4">Resources</h2>
-                <div className="mt-2 space-y-2">
-                    <p>
-                        <a href="https://www.ncpgambling.org/help-treatment/problem-gambling-self-assessment/"
-                            className="text-blue-600 underline hover:text-blue-800">
-                            Problem Gambling Self Assessment
-                        </a>
-                    </p>
-                    <p>
-                        <a href="https://www.ncpgambling.org/help-treatment/help-by-state/"
-                            className="text-blue-600 underline hover:text-blue-800">
-                            Help by State
-                        </a>
-                    </p>
-                    <p>
-                        <a href="https://www.samhsa.gov/find-help/helplines/national-helpline"
-                            className="text-blue-600 underline hover:text-blue-800">
-                            SAMHSA’s National Helpline
-                        </a>
-                    </p>
-                    <p>
-                        <a href="https://www.horizonbh.org/gambling"
-                            className="text-blue-600 underline hover:text-blue-800">
-                            Problem Gambling Prevention
-                        </a>
-                    </p>
-                </div>
-            </div>
-
-            <Footer />
+        {/* Resources Section */}
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          {resources.map((resource, index) => (
+            <motion.div
+              key={resource.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.2, duration: 0.8 }}
+              className="bg-gray-800 rounded-xl p-8 shadow-xl transition-all duration-300 hover:bg-gray-700 hover:scale-105 hover:shadow-2xl"
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <div className="text-4xl">{resource.icon}</div>
+                <h3 className="text-2xl font-bold">{resource.title}</h3>
+              </div>
+              <p className="text-gray-300 mb-4">{resource.description}</p>
+              <div className="space-y-2">
+                <p className="text-green-400 font-semibold">{resource.phone}</p>
+                <p className="text-gray-400">Hours: {resource.hours}</p>
+                <a 
+                  href={resource.website} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300 transition-colors duration-300"
+                >
+                  Visit Website
+                </a>
+              </div>
+            </motion.div>
+          ))}
         </div>
-    );
+
+        {/* Warning Signs Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+          className="bg-gray-800 rounded-xl p-8 shadow-xl mb-16 transition-all duration-300 hover:bg-gray-700 hover:scale-105 hover:shadow-2xl"
+        >
+          <h2 className="text-3xl font-bold mb-6">Warning Signs of Problem Gambling</h2>
+          <ul className="grid md:grid-cols-2 gap-4">
+            {warningSigns.map((sign, index) => (
+              <li key={index} className="flex items-start gap-3">
+                <span className="text-red-400 mt-1">⚠️</span>
+                <span>{sign}</span>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+
+        {/* Self-Help Tips Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+          className="bg-gray-800 rounded-xl p-8 shadow-xl transition-all duration-300 hover:bg-gray-700 hover:scale-105 hover:shadow-2xl"
+        >
+          <h2 className="text-3xl font-bold mb-6">Self-Help Tips</h2>
+          <ul className="grid md:grid-cols-2 gap-4">
+            {selfHelpTips.map((tip, index) => (
+              <li key={index} className="flex items-start gap-3">
+                <span className="text-green-400 mt-1">✓</span>
+                <span>{tip}</span>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      </div>
+
+      <Footer />
+    </div>
+  );
 }

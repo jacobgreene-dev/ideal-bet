@@ -10,9 +10,11 @@ import DisplayArticles from "@/app/components/DisplayArticles";
 
 
 export default function App() {
-    return(
+    return (
         <div>
-            <Header />
+            <div className="my-3">
+                <Header />
+            </div>
             <Hero />
             <LiveGames numberOfGames={9} />
             <DisplayArticles />

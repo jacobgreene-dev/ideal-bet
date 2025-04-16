@@ -4,7 +4,7 @@ import PlayersPage from "@/app/components/Players";
 
 export default function App() {
     return(
-        <div>
+        <div className="py-3">
             <Header />
             <PlayersPage />
             <Footer />
