@@ -16,7 +16,7 @@ Hey! This package contains the Google Authentication update for our project. Her
    ├── auth/[...nextauth]/        # Auth configuration
    ├── api/auth/[...nextauth]/    # Auth API routes
    ├── components/                # Updated components
-   └── providers.tsx             # Auth provider wrapper
+   └── providers.tsx              # Auth provider wrapper
    ```
 
 2. **Set Up Environment Variables:**
