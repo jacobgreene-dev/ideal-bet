@@ -29,6 +29,11 @@ export interface TeamsApiResponse {
     response: TeamResponse[];
 }
 
+export interface TeamCDNLogoProps {
+    teamName: string;
+    size?: number;
+  }
+
 export interface PlayersAPIResponse {
     get: string;
     parameters: {

@@ -1,8 +1,9 @@
 'use client';
 
-import * as NBAIcon from 'react-nba-logos';
+
 import { ExclamationDiamondFill } from 'react-bootstrap-icons';
-import { fullNameToAbbreviation } from '@/lib/utils/teamNameMap';
+import  TeamCDNLogo  from '@/app/components/TeamCDNLogo'
+
 import { SavedBet } from '@/lib/types/apiTypes'
 
 
@@ -13,10 +14,6 @@ interface BetCardProps {
 
 export default function BetCard({ bet, index }: BetCardProps) {
   const { home, away } = bet.gameEvent.teams;
-  const team1Abbr = fullNameToAbbreviation[home];
-  const team2Abbr = fullNameToAbbreviation[away];
-  const HomeLogo = NBAIcon[team1Abbr as keyof typeof NBAIcon];
-  const AwayLogo = NBAIcon[team2Abbr as keyof typeof NBAIcon];
   const modelProb = (bet.gameEvent.model_prob * 100).toFixed(1);
   const pickedTeam = bet.gameEvent.user_team === "home" ? home : away;
 
@@ -49,7 +46,7 @@ export default function BetCard({ bet, index }: BetCardProps) {
 
       <div className="flex items-center justify-between bg-gray-900 rounded-xl px-4 py-3">
         <div className="flex items-center gap-3">
-          {HomeLogo && <HomeLogo size={70} />}
+          {home && <TeamCDNLogo teamName={home} />}
           <div className="flex flex-col">
             <span className="text-sm text-white font-medium">{home}</span>
             <span className="text-xs text-gray-400">Home</span>
@@ -63,7 +60,7 @@ export default function BetCard({ bet, index }: BetCardProps) {
             <span className="text-sm text-white font-medium">{away}</span>
             <span className="text-xs text-gray-400">Away</span>
           </div>
-          {AwayLogo && <AwayLogo size={70} />}
+          {away && <TeamCDNLogo teamName={away} />}
         </div>
       </div>
 

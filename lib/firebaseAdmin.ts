@@ -18,7 +18,7 @@ const serviceAccount = {
 const app = getApps().length
   ? getApp()
   : initializeApp({
-      credential: cert(serviceAccount as any),
+      credential: cert(serviceAccount as unknown as Parameters<typeof cert>[0]),
     });
 
 const adminDb = getFirestore(app);
