@@ -1,5 +1,5 @@
 // Imports necessary TypeScript interfaces for type safety and structure
-import { TeamsApiResponse, PlayersAPIResponse, GameEvent, PredictionPayload } from '@/lib/types/apiTypes';
+import { TeamsApiResponse, PlayersAPIResponse, GameEvent, PredictionPayload, PredictionResponse } from '@/lib/types/apiTypes';
 
 // Base URLs for the API-Sports and Odds API endpoints
 const API_BASE_URL = 'https://v1.basketball.api-sports.io';
@@ -83,7 +83,7 @@ export async function getOddsScheduledGames(): Promise<GameEvent[]> {
  * @param eventId - Event ID of the game
  * @returns Array of odds for the specified game
  */
-export async function postPredictionRequest(payload: PredictionPayload): Promise<any> {
+export async function postPredictionRequest(payload: PredictionPayload): Promise<PredictionResponse> {
   const response = await fetch('https://ideal-bet-model.onrender.com/predict', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

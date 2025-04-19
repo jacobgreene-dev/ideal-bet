@@ -14,8 +14,8 @@ function reversePlayerName(name: string): string {
   return name;
 }
 
-export async function GET(req: NextRequest, context: { params: { id: string } }) {
-  const { id } = context.params;
+export async function GET(req: NextRequest, context: { params: Promise<{ id: string }> }) {
+  const { id } = await context.params;
 
   try {
     const season = '2024-2025';

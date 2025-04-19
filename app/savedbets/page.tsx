@@ -1,12 +1,14 @@
 // app/my-bets/page.tsx
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/authOptions";
 import { adminDb } from "@/lib/firebaseAdmin";
 import { redirect } from "next/navigation";
 
 import Header from "@/app/components/Header"
 import Footer from "@/app/components/Footer"
 import BetCard from "@/app/components/SavedBetCard"
+
+import { SavedBet } from "@/lib/types/apiTypes";
 
 export default async function MyBetsPage() {
     const session = await getServerSession(authOptions);
@@ -29,7 +31,7 @@ export default async function MyBetsPage() {
                     <p className="text-gray-400">You haven’t saved any bets yet.</p>
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {bets.map((bet: any, index: number) => (
+                        {bets.map((bet: SavedBet, index: number) => (
                             <BetCard key={index} bet={bet} index={index} />
                         ))}
 

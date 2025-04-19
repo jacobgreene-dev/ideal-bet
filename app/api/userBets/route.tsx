@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/authOptions";
 import { adminDb } from "@/lib/firebaseAdmin";
 import { Bet } from "@/lib/types/apiTypes";
 
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     const userEmail = session.user.email;
     const { gameEvent }: { gameEvent: Bet["bets"][0]["gameEvent"] } = await req.json();
 
-    console.log("Received gameEvent payload:", gameEvent);
+    console.log("userBets Route: Received gameEvent payload:", gameEvent);
 
     if (
       !gameEvent ||
@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    console.log("✅ Bet saved successfully");
+    console.log("userBets route: Bet saved successfully.");
     return NextResponse.json({ message: "Bet saved successfully" });
   } catch (error) {
     console.error("Error saving user bet:", error);

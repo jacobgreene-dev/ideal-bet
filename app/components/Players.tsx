@@ -1,11 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+
 import PlayerHeadshot from './PlayerHeadshots';
 import { TeamResponse, PlayerResponse } from '@/lib/types/apiTypes';
-import { motion } from 'framer-motion';
 
 const decodeHTML = (str: string) => {
   const txt = document.createElement('textarea');
@@ -123,7 +125,13 @@ export default function PlayersPage() {
               Welcome to the NBA Player Viewer
             </motion.p>
             <p className="text-lg text-gray-300 mb-6">Select a team from the sidebar to view its roster.</p>
-            <img src="/icons/basketball.svg" alt="Basketball Icon" className="w-28 h-28 opacity-60" />
+            <Image
+              src="/icons/basketball.svg"
+              alt="Basketball Icon"
+              width={28}
+              height={28}
+              className="w-28 h-28 opacity-60"
+            />
           </div>
         )}
       </div>

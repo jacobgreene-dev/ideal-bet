@@ -3,7 +3,7 @@
  * when the data was cached.
  */
 type CacheEntry = {
-  data: any;
+  data: unknown;
   timestamp: number;
 };
 
@@ -28,22 +28,18 @@ const CACHE_TTL = 1000 * 60 * 60; // 1 hour
  * @param fetcher - A callback function that fetches fresh data when the cache is expired or missing
  * @returns The cached or freshly fetched data
  */
-export async function getOrSetCache(key: string, fetcher: () => Promise<any>) {
+export async function getOrSetCache<T>(key: string, fetcher: () => Promise<T>): Promise<T> {
   const now = Date.now();
 
-  // Check if the data exists in the cache and is still within the TTL window
   if (cache[key] && now - cache[key].timestamp < CACHE_TTL) {
-    if (cache[key].data === null) {
-      console.log(`Cache hit for ${key}, but data is null`);
-    }
     console.log(`Cache hit for ${key}`);
-    return cache[key].data;
+    return cache[key].data as T;
   }
 
-  // Cache miss or expired entry: fetch new data and store it in the cache
   console.log(`Cache miss for ${key}, fetching...`);
   const data = await fetcher();
   cache[key] = { data, timestamp: now };
 
   return data;
 }
+

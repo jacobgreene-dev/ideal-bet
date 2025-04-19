@@ -9,3 +9,9 @@ declare module "next-auth" {
     user: User; // Ensure the session includes the extended User type
   }
 }
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    id: string;
+  }
+}

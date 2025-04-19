@@ -1,10 +1,11 @@
 'use client';
 
+// import { useState } from 'react';
+// import Image from 'next/image';
 import { signIn } from 'next-auth/react';
-import Image from 'next/image';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
-import { useState } from 'react';
+
 
 export default function SignIn() {
   return (

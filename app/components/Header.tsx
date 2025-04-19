@@ -3,6 +3,7 @@
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import {
   Dialog,
@@ -31,7 +32,7 @@ import {
 
 const products = [
   { name: 'Bet Analysis', description: 'Moneyline, Spread, and Over/Under', href: '/analysis', icon: Vr },
-  { name: 'Saved Bets', description: 'Past bet analysis computations', href: '/savedbets', icon: ArchiveBoxIcon},
+  { name: 'Saved Bets', description: 'Past bet analysis computations', href: '/savedbets', icon: ArchiveBoxIcon },
   { name: 'Players', description: 'Gain insight on performances of your favorite players.', href: '/players', icon: Person },
   { name: 'Teams', description: 'Build knowledge on competing teams.', href: '/teams', icon: People }
 ];
@@ -51,8 +52,9 @@ export default function Header() {
       <nav className="mx-auto flex max-w-8xl items-center justify-between px-4 py-4 sm:px-6" aria-label="Global">
         {/* Logo */}
         <div className="flex sm:flex-1">
-          <a href="/" className="flex items-center">
-            <p className="sr-only">Betting Analysis</p>
+          <Link href="/" className="flex items-center" />
+          <p className="sr-only">Betting Analysis</p>
+          <Link href='/'>
             <Image
               width={40}
               height={40}
@@ -61,8 +63,9 @@ export default function Header() {
               unoptimized
               alt="Ideal Strategies Logo"
               className="h-11 max-h-12 w-auto"
+
             />
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -118,9 +121,11 @@ export default function Header() {
         {session ? (
           <div className="hidden sm:flex sm:items-center sm:space-x-4 sm:flex-1 sm:justify-end">
             <div className="flex items-center space-x-2 bg-black/60 px-3 py-1 rounded-lg shadow-sm border border-gray-700">
-              <img
+              <Image
                 src={session.user?.image || ''}
                 alt="Profile"
+                width={40}
+                height={40}
                 className="h-8 w-8 rounded-full border border-gray-300 shadow-sm"
               />
               <span className="text-sm text-white font-medium truncate max-w-[120px]">{session.user?.name}</span>
@@ -152,7 +157,12 @@ export default function Header() {
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Betting Analysis</span>
-                <img alt="Ideal Bet Logo" src="/logo.svg" className="h-8 w-auto" />
+                <Image
+                  src="/logo.svg"
+                  alt="Ideal Bet Logo"
+                  className="h-8 w-auto"
+                />
+                {/* <img alt="Ideal Bet Logo" src="/logo.svg" className="h-8 w-auto" /> */}
               </a>
               <button
                 type="button"

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/authOptions";
 import { adminDb } from "@/lib/firebaseAdmin";
 
 export async function GET(req: NextRequest) {
@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
     const session = await getServerSession(authOptions);
 
     if (!session || !session.user?.email) {
-      return NextResponse.redirect(new URL("/auth/signin", req.url)); // 👈 redirect to login
+      return NextResponse.redirect(new URL("/auth/signin", req.url));
     }
 
     const userEmail = session.user.email;
@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
     const data = userDoc.data();
     return NextResponse.json({ bets: data?.bets || [] });
   } catch (error) {
-    console.error("Error fetching user bets:", error);
+    console.error("userBets/get: Error fetching user bets:", error);
     return NextResponse.json({ error: "Failed to fetch user bets" }, { status: 500 });
   }
 }

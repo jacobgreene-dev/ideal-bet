@@ -1,5 +1,8 @@
 'use client';
 
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Header from '@/app/components/Header';
@@ -7,13 +10,27 @@ import Footer from '@/app/components/Footer';
 import { fullNameToAbbreviation } from '@/lib/utils/teamNameMap';
 import { GameEvent } from '@/lib/types/apiTypes';
 
+interface PredictionResult {
+    model_prob: number;
+    [key: string]: unknown;
+}
 
 export default function AnalysisPage() {
+    const { status } = useSession();
+    const router = useRouter();
     const [games, setGames] = useState<GameEvent[]>([]);
     const [selectedGame, setSelectedGame] = useState<GameEvent | null>(null);
     const [userTeam, setUserTeam] = useState('');
     const [market, setMarket] = useState('');
-    const [prediction, setPrediction] = useState<any>(null);
+    const [prediction, setPrediction] = useState<PredictionResult | null>(null);
+    const [isSaved, setIsSaved] = useState(false);
+
+
+    useEffect(() => {
+        if (status === 'unauthenticated') {
+            router.push(`/login?callbackUrl=${encodeURIComponent(window.location.href)}`)
+        }
+    }, [status, router]);
 
     useEffect(() => {
         const fetchGames = async () => {
@@ -28,6 +45,12 @@ export default function AnalysisPage() {
         fetchGames();
     }, []);
 
+    useEffect(() => {
+        setIsSaved(false);
+        setPrediction(null);
+    }, [selectedGame]);
+
+
     const handleAnalyze = async () => {
         if (!selectedGame || !userTeam || !market) {
             alert('Please select a game, user team, and market.');
@@ -40,7 +63,6 @@ export default function AnalysisPage() {
             user_team: userTeam,
             market,
             event_id: selectedGame.id,
-            bookmaker: 'draftkings',
         };
 
         try {
@@ -54,20 +76,31 @@ export default function AnalysisPage() {
 
             const result = await res.json();
             setPrediction(result);
+        } catch (error) {
+            console.error('Error analyzing bet:', error);
+            alert('Failed to analyze bet. Please try again later.');
+        }
+    };
 
-            // Save the user's selection to the database
-            const savePayload = {
-                gameEvent: {
-                    bet_type: market,
-                    teams: {
-                        home: payload.home_team,
-                        away: payload.away_team,
-                    },
-                    user_team: payload.user_team,
-                    model_prob: result.model_prob, // Assuming this is returned by /api/onRender
+    const saveAnalyze = async () => {
+        if (!selectedGame || !prediction) {
+            alert('No prediction available to save.');
+            return;
+        }
+
+        const savePayload = {
+            gameEvent: {
+                bet_type: market,
+                teams: {
+                    home: selectedGame.home_team,
+                    away: selectedGame.away_team,
                 },
-            };
+                user_team: userTeam,
+                model_prob: prediction.model_prob,
+            },
+        };
 
+        try {
             const saveRes = await fetch('/api/userBets', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -75,10 +108,10 @@ export default function AnalysisPage() {
             });
 
             if (!saveRes.ok) throw new Error(`Failed to save bet: ${saveRes.statusText}`);
-            console.log('Bet saved successfully');
+            setIsSaved(true);
         } catch (error) {
-            console.error('Error analyzing bet or saving selection:', error);
-            alert('Failed to analyze bet or save selection. Please try again later.');
+            console.error('Error saving bet analysis:', error);
+            alert('Failed to save bet analysis. Please try again later.');
         }
     };
 
@@ -183,12 +216,21 @@ export default function AnalysisPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="bg-green-100 text-green-900 p-6 rounded-2xl shadow-lg overflow-auto"
+                        className="bg-green-100 text-green-900 p-6 rounded-2xl shadow-lg overflow-auto space-y-4"
                     >
-                        <h3 className="text-xl font-bold mb-4">Prediction Result</h3>
+                        <h3 className="text-xl font-bold">Prediction Result</h3>
                         <pre className="whitespace-pre-wrap text-sm">
                             {JSON.stringify(prediction, null, 2)}
                         </pre>
+                        <button
+                            onClick={saveAnalyze}
+                            disabled={isSaved}
+                            className={`w-full ${isSaved ? 'bg-green-600 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
+                                } text-white font-semibold py-3 rounded-lg transition`}
+                        >
+                            {isSaved ? 'Saved' : 'Save Bet Analysis'}
+                        </button>
+
                     </motion.div>
                 )}
             </div>

@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 
 const resources = [
   {
@@ -69,7 +69,7 @@ export default function HelplinePage() {
         </h1>
         <p className="text-xl text-gray-300 text-center max-w-3xl mx-auto">
           If you or someone you know is struggling with gambling, help is available. 
-          You're not alone in this journey.
+          You&rsquo;re not alone in this journey.
         </p>
       </motion.div>
 

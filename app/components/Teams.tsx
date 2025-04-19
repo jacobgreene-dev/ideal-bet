@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { TeamResponse } from '@/lib/types/apiTypes';
 
@@ -58,37 +59,41 @@ export default function TeamsPage() {
         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl mx-auto"
       >
         {filteredTeams.map((team, i) => (
-          <motion.div
+            <motion.div
             key={team.id}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: i * 0.02 }}
             className="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-6 flex flex-col items-center text-center space-y-4 hover:shadow-xl transition"
-          >
+            >
             {team.logo && (
-              <img
+              <div className="w-40 h-40 flex items-center justify-center overflow-hidden rounded-full border-4 border-gray-600 bg-white">
+              <Image
                 src={team.logo}
                 alt={team.name}
-                className="w-20 h-20 object-contain rounded-full border border-gray-600 bg-white"
+                width={100}
+                height={30}
+                className="object-contain"
               />
+              </div>
             )}
             <p className="font-semibold text-lg text-white">{team.name}</p>
 
             <div className="flex gap-3 w-full">
               <a
-                href={`/teams/${team.id}`}
-                className="flex-1 bg-gradient-to-r from-sky-500 to-cyan-600 text-white py-2 rounded-lg text-sm font-medium hover:opacity-90 transition"
+              href={`/teams/${team.id}`}
+              className="flex-1 bg-gradient-to-r from-sky-500 to-cyan-600 text-white py-2 rounded-lg text-sm font-medium hover:opacity-90 transition"
               >
-                Team Stats
+              Team Stats
               </a>
               <a
-                href={`/players?team=${team.id}`}
-                className="flex-1 bg-gradient-to-r from-sky-500 to-cyan-600 text-white py-2 rounded-lg text-sm font-medium hover:opacity-90 transition"
+              href={`/players?team=${team.id}`}
+              className="flex-1 bg-gradient-to-r from-sky-500 to-cyan-600 text-white py-2 rounded-lg text-sm font-medium hover:opacity-90 transition"
               >
-                View Players
+              View Players
               </a>
             </div>
-          </motion.div>
+            </motion.div>
         ))}
       </motion.div>
 
@@ -98,7 +103,7 @@ export default function TeamsPage() {
           animate={{ opacity: 1 }}
           className="mt-16 bg-red-100 text-red-700 rounded-lg p-6 text-center max-w-md mx-auto shadow"
         >
-          No teams found matching "{searchTerm}"
+          No teams found matching &quot;{searchTerm}&quot;
         </motion.p>
       )}
     </div>

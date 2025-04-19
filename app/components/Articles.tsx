@@ -1,5 +1,6 @@
 // app/components/Articles.tsx
 import React from 'react';
+import Image from 'next/image';
 
 interface NewsArticle {
     id: number;
@@ -19,7 +20,14 @@ export default function Articles({ articles }: NewsDisplayProps) {
             {articles.map(article => (
                 //border-b border-gray-300
                 <div key={article.id} className="news-article mb-8 p-4 bg-gray-200 ">
-                    <img src={article.imageUrl} alt={'no img'} className="news-image w-full h-auto mb-4" />
+                    {/* <img src={article.imageUrl} alt={'no img'} className="news-image w-full h-auto mb-4" /> */}
+                    <Image
+                        src={article.imageUrl}
+                        alt={article.title}
+                        width={400}
+                        height={250}
+                        className="news-image w-full h-auto mb-4"
+                    />
                     <div className="news-content">
                         <h2 className="news-title text-2xl font-bold mb-2">{article.title}</h2>
                         <p className="news-description text-lg mb-4">{article.description}</p>

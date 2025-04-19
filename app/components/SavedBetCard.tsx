@@ -2,17 +2,21 @@
 
 import * as NBAIcon from 'react-nba-logos';
 import { ExclamationDiamondFill } from 'react-bootstrap-icons';
+import { fullNameToAbbreviation } from '@/lib/utils/teamNameMap';
+import { SavedBet } from '@/lib/types/apiTypes'
 
 
 interface BetCardProps {
-  bet: any;
+  bet: SavedBet;
   index: number;
 }
 
 export default function BetCard({ bet, index }: BetCardProps) {
   const { home, away } = bet.gameEvent.teams;
-  const HomeLogo = NBAIcon[home as keyof typeof NBAIcon];
-  const AwayLogo = NBAIcon[away as keyof typeof NBAIcon];
+  const team1Abbr = fullNameToAbbreviation[home];
+  const team2Abbr = fullNameToAbbreviation[away];
+  const HomeLogo = NBAIcon[team1Abbr as keyof typeof NBAIcon];
+  const AwayLogo = NBAIcon[team2Abbr as keyof typeof NBAIcon];
   const modelProb = (bet.gameEvent.model_prob * 100).toFixed(1);
   const pickedTeam = bet.gameEvent.user_team === "home" ? home : away;
 
@@ -25,7 +29,6 @@ export default function BetCard({ bet, index }: BetCardProps) {
 
       if (!res.ok) throw new Error("Failed to delete");
 
-      // Optional: refresh page or notify parent
       window.location.reload();
     } catch (err) {
       console.error("Delete failed:", err);

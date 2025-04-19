@@ -24,7 +24,7 @@ export interface TeamsApiResponse {
         season?: string;
         search?: string
     };
-    errors: any[];
+    errors: unknown[];
     results: number;
     response: TeamResponse[];
 }
@@ -37,7 +37,7 @@ export interface PlayersAPIResponse {
         season?: string;
         search?: string
     };
-    errors: any[];
+    errors: unknown[];
     results: number;
     response: PlayerResponse[];
 }
@@ -71,6 +71,19 @@ export interface PredictionPayload {
     bookmaker: string;
 }
 
+export interface PredictionResponse {
+    bet_type: string;
+    teams: {
+      home: string;
+      away: string;
+    };
+    user_team: string;
+    model_prob: number;
+    value_edge: number;
+    model_recommendation: string;
+    confidence_level: string;
+  }
+
 export interface Bet {
     userID: string; // Firebase UUID
     bets: {
@@ -85,3 +98,17 @@ export interface Bet {
         };
     }[];
 }
+
+export interface SavedBet {
+    gameEvent: {
+      bet_type: string;
+      teams: {
+        home: string;
+        away: string;
+      };
+      user_team: string;
+      model_prob: number;
+    };
+    createdAt: string; // add this if applicable
+  }
+  
