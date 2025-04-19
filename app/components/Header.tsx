@@ -1,5 +1,6 @@
 'use client'
 
+import { useSession, signIn, signOut } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
@@ -34,14 +35,17 @@ const products = [
 ];
 
 export default function Header() {
+  const { data: session } = useSession();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  console.log(session);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
   return (
+
     <header className="fixed top-0 left-0 z-20 text-nowrap w-full bg-white/30 backdrop-blur-lg shadow-sm">
       <nav className="mx-auto flex max-w-8xl items-center justify-between px-4 py-4 sm:px-6" aria-label="Global">
         {/* Logo */}
@@ -111,11 +115,33 @@ export default function Header() {
           </PopoverGroup>
         )}
 
-        {/* Auth Links */}
-        <div className="hidden sm:flex sm:flex-1 sm:justify-end">
-          <a href="/login" className="text-sm text-white p-1 bg-black m-1 rounded-lg">Log in</a>
-
-        </div>
+        {session ? (
+          <div className="hidden sm:flex sm:items-center sm:space-x-4 sm:flex-1 sm:justify-end">
+            <div className="flex items-center space-x-2 bg-black/60 px-3 py-1 rounded-lg shadow-sm border border-gray-700">
+              <img
+                src={session.user?.image || ''}
+                alt="Profile"
+                className="h-8 w-8 rounded-full border border-gray-300 shadow-sm"
+              />
+              <span className="text-sm text-white font-medium truncate max-w-[120px]">{session.user?.name}</span>
+              <button
+                onClick={() => signOut()}
+                className="text-xs bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-md transition"
+              >
+                Sign out
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="hidden sm:flex sm:flex-1 sm:justify-end">
+            <button
+              onClick={() => signIn('google')}
+              className="text-sm text-white bg-blue-600 hover:bg-blue-700 px-4 py-1 rounded-lg transition"
+            >
+              Log in
+            </button>
+          </div>
+        )}
       </nav>
 
       {/* Mobile Menu Panel */}
