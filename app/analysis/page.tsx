@@ -54,9 +54,31 @@ export default function AnalysisPage() {
 
             const result = await res.json();
             setPrediction(result);
+
+            // Save the user's selection to the database
+            const savePayload = {
+                gameEvent: {
+                    bet_type: market,
+                    teams: {
+                        home: payload.home_team,
+                        away: payload.away_team,
+                    },
+                    user_team: payload.user_team,
+                    model_prob: result.model_prob, // Assuming this is returned by /api/onRender
+                },
+            };
+
+            const saveRes = await fetch('/api/userBets', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(savePayload),
+            });
+
+            if (!saveRes.ok) throw new Error(`Failed to save bet: ${saveRes.statusText}`);
+            console.log('Bet saved successfully');
         } catch (error) {
-            console.error('Error analyzing bet:', error);
-            alert('Failed to analyze bet. Please try again later.');
+            console.error('Error analyzing bet or saving selection:', error);
+            alert('Failed to analyze bet or save selection. Please try again later.');
         }
     };
 
@@ -81,8 +103,8 @@ export default function AnalysisPage() {
                             key={game.id}
                             whileHover={{ scale: 1.03 }}
                             className={`cursor-pointer p-5 rounded-2xl transition shadow-lg border-2 ${selectedGame?.id === game.id
-                                    ? 'bg-white text-gray-900 border-blue-500'
-                                    : 'bg-gray-800 border-gray-700 hover:bg-gray-700'
+                                ? 'bg-white text-gray-900 border-blue-500'
+                                : 'bg-gray-800 border-gray-700 hover:bg-gray-700'
                                 }`}
                             onClick={() => setSelectedGame(game)}
                         >

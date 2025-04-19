@@ -69,4 +69,19 @@ export interface PredictionPayload {
     market: string;
     event_id: string;
     bookmaker: string;
-  }
+}
+
+export interface Bet {
+    userID: string; // Firebase UUID
+    bets: {
+        gameEvent: {
+            bet_type: string; // e.g., "moneyline"
+            teams: {
+                home: string; // Home team
+                away: string; // Away team
+            };
+            user_team: string; // The team the user is betting on
+            model_prob: number; // Model probability
+        };
+    }[];
+}

@@ -19,7 +19,8 @@ import {
 import {
   Bars3Icon,
   XMarkIcon,
-  ChevronDownIcon
+  ChevronDownIcon,
+  ArchiveBoxIcon
 } from '@heroicons/react/24/outline';
 
 import {
@@ -30,15 +31,15 @@ import {
 
 const products = [
   { name: 'Bet Analysis', description: 'Moneyline, Spread, and Over/Under', href: '/analysis', icon: Vr },
+  { name: 'Saved Bets', description: 'Past bet analysis computations', href: '/savedbets', icon: ArchiveBoxIcon},
   { name: 'Players', description: 'Gain insight on performances of your favorite players.', href: '/players', icon: Person },
-  { name: 'Teams', description: 'Build knowledge on competing teams.', href: '/teams', icon: People },
+  { name: 'Teams', description: 'Build knowledge on competing teams.', href: '/teams', icon: People }
 ];
 
 export default function Header() {
   const { data: session } = useSession();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
-  console.log(session);
 
   useEffect(() => {
     setIsClient(true);
@@ -109,7 +110,6 @@ export default function Header() {
             </Popover>
 
             <a href="/information" className="text-md text-white hidden xl:block hover:text-gray-400">Sports Book Information</a>
-            <a href="/history" className="text-md text-white hidden xl:block hover:text-gray-400">Betting History</a>
             <a href="/helpline" className="text-md text-white hidden xl:block hover:text-gray-400">Gambling Helpline</a>
             <a href="/contact" className="text-md text-white hidden xl:block hover:text-gray-400">Contact</a>
           </PopoverGroup>
@@ -187,7 +187,6 @@ export default function Header() {
                   </Disclosure>
 
                   <a href="/information" className="-mx-3 block rounded-lg px-3 py-2 text-base text-gray-900 hover:bg-gray-50">Sports Book Information</a>
-                  <a href="/history" className="-mx-3 block rounded-lg px-3 py-2 text-base text-gray-900 hover:bg-gray-50">Betting History</a>
                   <a href="/helpline" className="-mx-3 block rounded-lg px-3 py-2 text-base text-gray-900 hover:bg-gray-50">Gambling Helpline</a>
                 </div>
 
