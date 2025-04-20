@@ -6,12 +6,27 @@ import Link from 'next/link';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 
+import { VscVscode, } from "react-icons/vsc";
+import { SiNextdotjs, } from "react-icons/si";
+import { FaReact } from "react-icons/fa";
+import { TbBrandTypescript } from "react-icons/tb";
+import { RiTailwindCssFill, RiFirebaseFill, RiVercelFill } from "react-icons/ri";
+import { FiFramer } from "react-icons/fi";
+import { SiFusionauth, SiGooglecloud, } from "react-icons/si";
+import { AiFillApi } from "react-icons/ai";
+
 const teamMembers = [
   {
     name: 'Jacob Greene',
-    role: 'Lead Developer',
+    role: 'Fullstack Developer',
     image: '/team/jacob.jpg',
     github: 'https://github.com/jacobgreene-dev',
+  },
+  {
+    name: 'Caleb',
+    role: 'Data Analyst & ML engineer',
+    image: '/team/placeholder.jpg',
+    github: '#',
   },
   {
     name: 'Jassy',
@@ -21,45 +36,88 @@ const teamMembers = [
   },
   {
     name: 'George',
-    role: 'Backend Developer',
+    role: 'Project Manager',
     image: '/team/george.jpg',
     github: 'https://github.com/SvGEO290',
   },
   {
-    name: 'Open Position',
-    role: 'Data Analyst',
-    image: '/team/placeholder.jpg',
-    github: '#',
-  },
-  {
-    name: 'Open Position',
-    role: 'Frontend Developer',
+    name: 'Hassan',
+    role: ' ',
     image: '/team/placeholder.jpg',
     github: '#',
   },
 ];
 
+
 const techStack = [
-  { name: 'Next.js', description: 'React framework for production' },
-  { name: 'TypeScript', description: 'Typed JavaScript for better development' },
-  { name: 'Tailwind CSS', description: 'Utility-first CSS framework' },
-  { name: 'NextAuth.js', description: 'Authentication for Next.js' },
-  { name: 'Framer Motion', description: 'Animation library for React' },
-  { name: 'The Odds API', description: 'Sports betting odds data' },
-  { name: 'NBA Stats API', description: 'Basketball statistics' },
-  { name: 'OpenWeatherMap', description: 'Weather data integration' },
+  {
+    name: 'VS Code',
+    description: 'Primary code editor with powerful extensions',
+    icon: VscVscode,
+  },
+  {
+    name: 'Next.js',
+    description: 'React framework for building full-stack web apps',
+    icon: SiNextdotjs,
+  },
+  {
+    name: 'React',
+    description: 'UI library for building interactive interfaces',
+    icon: FaReact,
+  },
+  {
+    name: 'TypeScript',
+    description: 'Typed JavaScript for safer, scalable development',
+    icon: TbBrandTypescript,
+  },
+  {
+    name: 'Tailwind CSS',
+    description: 'Utility-first CSS framework for rapid UI development',
+    icon: RiTailwindCssFill,
+  },
+  {
+    name: 'Framer Motion',
+    description: 'Declarative animations and gestures for React',
+    icon: FiFramer,
+  },
+  {
+    name: 'NextAuth.js',
+    description: 'Authentication solution for Next.js applications',
+    icon: SiFusionauth,
+  },
+  {
+    name: 'Google Cloud / Google OAuth',
+    description: 'Secure user authentication and cloud service integration',
+    icon: SiGooglecloud,
+  },
+  {
+    name: 'Firebase / Firestore',
+    description: 'Realtime cloud database and backend services',
+    icon: RiFirebaseFill,
+  },
+  {
+    name: 'Vercel',
+    description: 'Hosting and deployment platform optimized for Next.js',
+    icon: RiVercelFill,
+  },
+  {
+    name: 'The Odds API',
+    description: 'Sports betting odds and market data provider',
+    icon: AiFillApi, // no icon available
+  },
+  {
+    name: 'NBA Stats API',
+    description: 'Comprehensive basketball player and team stats',
+    icon: AiFillApi, // no icon available
+  },
 ];
+
 
 const useCases = [
   {
     title: 'Real-time Odds Analysis',
     description: 'Get instant access to live betting odds from multiple sportsbooks, allowing you to make informed decisions in real-time.',
     icon: '📊',
-  },
-  {
-    title: 'Weather Impact Prediction',
-    description: 'Understand how weather conditions affect game outcomes, especially for outdoor sports like football and baseball.',
-    icon: '⛅',
   },
   {
     title: 'Historical Performance',
@@ -88,7 +146,7 @@ const featureSections = [
   },
   {
     title: 'Custom Dashboard',
-    description: 'Personalize your betting experience with our customizable dashboard. Track your favorite teams, set up alerts, and monitor your betting history all in one place.',
+    description: 'Personalize your betting experience with our customizable dashboard. Monitor your betting history all in one place.',
     videoSrc: '/videos/dashboard.mp4',
     align: 'left',
   },
@@ -114,7 +172,6 @@ export default function ContactPage() {
           historical data, and weather conditions to provide accurate predictions.
         </p>
       </motion.div>
-
       {/* Use Cases Section */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -124,14 +181,14 @@ export default function ContactPage() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-12">Use Cases</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
             {useCases.map((useCase, index) => (
               <motion.div
                 key={useCase.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+                className="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow w-full max-w-sm text-center"
               >
                 <div className="text-4xl mb-4">{useCase.icon}</div>
                 <h3 className="text-xl font-semibold mb-2">{useCase.title}</h3>
@@ -189,18 +246,27 @@ export default function ContactPage() {
         className="py-12 bg-gray-800"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Tech Stack</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <h1 className="text-4xl font-bold text-center mb-12">Our Tech Stack</h1>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {techStack.map((tech, index) => (
               <motion.div
                 key={tech.name}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+                className="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow flex flex-col items-center text-center"
               >
-                <h3 className="text-xl font-semibold mb-2">{tech.name}</h3>
-                <p className="text-gray-300">{tech.description}</p>
+                <div className="w-16 h-16 flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mb-4 text-white text-2xl">
+                  {tech.icon ? <tech.icon /> : <span className="text-sm">No Icon</span>}
+                </div>
+                <div className="flex flex-col items-center justify-center h-32 w-48">
+                  <h3 className="text-lg font-semibold mb-1 text-center whitespace-nowrap overflow-hidden text-ellipsis">
+                    {tech.name}
+                  </h3>
+                  <p className="text-sm text-gray-300 text-center whitespace-normal break-words leading-snug">
+                    {tech.description}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -216,31 +282,31 @@ export default function ContactPage() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-12">Our Team</h2>
-          <div className="flex flex-wrap justify-center gap-8">
-            {teamMembers.map((member, index) => (
-              <motion.div
-                key={`${member.name}-${index}`}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center"
-              >
-                <Link href={member.github} target="_blank" rel="noopener noreferrer">
-                  <div className="relative w-32 h-32 mx-auto mb-4 group">
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      width={128}
-                      height={128}
-                      className="rounded-full object-cover w-full h-full relative z-10"
-                    />
-                  </div>
-                  <h3 className="text-xl font-semibold">{member.name}</h3>
-                  <p className="text-gray-400">{member.role}</p>
-                </Link>
-              </motion.div>
-            ))}
+          <div className="flex flex-wrap justify-center gap-16">
+        {teamMembers.map((member, index) => (
+          <motion.div
+            key={`${member.name}-${index}`}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: index * 0.1 }}
+            className="text-center"
+          >
+            <Link href={member.github} target="_blank" rel="noopener noreferrer">
+          <div className="relative w-40 h-40 mx-auto mb-6 group">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <Image
+              src={member.image}
+              alt={member.name}
+              width={160}
+              height={160}
+              className="rounded-full object-cover w-full h-full relative z-10"
+            />
+          </div>
+          <h3 className="text-xl font-semibold">{member.name}</h3>
+          <p className="text-gray-400">{member.role}</p>
+            </Link>
+          </motion.div>
+        ))}
           </div>
         </div>
       </motion.div>

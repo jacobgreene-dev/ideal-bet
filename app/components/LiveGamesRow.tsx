@@ -47,7 +47,7 @@ export default function LiveGamesRow() {
                     <a href='/analysis' key={game.id}>
                         <div
                             key={game.id}
-                            className="bg-gray-800 rounded-xl shadow-md px-6 py-6 flex flex-col justify-center items-center transition-transform hover:scale-[1.03] hover:shadow-lg"
+                            className="bg-gray-800 rounded-xl shadow-md px-6 py-6 flex flex-col justify-center items-center transition-transform hover:scale-[1.03] hover:shadow-lg min-h-full"
                         >
                             <div className="flex w-full justify-between items-center">
                                 <TeamCard teamName={game.home_team} />
