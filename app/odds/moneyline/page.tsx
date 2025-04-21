@@ -3,6 +3,7 @@
 import React, { useState, ChangeEvent } from "react";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import LoadingSpinner from "@/app/components/LoadingSpinner";
 
 const teams = [
   "Los Angeles Lakers",
@@ -19,6 +20,7 @@ export default function MoneylineBetting() {
   const [betAmount, setBetAmount] = useState(100);
   const [odds, setOdds] = useState("");
   const [result, setResult] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const inputStyle =
     "border-[2px] text-black border-silver rounded-lg outline-[#000000] p-2 focus:border-[#000000] ease-linear duration-200 ";
@@ -32,11 +34,16 @@ export default function MoneylineBetting() {
     if (name === "odds") setOdds(value);
   };
 
-  const calculateMoneylineBet = () => {
+  const calculateMoneylineBet = async () => {
     if (!team1 || !team2 || !selectedTeam || !odds) {
       alert("Please select both teams, your bet team, and enter the odds.");
       return;
     }
+
+    setIsLoading(true);
+    
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 1500));
 
     const impliedProbability = odds.startsWith("-")
       ? Math.abs(parseInt(odds)) / (Math.abs(parseInt(odds)) + 100)
@@ -57,6 +64,8 @@ export default function MoneylineBetting() {
       <p class='mt-2 max-w-2xl mx-auto text-black'><strong>Winning Team:</strong> ${winningTeam}</p>
       <p class='mt-2 max-w-2xl mx-auto text-black'><strong>Potential Return:</strong> $${winnings}</p>
     `);
+    
+    setIsLoading(false);
   };
 
   return (
@@ -89,8 +98,12 @@ export default function MoneylineBetting() {
           {/* Bet Amount */}
           <input className={`${inputStyle} mt-2`} name="betAmount" type="number" value={betAmount} min={1} onChange={handleChange} />
 
-          <button className="mt-5 flex justify-center bg-sky-500 text-white font-medium rounded-md p-2 border-[2px] border-transparent hover:bg-white hover:text-sky-500 hover:border-sky-500 hover:shadow-md ease-linear duration-200" onClick={calculateMoneylineBet}>
-            Calculate Bet
+          <button 
+            className="mt-5 flex justify-center bg-sky-500 text-white font-medium rounded-md p-2 border-[2px] border-transparent hover:bg-white hover:text-sky-500 hover:border-sky-500 hover:shadow-md ease-linear duration-200 disabled:opacity-50 disabled:cursor-not-allowed" 
+            onClick={calculateMoneylineBet}
+            disabled={isLoading}
+          >
+            {isLoading ? <LoadingSpinner size="sm" /> : "Calculate Bet"}
           </button>
 
           {result && (

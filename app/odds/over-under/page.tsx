@@ -3,6 +3,7 @@
 import React, { useState, ChangeEvent } from "react";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import LoadingSpinner from "@/app/components/LoadingSpinner";
 
 
 const teams = [
@@ -20,6 +21,7 @@ export default function SpreadBetting() {
   const [overUnderChoice, setOverUnderChoice] = useState("");
   const [betAmount, setBetAmount] = useState(100);
   const [result, setResult] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const inputStyle =
     "border-[2px] text-black border-silver rounded-lg outline-[#000000] p-2 focus:border-[#000000] ease-linear duration-200 ";
@@ -33,11 +35,16 @@ export default function SpreadBetting() {
     if (name === "betAmount") setBetAmount(parseFloat(value));
   };
 
-  const calculateBet = () => {
+  const calculateBet = async () => {
     if (!team1 || !team2 || !overUnderChoice) {
       alert("Please select both teams and the team you want to bet on");
       return;
     }
+
+    setIsLoading(true);
+    
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 1500));
   
     const team1Score = Math.floor(Math.random() * 120);
     const team2Score = Math.floor(Math.random() * 120);
@@ -45,8 +52,8 @@ export default function SpreadBetting() {
     const oddsMultiplier = 1.91;
     const potentialPayout = betAmount * oddsMultiplier;
     const wonBet =
-    (overUnderChoice === "Over" && totalScore > overUnderTotal) ||
-    (overUnderChoice === "Under" && totalScore < overUnderTotal);
+      (overUnderChoice === "Over" && totalScore > overUnderTotal) ||
+      (overUnderChoice === "Under" && totalScore < overUnderTotal);
     const winnings = wonBet ? potentialPayout.toFixed(2) : "0.00";
   
     setResult(`
@@ -56,6 +63,8 @@ export default function SpreadBetting() {
       <p class="mt-2 max-w-2xl mx-auto text-black"><strong>Estimated Win Probability:</strong> ${team1Score} - ${team2Score} (Total: ${totalScore})%</p>
       <p class="mt-2 max-w-2xl mx-auto text-black"><strong>Potential Return:</strong> $${winnings}</p>
     `);
+    
+    setIsLoading(false);
   };
 
   return (
@@ -88,8 +97,12 @@ export default function SpreadBetting() {
           {/* Bet Amount */}
           <input className={`${inputStyle} mt-2`} name="betAmount" type="number" value={betAmount} min={1} onChange={handleChange} />
 
-          <button className="mt-5 flex justify-center bg-sky-500 text-white font-medium rounded-md p-2 border-[2px] border-transparent hover:bg-white hover:text-sky-500 hover:border-sky-500 hover:shadow-md ease-linear duration-200" onClick={calculateBet}>
-            Calculate Bet
+          <button 
+            className="mt-5 flex justify-center bg-sky-500 text-white font-medium rounded-md p-2 border-[2px] border-transparent hover:bg-white hover:text-sky-500 hover:border-sky-500 hover:shadow-md ease-linear duration-200 disabled:opacity-50 disabled:cursor-not-allowed" 
+            onClick={calculateBet}
+            disabled={isLoading}
+          >
+            {isLoading ? <LoadingSpinner size="sm" /> : "Calculate Bet"}
           </button>
 
           {result && (
