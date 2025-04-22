@@ -3,11 +3,13 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { PlayerResponse } from '@/lib/types/apiTypes';
-import PlayerHeadshot from '@/app/components/PlayerHeadshots';
+
 import { motion } from 'framer-motion';
+
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
+import PlayerHeadshot from '@/app/components/PlayerHeadshots';
+import { PlayerResponse } from '@/lib/types/apiTypes';
 
 const decodeHTML = (str: string) => {
     const txt = document.createElement('textarea');
