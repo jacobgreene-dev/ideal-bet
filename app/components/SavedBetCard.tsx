@@ -1,11 +1,9 @@
+// @/app/components/SavedBetCard.tsx
 'use client';
 
-
 import { ExclamationDiamondFill } from 'react-bootstrap-icons';
-import  TeamCDNLogo  from '@/app/components/TeamCDNLogo'
-
+import { TeamCDNLogo } from '@/app/components/TeamCDNLogo'
 import { SavedBet } from '@/lib/types/apiTypes'
-
 
 interface BetCardProps {
   bet: SavedBet;

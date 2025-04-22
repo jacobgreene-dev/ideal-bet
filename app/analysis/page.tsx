@@ -7,13 +7,14 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
+import PrettyPredictionCard from '../components/PrettyPredictionDisplay';
 import { fullNameToAbbreviation } from '@/lib/utils/teamNameMap';
 import { GameEvent } from '@/lib/types/apiTypes';
+import { PredictionResult, PrettyPredictionProps } from '@/lib/types/frontEndTypes';
 
-interface PredictionResult {
-    model_prob: number;
-    [key: string]: unknown;
-}
+
+type PrettyPrediction = PrettyPredictionProps['prediction'];
+
 
 export default function AnalysisPage() {
     const { status } = useSession();
@@ -212,27 +213,13 @@ export default function AnalysisPage() {
                 )}
 
                 {prediction && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className="bg-green-100 text-green-900 p-6 rounded-2xl shadow-lg overflow-auto space-y-4"
-                    >
-                        <h3 className="text-xl font-bold">Prediction Result</h3>
-                        <pre className="whitespace-pre-wrap text-sm">
-                            {JSON.stringify(prediction, null, 2)}
-                        </pre>
-                        <button
-                            onClick={saveAnalyze}
-                            disabled={isSaved}
-                            className={`w-full ${isSaved ? 'bg-green-600 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
-                                } text-white font-semibold py-3 rounded-lg transition`}
-                        >
-                            {isSaved ? 'Saved' : 'Save Bet Analysis'}
-                        </button>
-
-                    </motion.div>
+                    <PrettyPredictionCard
+                        prediction={prediction as PrettyPrediction}
+                        isSaved={isSaved}
+                        onSave={saveAnalyze}
+                    />
                 )}
+
             </div>
 
             <Footer />
