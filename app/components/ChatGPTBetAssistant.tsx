@@ -33,7 +33,7 @@ export default function ChatGPTBetAssistant() {
         { prompt: trimmed, response: data.response || 'No response.' },
         ...prev,
       ]);
-    } catch (err) {
+    } catch {
       setHistory((prev) => [
         { prompt: trimmed, response: 'Something went wrong.' },
         ...prev,

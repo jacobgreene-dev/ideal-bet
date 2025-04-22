@@ -48,7 +48,7 @@ export default function SavedBetsPreview() {
               transition={{ duration: 0.5 }}
               className="mt-8"
             >
-              <p className="text-gray-400 mb-4 text-lg">What are you waiting for! You haven't saved any bets yet. Get started now and let AI assist your decisions.</p>
+              <p className="text-gray-400 mb-4 text-lg">What are you waiting for! You haven&apos;t saved any bets yet. Get started now and let AI assist your decisions.</p>
               <button
                 onClick={() => router.push('/analysis')}
                 className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-6 py-3 rounded-xl text-white font-semibold shadow-md transition"
