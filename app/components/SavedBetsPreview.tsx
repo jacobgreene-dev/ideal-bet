@@ -23,14 +23,14 @@ export default function SavedBetsPreview() {
     fetchBets();
   }, []);
 
-  const recentBets = userBetData?.bets.slice(0, 3) || [];
+  const recentBets = userBetData?.bets.slice(0, 2) || [];
 
   return (
     <motion.section
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="py-20 px-4 sm:px-8 max-w-7xl mx-auto text-white"
+      className="py-20 px-4 sm:px-8 max-w-6xl mx-auto text-white"
     >
       <div className="flex flex-col lg:flex-row gap-12 items-start">
         <div className="lg:w-1/2 w-full text-center lg:text-left">
@@ -70,18 +70,20 @@ export default function SavedBetsPreview() {
                   transition={{ duration: 0.3 }}
                   className="bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 p-6 rounded-3xl shadow-2xl hover:shadow-indigo-500/20 transition-all"
                 >
-                  <p className="text-sm text-gray-400 mb-1 tracking-wide uppercase font-semibold">
-                    {bet.bet_type} Bet
-                  </p>
-                  <h3 className="text-2xl font-bold text-blue-300">
-                    {bet.teams.home} <span className="text-gray-500">vs</span> {bet.teams.away}
-                  </h3>
-                  <p className="mt-4 text-sm text-white">
-                    You picked: <span className="text-indigo-400 font-bold uppercase">{bet.user_team}</span>
-                  </p>
-                  <p className="text-sm text-green-400 mt-1">
-                    Model Probability: {(bet.model_prob * 100).toFixed(1)}%
-                  </p>
+                  <a href="/analysis">
+                    <p className="text-sm text-gray-400 mb-1 tracking-wide uppercase font-semibold">
+                      {bet.bet_type} Bet
+                    </p>
+                    <h3 className="text-2xl font-bold text-blue-300">
+                      {bet.teams.home} <span className="text-gray-500">vs</span> {bet.teams.away}
+                    </h3>
+                    <p className="mt-4 text-sm text-white">
+                      You picked: <span className="text-indigo-400 font-bold uppercase">{bet.user_team}</span>
+                    </p>
+                    <p className="text-sm text-green-400 mt-1">
+                      Model Probability: {(bet.model_prob * 100).toFixed(1)}%
+                    </p>
+                  </a>
                 </motion.div>
               );
             })}

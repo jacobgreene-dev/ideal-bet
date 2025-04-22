@@ -9,7 +9,7 @@ export default function ChatGPTAssistantWrapper() {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="py-20 px-4 sm:px-8 max-w-6xl mx-auto text-white"
+      className="py-[10rem] px-4 sm:px-8 max-w-6xl mx-auto text-white"
     >
       <div className="flex flex-col md:flex-row gap-10 items-start">
         <div className="md:w-1/2 w-full">
