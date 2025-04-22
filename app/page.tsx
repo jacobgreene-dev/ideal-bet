@@ -5,6 +5,7 @@ import Hero from "@/app/components/Hero";
 import Body from "@/app/components/Body";
 import Footer from "@/app/components/Footer";
 import LiveGamesRow from "./components/LiveGamesRow";
+import ChatGPTAssistantWrapper from "./components/ChatGPTBetAssistantWrapper";
 // import LiveGames from "@/app/components/LiveGames";
 // import DisplayArticles from "@/app/components/DisplayArticles";
 
@@ -18,6 +19,7 @@ export default function App() {
             </div>
             <Hero />
             <LiveGamesRow />
+            <ChatGPTAssistantWrapper />
             {/* <LiveGames numberOfGames={9} />
             <DisplayArticles /> */}
             <Body />
