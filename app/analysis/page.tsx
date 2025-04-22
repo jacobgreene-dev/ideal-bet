@@ -25,7 +25,6 @@ export default function AnalysisPage() {
     const [prediction, setPrediction] = useState<PredictionResult | null>(null);
     const [isSaved, setIsSaved] = useState(false);
 
-
     useEffect(() => {
         if (status === 'unauthenticated') {
             router.push(`/login?callbackUrl=${encodeURIComponent(window.location.href)}`)
