@@ -42,7 +42,7 @@ async function fetchData<T>(endpoint: string, params: Record<string, string> = {
  * @param season - Season string (default: '2022-2023')
  * @returns Full Teams API response
  */
-export async function getTeams(league = '12', season = '2022-2023'): Promise<TeamsApiResponse> {
+export async function getTeams(league = '12', season = '2024-2025'): Promise<TeamsApiResponse> {
   return fetchData<TeamsApiResponse>('teams', { league, season });
 }
 
@@ -55,7 +55,7 @@ export async function getTeams(league = '12', season = '2022-2023'): Promise<Tea
  * @param search - Optional player name search term
  * @returns Full Players API response
  */
-export async function getPlayers(team?: string, season = '2022-2023', search?: string): Promise<PlayersAPIResponse> {
+export async function getPlayers(team?: string, season = '2024-2025', search?: string): Promise<PlayersAPIResponse> {
   const params: Record<string, string> = { season };
   if (team) params.team = team;
   if (search) params.search = search;
