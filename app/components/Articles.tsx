@@ -1,4 +1,4 @@
-// app/components/Articles.tsx
+// @/app/components/Articles.tsx
 import React from 'react';
 import Image from 'next/image';
 

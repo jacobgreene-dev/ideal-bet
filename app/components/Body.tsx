@@ -1,4 +1,4 @@
-// app/components/Body.tsx
+// @/app/components/Body.tsx
 
 import React from 'react';
 

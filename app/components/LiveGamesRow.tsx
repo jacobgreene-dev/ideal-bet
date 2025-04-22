@@ -1,7 +1,8 @@
+// @/app/components/LiveGamesRow.tsx
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import TeamCDNLogo from './TeamCDNLogo';
+import { TeamCDNLogo } from '@/app/components/TeamCDNLogo';
 import { GameEvent } from '@/lib/types/apiTypes';
 
 export default function LiveGamesRow() {

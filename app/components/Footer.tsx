@@ -1,4 +1,5 @@
-// app/components/Footer.tsx
+// @/app/components/Footer.tsx
+
 import React from "react";
 import { Facebook, Instagram, Twitter, Youtube } from "react-bootstrap-icons";
 

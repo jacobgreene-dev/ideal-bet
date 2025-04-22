@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
-import PlayerHeadshot from '@/app/components/PlayerHeadshots';
+import { PlayerHeadshot } from '@/app/components/PlayerHeadshots';
 import { PlayerResponse } from '@/lib/types/apiTypes';
 
 const decodeHTML = (str: string) => {
@@ -71,11 +71,11 @@ export default function PlayerDetailPage() {
                             size={150}
                         />
                         <h1 className="text-4xl font-bold mt-6 mb-4">{decodeHTML(player.reversedName)}</h1>
-                        
+
                     </div>
                     <p className="text-lg text-gray-400 m-8">
-                            Detailed stats and information about the player.
-                        </p>
+                        Detailed stats and information about the player.
+                    </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 text-left text-sm sm:text-base">
                         <div className="bg-gray-700 p-4 rounded-lg shadow">
                             <p className="text-gray-400">Player ID</p>

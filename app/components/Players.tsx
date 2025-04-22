@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-import PlayerHeadshot from './PlayerHeadshots';
+import { PlayerHeadshot } from '@/app/components/PlayerHeadshots';
 import { TeamResponse, PlayerResponse } from '@/lib/types/apiTypes';
 
 const decodeHTML = (str: string) => {
@@ -15,7 +15,7 @@ const decodeHTML = (str: string) => {
   return txt.value;
 };
 
-export default function PlayersPage() {
+export function PlayersPage() {
   const [teams, setTeams] = useState<TeamResponse[]>([]);
   const [players, setPlayers] = useState<PlayerResponse[]>([]);
   const [selectedTeam, setSelectedTeam] = useState<TeamResponse | null>(null);
@@ -63,8 +63,8 @@ export default function PlayersPage() {
               onClick={() => handleTeamClick(team)}
               whileHover={{ scale: 1.03 }}
               className={`cursor-pointer px-4 py-3 rounded-lg transition text-sm font-medium ${selectedTeam?.id === team.id
-                  ? 'bg-blue-600 text-white shadow-md'
-                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                ? 'bg-blue-600 text-white shadow-md'
+                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                 }`}
             >
               {team.name}
