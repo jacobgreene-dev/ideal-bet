@@ -1,3 +1,5 @@
+import { SavedBet } from "./apiTypes";
+
 export interface PrettyPredictionProps {
     prediction: {
         bet_type: string;
@@ -23,4 +25,9 @@ export interface PredictionResult {
 export interface PlayerHeadshotProps {
     playerReversedName: string;
     size?: number;
+}
+
+export interface BetCardProps {
+    bet: SavedBet;
+    index: number;
 }

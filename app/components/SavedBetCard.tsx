@@ -3,12 +3,8 @@
 
 import { ExclamationDiamondFill } from 'react-bootstrap-icons';
 import { TeamCDNLogo } from '@/app/components/TeamCDNLogo'
-import { SavedBet } from '@/lib/types/apiTypes'
+import { BetCardProps } from '@/lib/types/frontEndTypes';
 
-interface BetCardProps {
-  bet: SavedBet;
-  index: number;
-}
 
 export default function BetCard({ bet, index }: BetCardProps) {
   const { home, away } = bet.gameEvent.teams;
