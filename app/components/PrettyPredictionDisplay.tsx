@@ -10,7 +10,7 @@ const abbreviationToFullName: Record<string, string> = Object.fromEntries(
     Object.entries(fullNameToAbbreviation).map(([full, abbr]) => [abbr, full])
 );
 
-export default function PrettyPredictionCard({ prediction, isSaved, onSave }: PrettyPredictionProps) {
+export function PrettyPredictionCard({ prediction, isSaved, onSave }: PrettyPredictionProps) {
     const confidenceColor = {
         High: 'text-red-400',
         Moderate: 'text-yellow-400',
