@@ -88,8 +88,6 @@ export default function ChatGPTBetAssistant() {
             transition={{ delay: idx * 0.05 }}
             className="bg-gray-800 p-4 rounded-lg border border-gray-700"
           >
-            <p className="text-sm text-sky-300 font-semibold mb-1">You:</p>
-            <p className="text-white mb-2">{turn.prompt}</p>
             <p className="text-sm text-green-400 font-semibold">AI:</p>
             <p className="text-blue-200 whitespace-pre-line">{turn.response}</p>
           </motion.div>

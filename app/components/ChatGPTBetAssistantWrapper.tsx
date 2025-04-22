@@ -18,7 +18,7 @@ export default function ChatGPTAssistantWrapper() {
 
         <div className="md:w-1/2 w-full text-center md:text-left">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-            AI-Powered NBA Bet Assistant
+            AI-Powered NBA Assistant
           </h2>
           <p className="text-gray-300 text-lg mb-6">
             Wondering what is going on in the NBA lately? Ask our intelligent NBA betting assistant powered by real-time data and AI models.
