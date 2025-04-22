@@ -37,26 +37,26 @@ export default function PrettyPredictionCard({ prediction, isSaved, onSave }: Pr
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-gray-800 p-4 rounded-xl flex items-center gap-4">
-                    <TeamCDNLogo teamName={pickedTeamName} size={40} />
+                    <TeamCDNLogo teamName={pickedTeamName} size={80} />
                     <div>
                         <h4 className="text-sm text-gray-400">Your Pick</h4>
                         <p className="text-lg font-bold text-indigo-300">{pickedTeamName}</p>
                     </div>
                 </div>
 
-                <div className="bg-gray-800 p-4 rounded-xl">
+                <div className="bg-gray-800 p-4 rounded-xl flex-col gap-4">
                     <h4 className="text-sm text-gray-400">Confidence Level</h4>
                     <p className={`text-lg font-bold ${confidenceColor}`}>{prediction.confidence_level}</p>
                 </div>
 
-                <div className="bg-gray-800 p-4 rounded-xl">
+                <div className="bg-gray-800 p-4 rounded-xl flex-col items-center gap-4">
                     <h4 className="text-sm text-gray-400">Model Probability</h4>
                     <p className="text-lg font-bold text-blue-400">
                         {prediction.model_prob ? (prediction.model_prob * 100).toFixed(1) + '%' : 'N/A'}
                     </p>
                 </div>
 
-                <div className="bg-gray-800 p-4 rounded-xl">
+                <div className="bg-gray-800 p-4 rounded-xl flex-col items-center gap-4">
                     <h4 className="text-sm text-gray-400">Value Edge</h4>
                     <p className="text-lg font-bold text-cyan-400">
                         {typeof prediction.value_edge === 'number' ? prediction.value_edge.toFixed(2) : 'N/A'}

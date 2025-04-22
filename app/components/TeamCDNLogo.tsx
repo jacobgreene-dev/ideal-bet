@@ -17,7 +17,7 @@ export function TeamCDNLogo({ teamName, size = 100 }: TeamCDNLogoProps) {
         src={src}
         alt={`${teamName} logo`}
         fill
-        className="object-contain p-2"
+        className="object-contain p-3"
       />
     </div>
   );
