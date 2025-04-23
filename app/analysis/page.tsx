@@ -1,35 +1,29 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
+import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
+import { PrettyPredictionCard } from '@/app/components/PrettyPredictionDisplay';
 import { fullNameToAbbreviation } from '@/lib/utils/teamNameMap';
 import { GameEvent } from '@/lib/types/apiTypes';
+import { PredictionResult, PrettyPredictionProps } from '@/lib/types/frontEndTypes';
 
-interface PredictionResult {
-    model_prob: number;
-    [key: string]: unknown;
-}
+type PrettyPrediction = PrettyPredictionProps['prediction'];
 
 export default function AnalysisPage() {
     const { status } = useSession();
     const router = useRouter();
+
     const [games, setGames] = useState<GameEvent[]>([]);
     const [selectedGame, setSelectedGame] = useState<GameEvent | null>(null);
     const [userTeam, setUserTeam] = useState('');
     const [market, setMarket] = useState('');
     const [prediction, setPrediction] = useState<PredictionResult | null>(null);
     const [isSaved, setIsSaved] = useState(false);
-
-    useEffect(() => {
-        if (status === 'unauthenticated') {
-            router.push(`/login?callbackUrl=${encodeURIComponent(window.location.href)}`)
-        }
-    }, [status, router]);
 
     useEffect(() => {
         const fetchGames = async () => {
@@ -48,6 +42,31 @@ export default function AnalysisPage() {
         setIsSaved(false);
         setPrediction(null);
     }, [selectedGame]);
+
+    useEffect(() => {
+        const stored = sessionStorage.getItem('analysisState');
+        if (stored && games.length > 0) {
+            try {
+                const parsed = JSON.parse(stored);
+                const game = games.find((g) => g.id === parsed.gameId);
+                if (game) setSelectedGame(game);
+                if (parsed.userTeam) setUserTeam(parsed.userTeam);
+                if (parsed.market) setMarket(parsed.market);
+                if (parsed.prediction) setPrediction(parsed.prediction);
+
+                sessionStorage.removeItem('analysisState');
+                router.replace('/analysis');
+            } catch (err) {
+                console.error('Invalid state param:', err);
+            }
+        }
+    }, [games, router]);
+
+    useEffect(() => {
+        if (prediction) {
+            document.getElementById('prediction-card')?.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [prediction]);
 
 
     const handleAnalyze = async () => {
@@ -72,7 +91,6 @@ export default function AnalysisPage() {
             });
 
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-
             const result = await res.json();
             setPrediction(result);
         } catch (error) {
@@ -86,6 +104,25 @@ export default function AnalysisPage() {
             alert('No prediction available to save.');
             return;
         }
+
+        if (status === 'unauthenticated') {
+            if (!prediction) {
+                alert('Prediction is missing.');
+                return;
+            }
+
+            const state = {
+                gameId: selectedGame.id,
+                userTeam,
+                market,
+                prediction,
+            };
+
+            sessionStorage.setItem('analysisState', JSON.stringify(state));
+            signIn('google', { callbackUrl: '/analysis' });
+            return;
+        }
+
 
         const savePayload = {
             gameEvent: {
@@ -211,26 +248,13 @@ export default function AnalysisPage() {
                 )}
 
                 {prediction && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className="bg-green-100 text-green-900 p-6 rounded-2xl shadow-lg overflow-auto space-y-4"
-                    >
-                        <h3 className="text-xl font-bold">Prediction Result</h3>
-                        <pre className="whitespace-pre-wrap text-sm">
-                            {JSON.stringify(prediction, null, 2)}
-                        </pre>
-                        <button
-                            onClick={saveAnalyze}
-                            disabled={isSaved}
-                            className={`w-full ${isSaved ? 'bg-green-600 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
-                                } text-white font-semibold py-3 rounded-lg transition`}
-                        >
-                            {isSaved ? 'Saved' : 'Save Bet Analysis'}
-                        </button>
-
-                    </motion.div>
+                    <div id='prediction-card'>
+                        <PrettyPredictionCard
+                            prediction={prediction as PrettyPrediction}
+                            isSaved={isSaved}
+                            onSave={saveAnalyze}
+                        />
+                    </div>
                 )}
             </div>
 

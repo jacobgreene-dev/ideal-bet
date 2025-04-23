@@ -1,4 +1,4 @@
-// app/components/GamblingHelpline.tsx
+// @/app/components/GamblingHelpline.tsx
 
 import React from 'react';
 import { Anek_Latin } from 'next/font/google';

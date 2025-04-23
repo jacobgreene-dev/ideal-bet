@@ -1,4 +1,5 @@
-// app/components/DisplayArticles.tsx
+// @/app/components/DisplayArticles.tsx
+
 import React from 'react';
 import Article from './Articles';
 

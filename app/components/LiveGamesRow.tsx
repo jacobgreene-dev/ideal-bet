@@ -1,7 +1,8 @@
+// @/app/components/LiveGamesRow.tsx
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import TeamCDNLogo from './TeamCDNLogo';
+import { TeamCDNLogo } from '@/app/components/TeamCDNLogo';
 import { GameEvent } from '@/lib/types/apiTypes';
 
 export default function LiveGamesRow() {
@@ -65,7 +66,7 @@ export default function LiveGamesRow() {
 function TeamCard({ teamName }: { teamName: string }) {
     return (
         <div className="flex flex-col items-center w-[70px] text-center">
-            <TeamCDNLogo teamName={teamName} size={60} />
+            <TeamCDNLogo teamName={teamName} size={80} />
             <p className="text-white text-xs mt-2 break-words">{teamName}</p>
         </div>
     );

@@ -1,16 +1,10 @@
+// @/app/components/SavedBetCard.tsx
 'use client';
 
-
 import { ExclamationDiamondFill } from 'react-bootstrap-icons';
-import  TeamCDNLogo  from '@/app/components/TeamCDNLogo'
+import { TeamCDNLogo } from '@/app/components/TeamCDNLogo'
+import { BetCardProps } from '@/lib/types/frontEndTypes';
 
-import { SavedBet } from '@/lib/types/apiTypes'
-
-
-interface BetCardProps {
-  bet: SavedBet;
-  index: number;
-}
 
 export default function BetCard({ bet, index }: BetCardProps) {
   const { home, away } = bet.gameEvent.teams;
