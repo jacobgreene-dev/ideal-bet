@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
+import { useRouter } from 'next/navigation';
 
 import { VscVscode, } from "react-icons/vsc";
 import { SiNextdotjs, } from "react-icons/si";
@@ -19,32 +20,32 @@ const teamMembers = [
   {
     name: 'Jacob Greene',
     role: 'Fullstack Developer',
-    image: '/team/jacob.jpg',
+    image: '/team/Jacob.jpg',
     github: 'https://github.com/jacobgreene-dev',
   },
   {
-    name: 'Caleb',
+    name: 'Caleb Youngdahl',
     role: 'Data Analyst & ML engineer',
-    image: '/team/placeholder.jpg',
-    github: '#',
+    image: '/team/caleb.jpg',
+    github: 'https://www.linkedin.com/in/caleb-youngdahl',
   },
   {
-    name: 'Jassy',
-    role: 'UI/UX Designer',
-    image: '/team/jassy.jpg',
-    github: 'https://github.com/Jassy24',
-  },
-  {
-    name: 'George',
-    role: 'Project Manager',
-    image: '/team/george.jpg',
+    name: 'Samuel George',
+    role: 'Project Manager & Co-Developer',
+    image: '/team/Samuel.jpg',
     github: 'https://github.com/SvGEO290',
   },
   {
-    name: 'Hassan',
-    role: ' ',
-    image: '/team/placeholder.jpg',
-    github: '#',
+    name: 'Jasani Smallwood',
+    role: 'UI/UX Designer',
+    image: '/team/Jasani.jpg',
+    github: 'https://github.com/Jassy24',
+  },
+  {
+    name: 'Hassan Hashim',
+    role: 'Documentation',
+    image: '/team/Hasan.jpg',
+    github: 'https://www.linkedin.com/in/hasanhashim',
   },
 ];
 
@@ -135,24 +136,34 @@ const featureSections = [
   {
     title: 'Smart Probability Calculator',
     description: 'Our advanced algorithm combines multiple data points to calculate the most accurate probabilities for game outcomes. Watch how our system analyzes real-time data to provide you with the best betting insights.',
-    videoSrc: '/videos/probability-calculator.mp4',
+    videoSrc: '/video/Bet_Recording.mp4',
     align: 'left',
   },
   {
-    title: 'Live Game Analysis',
-    description: 'Experience real-time game analysis with our live tracking system. See how we process live game data, player statistics, and environmental factors to give you an edge in live betting.',
-    videoSrc: '/videos/live-analysis.mp4',
+    title: 'Team & Player Analysis',
+    description: "Get detailed insights into the teams and players you're betting on. Access up-to-date rosters, player statistics, and team performance data to make informed betting decisions.",
+    videoSrc: '/video/Team_Recording.mp4',
     align: 'right',
   },
   {
-    title: 'Custom Dashboard',
-    description: 'Personalize your betting experience with our customizable dashboard. Monitor your betting history all in one place.',
+    title: 'Fantasy Betting',
+    description: 'Even if you don\'t know the ins and outs of sports betting, you can still make money with our fantasy betting feature. Letting you make bets on imaginery scenarios and more.',
     videoSrc: '/videos/dashboard.mp4',
     align: 'left',
   },
 ];
 
 export default function ContactPage() {
+  const router = useRouter();
+
+  const handleLearnMore = (section: string) => {
+    if (section === 'Smart Probability Calculator') {
+      router.push('/information');
+    } else if (section === 'Team & Player Analysis') {
+      router.push('/teams');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
       <Header />
@@ -211,27 +222,32 @@ export default function ContactPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className={`flex flex-col ${section.align === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-12`}>
               <div className="w-full md:w-1/2">
-                <h2 className="text-3xl font-bold mb-6">{section.title}</h2>
-                <p className="text-gray-300 text-lg mb-8">{section.description}</p>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold py-2 px-6 rounded-md hover:opacity-90 transition-opacity"
-                >
-                  Learn More
-                </motion.button>
-              </div>
-              <div className="w-full md:w-1/2">
-                <div className="relative aspect-video rounded-lg overflow-hidden shadow-xl">
+                <div className="relative w-full h-[400px] rounded-xl overflow-hidden shadow-2xl bg-gray-800">
                   <video
-                    className="w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-contain"
                     controls
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
                     poster={`/thumbnails/${(section.videoSrc.split('/').pop() || 'default.jpg').replace('.mp4', '.jpg')}`}
                   >
                     <source src={section.videoSrc} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                 </div>
+              </div>
+              <div className="w-full md:w-1/2">
+                <h2 className="text-3xl font-bold mb-6">{section.title}</h2>
+                <p className="text-gray-300 text-lg mb-8">{section.description}</p>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleLearnMore(section.title)}
+                  className="bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold py-2 px-6 rounded-md hover:opacity-90 transition-opacity"
+                >
+                  Learn More
+                </motion.button>
               </div>
             </div>
           </div>
