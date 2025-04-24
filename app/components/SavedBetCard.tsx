@@ -30,33 +30,33 @@ export default function BetCard({ bet, index }: BetCardProps) {
   return (
     <div
       key={index}
-      className="bg-gray-800 p-5 rounded-2xl shadow-lg border border-gray-700 flex flex-col space-y-4"
-    >
+      className="bg-gray-800 p-5 rounded-2xl shadow-lg border border-gray-700 flex flex-col space-y-4">
       <div className="text-center">
         <p className="text-lg font-semibold capitalize text-white">{bet.gameEvent.bet_type}</p>
         <p className="text-sm text-gray-400">Model Confidence</p>
         <p className="text-green-400 font-semibold text-xl">{modelProb}%</p>
       </div>
 
-      <div className="flex items-center justify-between bg-gray-900 rounded-xl px-4 py-3">
-        <div className="flex items-center gap-3">
-          {home && <TeamCDNLogo teamName={home} />}
+      <div className="flex items-center bg-gray-900 rounded-xl px-4 py-3 gap-3 text-center">
+        <div className="flex items-center sm:gap-3 line-clamp-2 ">
+            {home && <TeamCDNLogo teamName={home}  />}
           <div className="flex flex-col">
-            <span className="text-sm text-white font-medium">{home}</span>
+            <span className="text-sm text-white font-medium ">{home}</span>
             <span className="text-xs text-gray-400">Home</span>
           </div>
         </div>
 
-        <span className="text-sm text-white font-semibold">vs</span>
+        <span className="px-1 text-sm text-white font-semibold">vs</span>
 
-        <div className="flex items-center gap-3">
-          <div className="flex flex-col items-end">
-            <span className="text-sm text-white font-medium">{away}</span>
+        <div className="flex items-center sm:gap-3 line-clamp-2">
+          <div className="flex flex-col">
+            <span className="text-sm text-white font-medium line-clamp-2">{away}</span>
             <span className="text-xs text-gray-400">Away</span>
           </div>
-          {away && <TeamCDNLogo teamName={away} />}
+            {away && <TeamCDNLogo teamName={away} />}
         </div>
       </div>
+
 
       <p className="text-sm text-gray-300">
         Your pick: <span className="text-white font-semibold">{pickedTeam}</span>
