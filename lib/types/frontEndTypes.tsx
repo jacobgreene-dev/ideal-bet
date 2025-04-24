@@ -1,4 +1,5 @@
-import { SavedBet } from "./apiTypes";
+import { SavedBet } from "@/lib/types/apiTypes";
+import { GameEvent } from "@/lib/types/apiTypes"
 
 export interface PrettyPredictionProps {
     prediction: {
@@ -30,4 +31,20 @@ export interface PlayerHeadshotProps {
 export interface BetCardProps {
     bet: SavedBet;
     index: number;
+}
+
+export type Step = 'game' | 'bookmaker' | 'market' | 'pick';
+
+export interface BetBuilderFormProps {
+  selectedGame: GameEvent;
+  bookmaker: string;
+  market: string;
+  userTeam: string;
+  step: Step;
+  setBookmaker: (b: string) => void;
+  setMarket: (m: string) => void;
+  setUserTeam: (t: string) => void;
+  setStep: (s: Step) => void;
+  onAnalyze: () => void;
+  ready: boolean;
 }

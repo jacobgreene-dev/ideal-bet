@@ -1,52 +1,62 @@
+// @/app/analysis/page.tsx
 'use client';
 
 import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import { PrettyPredictionCard } from '@/app/components/PrettyPredictionDisplay';
+import { BetBuilderForm } from '../components/BetBuilderForm';
 import { fullNameToAbbreviation } from '@/lib/utils/teamNameMap';
 import { GameEvent } from '@/lib/types/apiTypes';
 import { PredictionResult, PrettyPredictionProps } from '@/lib/types/frontEndTypes';
 
+// Type aliases for props
 type PrettyPrediction = PrettyPredictionProps['prediction'];
 type Step = 'game' | 'bookmaker' | 'market' | 'pick';
 
-/* ──────────────────────────  Step progress bar  ────────────────────────── */
+// Animated progress indicator
 function StepIndicator({ step }: { step: Step }) {
     const order: Step[] = ['game', 'bookmaker', 'market', 'pick'];
     return (
         <ol className="flex justify-center gap-4 mb-8">
-            {order.map((s, i) => (
-                <li key={s} className="flex items-center gap-1">
-                    <div
-                        className={`w-4 h-4 rounded-full ${
-                            order.indexOf(step) >= i ? 'bg-blue-500' : 'bg-gray-600'
-                        }`}
-                    />
-                    <span className="capitalize text-sm hidden sm:inline">{s}</span>
-                </li>
-            ))}
+            {order.map((s, i) => {
+                const isActive = step === s;
+                const isCompleted = order.indexOf(step) > i;
+                return (
+                    <li key={s} className="flex items-center gap-2">
+                        <motion.div
+                            initial={false}
+                            animate={{
+                                scale: isActive ? 1.4 : 1,
+                                backgroundColor: isCompleted || isActive ? '#3B82F6' : '#4B5563',
+                                boxShadow: isActive ? '0 0 8px rgba(59,130,246,0.6)' : 'none',
+                            }}
+                            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                            className="w-4 h-4 rounded-full"
+                        />
+                        <span className="capitalize text-sm hidden sm:inline">{s}</span>
+                    </li>
+                );
+            })}
         </ol>
     );
 }
+
+// Common layout wrapper for card sections
 function CardShell({ children }: { children: React.ReactNode }) {
-    return (
-        <div className="w-full max-w-xl mx-auto">      {/* 36 rem wide instead of 32 rem */}
-            {children}
-        </div>
-    );
+    return <div className="w-full max-w-xl mx-auto">{children}</div>;
 }
 
-/* ──────────────────────────  Game card with odds  ───────────────────────── */
+// Card component representing a single NBA game
 function GameCard({
-                      game,
-                      selected,
-                      onSelect,
-                  }: {
+    game,
+    selected,
+    onSelect,
+}: {
     game: GameEvent;
     selected: boolean;
     onSelect: (g: GameEvent) => void;
@@ -56,11 +66,10 @@ function GameCard({
         <motion.div
             whileHover={{ scale: 1.03 }}
             onClick={() => onSelect(game)}
-            className={`relative cursor-pointer p-5 rounded-2xl transition shadow-lg border-2 ${
-                selected
-                    ? 'bg-white text-gray-900 border-blue-500'
-                    : 'bg-gray-800 text-white border-gray-700 hover:bg-gray-700'
-            }`}
+            className={`relative cursor-pointer p-5 rounded-2xl transition shadow-lg border-2 ${selected
+                ? 'bg-white text-gray-900 border-blue-500'
+                : 'bg-gray-800 text-white border-gray-700 hover:bg-gray-700'
+                }`}
         >
             <h3 className="text-xl font-semibold mb-1">
                 {game.home_team} vs. {game.away_team}
@@ -77,8 +86,6 @@ function GameCard({
                     day: 'numeric',
                 })}
             </p>
-
-            {/* Hover overlay with odds */}
             <div className="absolute inset-0 bg-black/80 opacity-0 hover:opacity-100 transition-opacity rounded-2xl flex flex-col items-center justify-center gap-1 text-sm">
                 <p>ML&nbsp;{fmt(game.moneyline_home)} / {fmt(game.moneyline_away)}</p>
                 <p>Spread&nbsp;{fmt(game.spread_point)}</p>
@@ -88,20 +95,6 @@ function GameCard({
     );
 }
 
-/* ──────────────────────────  Pulsing placeholder  ───────────────────────── */
-function PredictionSkeleton() {
-    return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.15 }}
-            transition={{ duration: 0.8, repeat: Infinity, repeatType: 'reverse' }}
-            className="bg-gray-900 text-white p-6 rounded-2xl shadow-xl
-           w-full max-w-lg mx-auto space-y-6"
-        />
-    );
-}
-
-/* ──────────────────────────  Main page  ─────────────────────────────────── */
 export default function AnalysisPage() {
     const { status } = useSession();
     const router = useRouter();
@@ -112,11 +105,10 @@ export default function AnalysisPage() {
     const [market, setMarket] = useState('');
     const [userTeam, setUserTeam] = useState('');
     const [step, setStep] = useState<Step>('game');
-
     const [prediction, setPrediction] = useState<PredictionResult | null>(null);
     const [isSaved, setIsSaved] = useState(false);
 
-    /* --- fetch games with odds --- */
+    // Fetch game data on mount
     useEffect(() => {
         const fetchGames = async () => {
             try {
@@ -130,13 +122,13 @@ export default function AnalysisPage() {
         fetchGames();
     }, []);
 
-    /* reset prediction when game changes */
+    // Reset prediction and saved state on game change
     useEffect(() => {
         setPrediction(null);
         setIsSaved(false);
     }, [selectedGame]);
 
-    /* restore state after login */
+    // Restore form state after login redirect
     useEffect(() => {
         const stored = sessionStorage.getItem('analysisState');
         if (stored && games.length) {
@@ -151,22 +143,16 @@ export default function AnalysisPage() {
                 setStep(s.step ?? 'pick');
                 sessionStorage.removeItem('analysisState');
                 router.replace('/analysis');
-            } catch {}
+            } catch { }
         }
     }, [games, router]);
 
-    /* scroll to card once ready */
-    useEffect(() => {
-        if (prediction) {
-            document.getElementById('prediction-card')?.scrollIntoView({ behavior: 'smooth' });
-        }
-    }, [prediction]);
+    const ready = !!(selectedGame && bookmaker && market && userTeam);
 
-    const ready = !!selectedGame && bookmaker && market && userTeam;
-
-    /* --- handlers --- */
+    // Submit for prediction from API
     const handleAnalyze = async () => {
         if (!ready || !selectedGame) return;
+
         const payload = {
             home_team: fullNameToAbbreviation[selectedGame.home_team] ?? selectedGame.home_team,
             away_team: fullNameToAbbreviation[selectedGame.away_team] ?? selectedGame.away_team,
@@ -175,6 +161,7 @@ export default function AnalysisPage() {
             event_id: selectedGame.id,
             bookmaker,
         };
+
         try {
             const res = await fetch('/api/onRender', {
                 method: 'POST',
@@ -183,22 +170,26 @@ export default function AnalysisPage() {
             });
             if (!res.ok) throw new Error(await res.text());
             setPrediction(await res.json());
+            setIsSaved(false);
         } catch (err) {
             console.error(err);
             alert('Failed to analyze bet.');
         }
     };
 
+    // Save the prediction to user account
     const saveAnalyze = async () => {
         if (!prediction || !selectedGame) return;
+
         if (status === 'unauthenticated') {
             sessionStorage.setItem(
                 'analysisState',
-                JSON.stringify({ gameId: selectedGame.id, bookmaker, market, userTeam, prediction, step }),
+                JSON.stringify({ gameId: selectedGame.id, bookmaker, market, userTeam, prediction, step })
             );
             signIn('google', { callbackUrl: '/analysis' });
             return;
         }
+
         try {
             const res = await fetch('/api/userBets', {
                 method: 'POST',
@@ -220,12 +211,11 @@ export default function AnalysisPage() {
         }
     };
 
-    /* --- render --- */
     return (
         <div className="flex flex-col min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white pt-3">
             <Header />
 
-            {/* hero */}
+            {/* Hero */}
             <motion.section
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -237,153 +227,72 @@ export default function AnalysisPage() {
                     Pick a game, choose a bookmaker &amp; market, then see what the model thinks.
                 </h2>
             </motion.section>
-        <main className="flex flex-col flex-1 min-h-0">
-            <StepIndicator step={step} />
 
-            {/* game grid */}
-            <div id="games-grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-8">
-                {games.map((g) => (
-                    <GameCard
-                        key={g.id}
-                        game={g}
-                        selected={selectedGame?.id === g.id}
-                        onSelect={(game) => {
-                            setSelectedGame(game);
-                            setBookmaker('');
-                            setMarket('');
-                            setUserTeam('');
-                            setStep('bookmaker');
-                        }}
-                    />
-                ))}
-            </div>
-
-            {/* side-by-side wizard + prediction */}
-            {selectedGame && (
-                <div className="grid md:grid-cols-2 gap-8 justify-center px-4 sm:px-8 pt-10 pb-20">
-                    {/* wizard column */}
-                    {/* ───────────── BET BUILDER CARD ───────────── */}
-                    <CardShell>
-                    <div className="bg-gray-900 text-white p-6 rounded-2xl shadow-xl
-           w-full mx-auto space-y-6">
-                        <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
-                            🛠️ Build Your Bet
-                        </h3>
-
-                        {/* Bookmaker picker – segmented buttons */}
-                        <div>
-                            <p className="text-xs text-gray-400 mb-1">Bookmaker</p>
-                            <div className="flex flex-wrap gap-2">
-                                {selectedGame.bookmakers?.map((bk) => (
-                                    <button
-                                        key={bk}
-                                        onClick={() => {
-                                            setBookmaker(bk);
-                                            setMarket('');
-                                            setUserTeam('');
-                                            setStep('market');
-                                        }}
-                                        className={`px-3 py-1.5 rounded-full text-sm border
-            ${
-                                            bookmaker === bk
-                                                ? 'bg-blue-600 border-blue-500'
-                                                : 'bg-gray-800 border-gray-700 hover:bg-gray-700'
-                                        }`}
-                                    >
-                                        {bk.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Market picker – segmented buttons */}
-                        {step !== 'game' && (
-                            <div>
-                                <p className="text-xs text-gray-400 mb-1">Market</p>
-                                <div className="flex gap-2">
-                                    {['moneyline', 'spread', 'overunder'].map((m) => (
-                                        <button
-                                            key={m}
-                                            onClick={() => {
-                                                setMarket(m);
-                                                setUserTeam('');
-                                                setStep('pick');
-                                            }}
-                                            className={`px-3 py-1.5 rounded-full text-sm border capitalize
-              ${
-                                                market === m
-                                                    ? 'bg-blue-600 border-blue-500'
-                                                    : 'bg-gray-800 border-gray-700 hover:bg-gray-700'
-                                            }`}
-                                        >
-                                            {m === 'overunder' ? 'Over / Under' : m}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Pick selector – segmented buttons */}
-                        {step === 'pick' && (
-                            <div>
-                                <p className="text-xs text-gray-400 mb-1">
-                                    {market === 'overunder' ? 'Direction' : 'Team'}
-                                </p>
-                                <div className="flex gap-2">
-                                    {(market === 'overunder'
-                                            ? ['over', 'under']
-                                            : ['home', 'away']
-                                    ).map((opt) => (
-                                        <button
-                                            key={opt}
-                                            onClick={() => setUserTeam(opt)}
-                                            className={`px-4 py-1.5 rounded-full text-sm border capitalize
-              ${
-                                                userTeam === opt
-                                                    ? 'bg-blue-600 border-blue-500'
-                                                    : 'bg-gray-800 border-gray-700 hover:bg-gray-700'
-                                            }`}
-                                        >
-                                            {opt}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Analyze button */}
-                        <button
-                            disabled={!ready}
-                            onClick={handleAnalyze}
-                            className={`w-full py-3 rounded-lg font-semibold transition
-      ${ready ? 'bg-green-600 hover:bg-green-700' : 'bg-gray-600 cursor-not-allowed'}`}
-                        >
-                            Analyze Bet
-                        </button>
-                    </div>
-                    </CardShell>
-
-                    {/* prediction column */}
-                    <CardShell>
-                    <div className="flex-1 h-full flex min-w-0">
-                        {prediction ? (
-                            <div id="prediction-card">
-                                <PrettyPredictionCard
-                                    prediction={prediction as PrettyPrediction}
-                                    isSaved={isSaved}
-                                    onSave={saveAnalyze}
-                                />
-                            </div>
-                        ) : (
-                            <PredictionSkeleton />
-                        )}
-                    </div>
-                    </CardShell>
+            <main className="flex flex-col flex-1 min-h-0">
+                <div id="games-grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-8">
+                    {games.map((g) => (
+                        <GameCard
+                            key={g.id}
+                            game={g}
+                            selected={selectedGame?.id === g.id}
+                            onSelect={(game) => {
+                                setSelectedGame(game);
+                                setBookmaker('');
+                                setMarket('');
+                                setUserTeam('');
+                                setStep('bookmaker');
+                            }}
+                        />
+                    ))}
                 </div>
-            )}
-        </main>
+
+                <div className="pt-8">
+                    <StepIndicator step={step} />
+                </div>
+
+                {selectedGame && (
+                    <div className="max-w-7xl mx-auto w-full px-2 sm:px-4 lg:px-0 md:grid md:grid-cols-[1fr_1.65fr] min-h-[520px] gap-4 items-stretch pt-8 pb-12">
+                        <BetBuilderForm
+                            selectedGame={selectedGame}
+                            bookmaker={bookmaker}
+                            market={market}
+                            userTeam={userTeam}
+                            step={step}
+                            setBookmaker={setBookmaker}
+                            setMarket={setMarket}
+                            setUserTeam={setUserTeam}
+                            setStep={setStep}
+                            onAnalyze={handleAnalyze}
+                            ready={ready}
+                        />
+
+                        <div className="w-full h-full flex flex-col">
+                            <AnimatePresence mode="wait">
+                                {prediction ? (
+                                    <motion.div
+                                        key={prediction?.event_id ? String(prediction.event_id) : 'prediction'}
+                                        id="prediction-card"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -20 }}
+                                        transition={{ duration: 0.5 }}
+                                        className="w-full h-full"
+                                    >
+                                        <PrettyPredictionCard
+                                            prediction={prediction as PrettyPrediction}
+                                            isSaved={!!isSaved} // Ensure isSaved is a boolean
+                                            onSave={saveAnalyze}
+                                            reversed
+                                        />
+                                    </motion.div>
+                                ) : null}
+                            </AnimatePresence>
+                        </div>
+                    </div>
+                )}
+            </main>
+
             <Footer />
         </div>
     );
 }
-

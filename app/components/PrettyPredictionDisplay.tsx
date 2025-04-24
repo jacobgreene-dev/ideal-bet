@@ -10,7 +10,7 @@ const abbreviationToFullName: Record<string, string> = Object.fromEntries(
     Object.entries(fullNameToAbbreviation).map(([full, abbr]) => [abbr, full])
 );
 
-export function PrettyPredictionCard({ prediction, isSaved, onSave }: PrettyPredictionProps) {
+export function PrettyPredictionCard({ prediction, isSaved, onSave, reversed = false }: PrettyPredictionProps & { reversed?: boolean }) {
     /* ----- look & feel helpers ----- */
     const confidenceColor = {
         High: 'text-green-400',
@@ -19,10 +19,10 @@ export function PrettyPredictionCard({ prediction, isSaved, onSave }: PrettyPred
     }[prediction.confidence_level] ?? 'text-gray-400';
 
     const pickedAbbr = prediction.user_team === 'home' ? prediction.teams.home : prediction.teams.away;
-    const oppAbbr    = prediction.user_team === 'home' ? prediction.teams.away : prediction.teams.home;
+    const oppAbbr = prediction.user_team === 'home' ? prediction.teams.away : prediction.teams.home;
 
     const pickedName = abbreviationToFullName[pickedAbbr] ?? pickedAbbr;
-    const oppName    = abbreviationToFullName[oppAbbr]    ?? oppAbbr;
+    const oppName = abbreviationToFullName[oppAbbr] ?? oppAbbr;
 
     const isPass = prediction.model_recommendation?.toLowerCase() === 'pass';
 
@@ -30,11 +30,11 @@ export function PrettyPredictionCard({ prediction, isSaved, onSave }: PrettyPred
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            /* ⚠️  remove width cap so it can breathe  */
-            className="bg-gray-900 text-white p-6 rounded-2xl shadow-xl
-           w-full h-full space-y-6"
+            className="bg-gray-900 w-full h-full min-h-[520px] text-white p-6 rounded-2xl shadow-xl flex flex-col justify-between gap-6 "
         >
+
             {/* ── header row ───────────────────────────────────────────────────── */}
             <div className="flex flex-wrap justify-between items-center gap-y-2">
                 <h3 className="text-xl font-semibold">Bet Analysis</h3>
@@ -51,7 +51,7 @@ export function PrettyPredictionCard({ prediction, isSaved, onSave }: PrettyPred
                     <p className="font-semibold text-indigo-300 truncate">{pickedName}</p>
                 </div>
                 <span className="text-xs text-gray-400">vs</span>
-                <div className="flex items-center gap-3 min-w-[40%]">
+                <div className={`flex items-center gap-3 min-w-[40%] ${reversed ? 'flex-row-reverse' : ''}`}>
                     <TeamCDNLogo teamName={oppName} size={52} />
                     <p className="font-medium text-gray-300 truncate">{oppName}</p>
                 </div>
@@ -104,8 +104,7 @@ export function PrettyPredictionCard({ prediction, isSaved, onSave }: PrettyPred
             <button
                 onClick={onSave}
                 disabled={isSaved}
-                className={`w-full py-2.5 rounded-lg font-semibold transition
-          ${isSaved ? 'bg-green-600 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+                className={`w-full py-3 rounded-lg font-semibold transition ${isSaved ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-700 hover:bg-blue-800'}`}
             >
                 {isSaved ? 'Saved' : 'Save Bet Analysis'}
             </button>
