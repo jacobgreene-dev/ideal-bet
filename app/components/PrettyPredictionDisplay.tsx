@@ -72,7 +72,7 @@ export function PrettyPredictionCard({ prediction, isSaved, onSave }: PrettyPred
                 <div className="bg-gray-800 p-4 rounded-xl">
                     <h4 className="text-sm text-gray-400 flex items-center gap-1">
                         Confidence&nbsp;
-                        <Tooltip content="How certain the model is that your pick is correct.">
+                        <Tooltip content="Reflection of how confident the model is in its calculations vs. random chance">
                             <span className="cursor-help text-cyan-400">ⓘ</span>
                         </Tooltip>
                     </h4>
