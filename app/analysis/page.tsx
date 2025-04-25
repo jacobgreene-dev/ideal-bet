@@ -56,7 +56,7 @@ function GameCard({
     selected: boolean;
     onSelect: (g: GameEvent) => void;
 }) {
-    const fmt = (n: number | null | undefined) => (n ?? '–');
+    const fmt = (n: number | null | undefined) => (n ?? '–'); // chad wrote this, google it you nerd
     return (
         <motion.div
             whileHover={{ scale: 1.03 }}

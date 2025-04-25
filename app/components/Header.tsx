@@ -57,6 +57,9 @@ export default function Header() {
           <Link href="/" className="flex items-center" />
           <p className="sr-only">Betting Analysis</p>
           <Link href='/'>
+
+            {/* Replace with up-to-date logo */}
+            
             <Image
               width={40}
               height={40}
@@ -65,7 +68,6 @@ export default function Header() {
               unoptimized
               alt="Ideal Strategies Logo"
               className="h-11 max-h-12 w-auto"
-
             />
           </Link>
         </div>
