@@ -61,7 +61,7 @@ export default function MyBetsPage() {
                             🧠
                         </motion.div>
                         <h2 className="text-2xl sm:text-3xl font-semibold text-white mb-2">
-                            You're One Step Away From Brilliance
+                            You&apos;re One Step Away From Brilliance
                         </h2>
                         <p className="text-gray-300 mb-6 max-w-md">
                             Save your smartest bets here and watch your strategy evolve. Start predicting outcomes and let the data guide you.

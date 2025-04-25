@@ -46,11 +46,6 @@ function StepIndicator({ step }: { step: Step }) {
     );
 }
 
-// Common layout wrapper for card sections
-function CardShell({ children }: { children: React.ReactNode }) {
-    return <div className="w-full max-w-xl mx-auto">{children}</div>;
-}
-
 // Card component representing a single NBA game
 function GameCard({
     game,

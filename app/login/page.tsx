@@ -3,21 +3,21 @@
 import { useEffect } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation'
+
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 
-
 export default function SignIn() {
-  const { data: session, status } = useSession();
+  const { status: SessionStatus } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    if (status === 'authenticated') {
+    if (SessionStatus === 'authenticated') {
       router.push('/');
     }
-  }, [status, router]);
+  }, [SessionStatus, router]);
 
-  if (status === 'loading') {
+  if (SessionStatus === 'loading') {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 text-white">
         <div className="flex flex-col items-center space-y-6">
