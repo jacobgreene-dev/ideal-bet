@@ -65,6 +65,12 @@ export interface GameEvent {
     commence_time: string; // ISO string format
     home_team: string;
     away_team: string;
+    /* — new, odds-related fields — */
+    bookmakers?: string[];          // list of shop keys for the event
+    moneyline_home?: number | null; // e.g. -120
+    moneyline_away?: number | null; // e.g. +100
+    spread_point?: number | null;   // first bookmaker’s home spread line
+    outcome_point_Over?: number | null; // totals line (Over)
 }
 
 export interface PredictionPayload {

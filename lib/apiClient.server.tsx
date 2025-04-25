@@ -64,18 +64,64 @@ export async function getPlayers(team?: string, season = '2024-2025', search?: s
 }
 
 /**
- * Fetches scheduled NBA games using the Odds API.
- *
- * @returns Array of scheduled game events
+ * Fetches scheduled NBA games **with odds** and normalises the payload.
+ * Returns one object per event with the first bookmaker’s numbers + a list of all shops.
  */
 export async function getOddsScheduledGames(): Promise<GameEvent[]> {
-  const url = new URL(`${ODDS_BASE_URL}/sports/basketball_nba/events`);
-  url.searchParams.set('apiKey', ODDS_API_KEY || '');
+  const url = new URL(`${ODDS_BASE_URL}/sports/basketball_nba/odds`);
+  url.searchParams.set('apiKey', ODDS_API_KEY ?? '');
+  url.searchParams.set('regions', 'us');
+  url.searchParams.set('markets', 'h2h,spreads,totals');
+  // You can add `dateFormat=iso` or `bookmakers=draftkings,fanduel` if you want.
 
   const res = await fetch(url.toString());
   if (!res.ok) throw new Error(`Odds API request failed: ${res.statusText}`);
-  return await res.json();
+
+  type OddsEvent = {
+    id: string;
+    home_team: string;
+    away_team: string;
+    commence_time: string;
+    bookmakers: {
+      key: string;
+      markets: {
+        key: 'h2h' | 'spreads' | 'totals';
+        outcomes: { name: string; price: number; point?: number }[];
+      }[];
+    }[];
+  };
+
+  const oddsEvents: OddsEvent[] = await res.json();
+
+  return oddsEvents.map((evt) => {
+    /* grab first bookmaker’s numbers for quick display */
+    const firstBook = evt.bookmakers[0];
+
+    // utilities to pull numbers quickly
+    const getOutcome = (marketKey: string, team: string | 'over' | 'under') => {
+      const mkt = firstBook.markets.find((m) => m.key === marketKey);
+      return mkt?.outcomes.find((o) => o.name.toLowerCase() === team.toLowerCase());
+    };
+
+    const h2hHome = getOutcome('h2h', evt.home_team);
+    const h2hAway = getOutcome('h2h', evt.away_team);
+    const spreadHome = getOutcome('spreads', evt.home_team);
+    const totalsOver = getOutcome('totals', 'over');
+
+    return {
+      id: evt.id,
+      home_team: evt.home_team,
+      away_team: evt.away_team,
+      commence_time: evt.commence_time,
+      bookmakers: evt.bookmakers.map((b) => b.key), // dynamic list
+      moneyline_home: h2hHome?.price ?? null,
+      moneyline_away: h2hAway?.price ?? null,
+      spread_point: spreadHome?.point ?? null,
+      outcome_point_Over: totalsOver?.point ?? null,
+    } as GameEvent;
+  });
 }
+
 
 /**
  * 

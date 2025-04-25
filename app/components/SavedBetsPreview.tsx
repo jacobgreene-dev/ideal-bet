@@ -1,13 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { Bet } from '@/lib/types/apiTypes';
 
 export default function SavedBetsPreview() {
   const [userBetData, setUserBetData] = useState<Bet | null>(null);
   const router = useRouter();
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-300px' });
 
   useEffect(() => {
     const fetchBets = async () => {
@@ -27,8 +29,9 @@ export default function SavedBetsPreview() {
 
   return (
     <motion.section
+      ref={sectionRef}
       initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6 }}
       className="py-20 px-4 sm:px-8 max-w-6xl mx-auto text-white"
     >
@@ -44,11 +47,13 @@ export default function SavedBetsPreview() {
           {recentBets.length === 0 && (
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.5 }}
               className="mt-8"
             >
-              <p className="text-gray-400 mb-4 text-lg">What are you waiting for! You haven&apos;t saved any bets yet. Get started now and let AI assist your decisions.</p>
+              <p className="text-gray-400 mb-4 text-lg">
+                What are you waiting for! You haven&apos;t saved any bets yet. Get started now and let AI assist your decisions.
+              </p>
               <button
                 onClick={() => router.push('/analysis')}
                 className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 px-6 py-3 rounded-xl text-white font-semibold shadow-md transition"
@@ -70,7 +75,7 @@ export default function SavedBetsPreview() {
                   transition={{ duration: 0.3 }}
                   className="bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 p-6 rounded-3xl shadow-2xl hover:shadow-indigo-500/20 transition-all"
                 >
-                  <a href="/analysis">
+                  <a href="/savedBet">
                     <p className="text-sm text-gray-400 mb-1 tracking-wide uppercase font-semibold">
                       {bet.bet_type} Bet
                     </p>

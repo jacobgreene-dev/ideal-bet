@@ -1,14 +1,19 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+
 import ChatGPTBetAssistant from '@/app/components/ChatGPTBetAssistant';
 
 export default function ChatGPTAssistantWrapper() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-300px' });
   return (
     <motion.section
+      ref={ref}
       initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, ease: 'easeOut' }}
       className="py-[10rem] px-4 sm:px-8 max-w-6xl mx-auto text-white"
     >
       <div className="flex flex-col md:flex-row gap-10 items-start">

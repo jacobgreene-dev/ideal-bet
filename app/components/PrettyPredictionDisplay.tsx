@@ -1,5 +1,4 @@
 // @/app/components/PrettyPredictionDisplay.tsx
-
 import { motion } from 'framer-motion';
 import { AiOutlineCheckCircle, AiOutlineWarning } from 'react-icons/ai';
 import { TeamCDNLogo } from '@/app/components/TeamCDNLogo';
@@ -7,118 +6,105 @@ import { fullNameToAbbreviation } from '@/lib/utils/teamNameMap';
 import { PrettyPredictionProps } from '@/lib/types/frontEndTypes';
 import { Tooltip } from './Tooltip';
 
-
 const abbreviationToFullName: Record<string, string> = Object.fromEntries(
     Object.entries(fullNameToAbbreviation).map(([full, abbr]) => [abbr, full])
 );
 
-export function PrettyPredictionCard({ prediction, isSaved, onSave }: PrettyPredictionProps) {
+export function PrettyPredictionCard({ prediction, isSaved, onSave, reversed = false }: PrettyPredictionProps & { reversed?: boolean }) {
+    /* ----- look & feel helpers ----- */
     const confidenceColor = {
         High: 'text-green-400',
         Moderate: 'text-yellow-400',
         Negligible: 'text-red-400',
-    }[prediction.confidence_level] || 'text-gray-400';
+    }[prediction.confidence_level] ?? 'text-gray-400';
 
-    const pickedTeamAbbr = prediction.user_team === 'home' ? prediction.teams.home : prediction.teams.away;
-    const opposingTeamAbbr = prediction.user_team === 'home' ? prediction.teams.away : prediction.teams.home;
+    const pickedAbbr = prediction.user_team === 'home' ? prediction.teams.home : prediction.teams.away;
+    const oppAbbr = prediction.user_team === 'home' ? prediction.teams.away : prediction.teams.home;
 
-    const pickedTeamName = abbreviationToFullName[pickedTeamAbbr] || pickedTeamAbbr;
-    const opposingTeamName = abbreviationToFullName[opposingTeamAbbr] || opposingTeamAbbr;
+    const pickedName = abbreviationToFullName[pickedAbbr] ?? pickedAbbr;
+    const oppName = abbreviationToFullName[oppAbbr] ?? oppAbbr;
 
     const isPass = prediction.model_recommendation?.toLowerCase() === 'pass';
-
 
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            className="bg-gray-900 text-white p-6 rounded-2xl shadow-xl space-y-6 max-w-xl mx-auto"
+            className="bg-gray-900 w-full h-full min-h-[520px] text-white p-6 rounded-2xl shadow-xl flex flex-col justify-between gap-6 "
         >
-            {/* Header */}
-            <div className="flex justify-between items-center">
-                <h3 className="text-2xl font-bold">Bet Analysis</h3>
-                <div
-                    className={`flex items-center gap-2 ${
-                        isPass ? 'text-red-400' : 'text-green-400'
-                    }`}
-                >
-                    {isPass ? (
-                        <AiOutlineWarning size={20} />
-                    ) : (
-                        <AiOutlineCheckCircle size={20} />
-                    )}
-                    <span className="font-semibold capitalize">{prediction.model_recommendation}</span>
-                </div>
 
-            </div>
-
-            {/* Matchup Display */}
-            <div className="bg-gray-800 rounded-xl p-4 flex justify-between items-center">
-                <div className="flex items-center gap-4">
-                    <TeamCDNLogo teamName={pickedTeamName} size={60} />
-                    <p className="text-lg font-bold text-indigo-300">{pickedTeamName}</p>
-                </div>
-                <span className="text-sm text-gray-400">vs</span>
-                <div className="flex items-center gap-4">
-                    <TeamCDNLogo teamName={opposingTeamName} size={60} />
-                    <p className="text-lg font-semibold text-gray-300">{opposingTeamName}</p>
+            {/* ── header row ───────────────────────────────────────────────────── */}
+            <div className="flex flex-wrap justify-between items-center gap-y-2">
+                <h3 className="text-xl font-semibold">Bet Analysis</h3>
+                <div className={`flex items-center gap-1 ${isPass ? 'text-red-400' : 'text-green-400'}`}>
+                    {isPass ? <AiOutlineWarning size={18} /> : <AiOutlineCheckCircle size={18} />}
+                    <span className="font-medium capitalize">{prediction.model_recommendation}</span>
                 </div>
             </div>
 
-            {/* Info Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
-                {/* CONFIDENCE */}
-                <div className="bg-gray-800 p-4 rounded-xl">
-                    <h4 className="text-sm text-gray-400 flex items-center gap-1">
-                        Confidence&nbsp;
-                        <Tooltip content="Reflection of how confident the model is in its calculations vs. random chance">
-                            <span className="cursor-help text-cyan-400">ⓘ</span>
-                        </Tooltip>
-                    </h4>
-                    <p className={`text-lg font-bold ${confidenceColor}`}>
-                        {prediction.confidence_level ?? 'N/A'}
-                    </p>
+            {/* ── matchup strip ────────────────────────────────────────────────── */}
+            <div className="bg-gray-800 rounded-xl p-4 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3 min-w-[40%]">
+                    <TeamCDNLogo teamName={pickedName} size={52} />
+                    <p className="font-semibold text-indigo-300 truncate">{pickedName}</p>
                 </div>
-
-                {/* MODEL PROBABILITY */}
-                <div className="bg-gray-800 p-4 rounded-xl">
-                    <h4 className="text-sm text-gray-400 flex items-center gap-1">
-                        Model Probability&nbsp;
-                        <Tooltip content="Model-estimated chance (in % terms) that your pick wins.">
-                            <span className="cursor-help text-cyan-400">ⓘ</span>
-                        </Tooltip>
-                    </h4>
-                    <p className="text-lg font-bold text-blue-400">
-                        {prediction.model_prob ? (prediction.model_prob * 100).toFixed(1) + '%' : 'N/A'}
-                    </p>
-                </div>
-
-                {/* VALUE EDGE — already had a tooltip, kept for completeness */}
-                <div className="bg-gray-800 p-4 rounded-xl">
-                    <h4 className="text-sm text-gray-400 flex items-center gap-1">
-                        Value Edge&nbsp;
-                        <Tooltip content="Model chance minus sportsbook-implied chance. Positive = value.">
-                            <span className="cursor-help text-cyan-400">ⓘ</span>
-                        </Tooltip>
-                    </h4>
-                    <p className="text-lg font-bold text-cyan-400">
-                        {typeof prediction.value_edge === 'number'
-                            ? `${prediction.value_edge.toFixed(1)}%`
-                            : 'N/A'}
-                    </p>
-                </div>
-                <div className="bg-gray-800 p-4 rounded-xl">
-                    <h4 className="text-sm text-gray-400">Your Team</h4>
-                    <p className="text-lg font-bold text-indigo-300">{pickedTeamName}</p>
+                <span className="text-xs text-gray-400">vs</span>
+                <div className={`flex items-center gap-3 min-w-[40%] ${reversed ? 'flex-row-reverse' : ''}`}>
+                    <TeamCDNLogo teamName={oppName} size={52} />
+                    <p className="font-medium text-gray-300 truncate">{oppName}</p>
                 </div>
             </div>
 
-            {/* Save Button */}
+            {/* ── metric bar: 4 items in a single row on ≥ sm screens ─────────── */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {[
+                    {
+                        label: 'Confidence',
+                        value: prediction.confidence_level ?? 'N/A',
+                        color: confidenceColor,
+                        tip: 'How certain the model is relative to random chance',
+                    },
+                    {
+                        label: 'Model Prob',
+                        value: prediction.model_prob ? (prediction.model_prob * 100).toFixed(1) + '%' : 'N/A',
+                        color: 'text-blue-400',
+                        tip: 'Model-estimated chance (%) that your pick wins',
+                    },
+                    {
+                        label: 'Value Edge',
+                        value:
+                            typeof prediction.value_edge === 'number'
+                                ? `${prediction.value_edge.toFixed(1)}%`
+                                : 'N/A',
+                        color: 'text-cyan-400',
+                        tip: 'Model probability minus sportsbook-implied probability',
+                    },
+                    { label: 'Your Pick', value: pickedName, color: 'text-indigo-300', tip: '' },
+                ].map(({ label, value, color, tip }) => (
+                    <div
+                        key={label}
+                        className="bg-gray-800 p-3 rounded-xl flex flex-col items-center justify-center min-h-[70px]"
+                    >
+                        <h4 className="text-xs text-gray-400 flex items-center gap-1">
+                            {label}
+                            {tip && (
+                                <Tooltip content={tip}>
+                                    <span className="cursor-help text-cyan-400">ⓘ</span>
+                                </Tooltip>
+                            )}
+                        </h4>
+                        <p className={`text-lg font-bold ${color}`}>{value}</p>
+                    </div>
+                ))}
+            </div>
+
+            {/* ── save button ──────────────────────────────────────────────────── */}
             <button
                 onClick={onSave}
                 disabled={isSaved}
-                className={`w-full mt-2 ${isSaved ? 'bg-green-600 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'} text-white font-semibold py-3 rounded-lg transition`}
+                className={`w-full py-3 rounded-lg font-semibold transition ${isSaved ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-700 hover:bg-blue-800'}`}
             >
                 {isSaved ? 'Saved' : 'Save Bet Analysis'}
             </button>

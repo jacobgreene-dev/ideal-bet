@@ -2,6 +2,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+
 import { TeamCDNLogo } from '@/app/components/TeamCDNLogo';
 import { GameEvent } from '@/lib/types/apiTypes';
 
@@ -43,22 +45,33 @@ export default function LiveGamesRow() {
                 </a>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: 'easeOut' }}
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+            >
                 {games.slice(0, 4).map((game) => (
-                    <a href='/analysis' key={game.id}>
-                        <div
-                            key={game.id}
-                            className="bg-gray-800 rounded-xl shadow-md px-6 py-6 flex flex-col justify-center items-center transition-transform hover:scale-[1.03] hover:shadow-lg min-h-full"
+                    <motion.a
+                        href="/analysis"
+                        key={game.id}
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="block"
+                    >
+                        <motion.div
+                            layout
+                            className="bg-gray-800 rounded-xl shadow-md px-6 py-6 flex flex-col justify-center items-center min-h-full transition-shadow hover:shadow-lg"
                         >
                             <div className="flex w-full justify-between items-center">
                                 <TeamCard teamName={game.home_team} />
                                 <GameInfo time={game.commence_time} />
                                 <TeamCard teamName={game.away_team} />
                             </div>
-                        </div>
-                    </a>
+                        </motion.div>
+                    </motion.a>
                 ))}
-            </div>
+            </motion.div>
         </section>
     );
 }
