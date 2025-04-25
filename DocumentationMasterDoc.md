@@ -95,6 +95,53 @@ The purpose of IdealBet is to provide bettors with data-driven insights and pred
 - Project Manager & Co-Developer
 - Documentation Specialist
 
+### 9.1 Team Members
+#### Jacob Greene
+- **Role**: Fullstack Developer
+- **Responsibilities**: 
+  - Frontend development with Next.js and TypeScript
+  - Backend API integration
+  - System architecture design
+  - Code review and quality assurance
+- **GitHub**: https://github.com/jacobgreene-dev
+
+#### Caleb
+- **Role**: Data Analyst & ML Engineer
+- **Responsibilities**:
+  - Probability algorithm development
+  - Data analysis and modeling
+  - Machine learning implementation
+  - Statistical analysis
+  - API data integration
+
+#### Jassy
+- **Role**: UI/UX Designer
+- **Responsibilities**:
+  - User interface design
+  - User experience optimization
+  - Visual design implementation
+  - Design system maintenance
+- **GitHub**: https://github.com/Jassy24
+
+#### George
+- **Role**: Project Manager & Co-Developer
+- **Responsibilities**:
+  - Project coordination
+  - Development oversight
+  - Feature planning
+  - Team communication
+  - Code contribution
+- **GitHub**: https://github.com/SvGEO290
+
+#### Hassan
+- **Role**: Documentation Specialist
+- **Responsibilities**:
+  - Technical documentation
+  - User guides
+  - API documentation
+  - Code documentation
+  - Documentation maintenance
+
 ### 10. Development Guidelines
 #### 10.1 Code Style
 - TypeScript for type safety

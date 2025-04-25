@@ -122,6 +122,39 @@ const featureSections = [
   },
 ];
 
+const teamMembers = [
+  {
+    name: 'Jacob Greene',
+    role: 'Fullstack Developer',
+    image: '/team/Jacob.jpg',
+    github: 'https://github.com/jacobgreene-dev',
+  },
+  {
+    name: 'Caleb Youngdahl',
+    role: 'Data Analyst & ML engineer',
+    image: '/team/caleb.jpg',
+    github: 'https://www.linkedin.com/in/caleb-youngdahl',
+  },
+  {
+    name: 'Jasani Smallwood',
+    role: 'UI/UX Designer',
+    image: '/team/Jasani.jpg',
+    github: 'https://github.com/Jassy24',
+  },
+  {
+    name: 'Samuel George',
+    role: 'Project Manager & Developer',
+    image: '/team/Samuel.jpg',
+    github: 'https://github.com/SvGEO290',
+  },
+  {
+    name: 'Hassan Hashim',
+    role: 'Documentation Specialist',
+    image: '/team/Hasan.jpg',
+    github: 'https://www.linkedin.com/in/hasanhashim',
+  },
+];
+
 export default function ContactPage() {
   const router = useRouter();
 
@@ -252,6 +285,44 @@ export default function ContactPage() {
                     {tech.description}
                   </p>
                 </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Team Section */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4, duration: 0.8 }}
+        className="py-12"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">Our Team</h2>
+          <div className="flex flex-wrap justify-center gap-16">
+            {teamMembers.map((member, index) => (
+              <motion.div
+                key={`${member.name}-${index}`}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: index * 0.1 }}
+                className="text-center"
+              >
+                <Link href={member.github} target="_blank" rel="noopener noreferrer">
+                  <div className="relative w-40 h-40 mx-auto mb-6 group">
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      width={160}
+                      height={160}
+                      className="rounded-full object-cover w-full h-full relative z-10"
+                    />
+                  </div>
+                  <h3 className="text-xl font-semibold">{member.name}</h3>
+                  <p className="text-gray-400">{member.role}</p>
+                </Link>
               </motion.div>
             ))}
           </div>
