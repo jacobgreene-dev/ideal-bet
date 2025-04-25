@@ -88,12 +88,6 @@ function GameCard({
                     <p>Total:&nbsp;{fmt(game.outcome_point_Over)}</p>
                 </div>
             </div>
-
-            {/* <div className="absolute inset-0 bg-black/80 opacity-0 hover:opacity-100 transition-opacity rounded-2xl flex flex-col items-center justify-center gap-1 text-sm">
-                <p>ML&nbsp;{fmt(game.moneyline_home)} / {fmt(game.moneyline_away)}</p>
-                <p>Spread&nbsp;{fmt(game.spread_point)}</p>
-                <p>Total&nbsp;{fmt(game.outcome_point_Over)}</p>
-            </div> */}
         </motion.div>
     );
 }
