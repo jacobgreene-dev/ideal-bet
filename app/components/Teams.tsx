@@ -82,12 +82,12 @@ export default function TeamsPage() {
             <p className="font-semibold text-lg text-white">{team.name}</p>
 
             <div className="flex gap-3 w-full">
-              <a
+              {/* <a
               href={`/teams/${team.id}`}
               className="flex-1 bg-gradient-to-r from-sky-500 to-cyan-600 text-white py-2 rounded-lg text-sm font-medium hover:opacity-90 transition"
               >
               Team Stats
-              </a>
+              </a> */}
               <a
               href={`/players?team=${team.id}`}
               className="flex-1 bg-gradient-to-r from-sky-500 to-cyan-600 text-white py-2 rounded-lg text-sm font-medium hover:opacity-90 transition"

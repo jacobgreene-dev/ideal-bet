@@ -54,9 +54,9 @@ export function PlayersPage() {
   };
 
   return (
-    <div className="min-h-screen  bg-gradient-to-br from-gray-900 to-sky-900 text-white flex">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-sky-900 text-white flex">
       {/* Sidebar */}
-      <div className="w-1/4 p-6 bg-gray-800 border-r border-gray-700 overflow-y-auto shadow-xl">
+      <div className="w-1/4 p-10 bg-gray-800 border-r border-gray-700 overflow-y-auto shadow-xl">
         <h2 className="text-2xl font-bold mb-6 text-center">NBA Teams</h2>
         <ul className="space-y-2">
           {teams.map((team) => (
@@ -64,7 +64,7 @@ export function PlayersPage() {
               key={team.id}
               onClick={() => handleTeamClick(team)}
               whileHover={{ scale: 1.03 }}
-              className={`cursor-pointer px-4 py-3 rounded-lg transition text-sm font-medium ${selectedTeam?.id === team.id
+              className={`cursor-pointer px-8 py-3 rounded-lg transition text-sm font-medium ${selectedTeam?.id === team.id
                 ? 'bg-blue-600 text-white shadow-md'
                 : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
                 }`}
@@ -76,7 +76,7 @@ export function PlayersPage() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-8">
+      <div className="flex-1 p-10">
         {selectedTeam ? (
           <>
             <motion.h2
