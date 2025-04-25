@@ -86,7 +86,7 @@ export default function SavedBetsPreview() {
                   transition={{ duration: 0.3 }}
                   className="bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 p-6 rounded-3xl shadow-2xl hover:shadow-indigo-500/20 transition-all"
                 >
-                  <a href="/savedBet">
+                  <a href="/savedbet">
                     <p className="text-sm text-gray-400 mb-1 tracking-wide uppercase font-semibold">
                       {bet.bet_type} Bet
                     </p>
