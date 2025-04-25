@@ -62,7 +62,7 @@ function GameCard({
             whileHover={{ scale: 1.03 }}
             onClick={() => onSelect(game)}
             className={`relative cursor-pointer p-5 rounded-2xl transition shadow-lg border-2 ${selected
-                ? 'bg-white text-gray-900 border-blue-500'
+                ? 'bg-white text-gray-500 border-blue-500'
                 : 'bg-gray-800 text-white border-gray-700 hover:bg-gray-700'
                 }`}
         >
@@ -70,22 +70,30 @@ function GameCard({
                 {game.home_team} vs. {game.away_team}
             </h3>
             <p className="text-sm text-sky-300 font-medium">NBA</p>
-            <p className="text-sm text-gray-400">
-                Tip-Off:{' '}
-                {new Date(game.commence_time).toLocaleString(undefined, {
-                    weekday: 'short',
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    hour12: true,
-                    month: 'short',
-                    day: 'numeric',
-                })}
-            </p>
-            <div className="absolute inset-0 bg-black/80 opacity-0 hover:opacity-100 transition-opacity rounded-2xl flex flex-col items-center justify-center gap-1 text-sm">
+            <div className='text-md flex '>
+                <p className="text-gray-400 grow">
+                    Tip-Off:{' '}
+                    {new Date(game.commence_time).toLocaleString(undefined, {
+                        weekday: 'short',
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: true,
+                        month: 'short',
+                        day: 'numeric',
+                    })}
+                </p>
+                <div className='text-gray-400'>
+                    <p>ML:&nbsp;{fmt(game.moneyline_home)} / {fmt(game.moneyline_away)}</p>
+                    <p>Spread:&nbsp;{fmt(game.spread_point)}</p>
+                    <p>Total:&nbsp;{fmt(game.outcome_point_Over)}</p>
+                </div>
+            </div>
+
+            {/* <div className="absolute inset-0 bg-black/80 opacity-0 hover:opacity-100 transition-opacity rounded-2xl flex flex-col items-center justify-center gap-1 text-sm">
                 <p>ML&nbsp;{fmt(game.moneyline_home)} / {fmt(game.moneyline_away)}</p>
                 <p>Spread&nbsp;{fmt(game.spread_point)}</p>
                 <p>Total&nbsp;{fmt(game.outcome_point_Over)}</p>
-            </div>
+            </div> */}
         </motion.div>
     );
 }
