@@ -73,12 +73,12 @@ const techStack = [
   {
     name: 'The Odds API',
     description: 'Sports betting odds and market data provider',
-    icon: AiFillApi, // no icon available
+    icon: AiFillApi,
   },
   {
     name: 'NBA Stats API',
     description: 'Comprehensive basketball player and team stats',
-    icon: AiFillApi, // no icon available
+    icon: AiFillApi,
   },
 ];
 
@@ -86,17 +86,17 @@ const techStack = [
 const useCases = [
   {
     title: 'Real-time Odds Analysis',
-    description: 'Get instant access to live betting odds from multiple sportsbooks, allowing you to make informed decisions in real-time.',
+    description: 'Our model has instant access to live betting odds from multiple sportsbooks, allowing you to make informed decisions in real-time.',
     icon: '📊',
   },
   {
     title: 'Historical Performance',
-    description: 'Analyze team and player performance over time to identify patterns and trends that influence game outcomes.',
+    description: 'We analyze NBA performance over time to identify patterns and trends that influence game outcomes.',
     icon: '📈',
   },
   {
-    title: 'Custom Betting Strategies',
-    description: 'Create and test your own betting strategies using our comprehensive data and analysis tools.',
+    title: 'Different Betting Strategies',
+    description: 'Test many different betting strategies, including moneyline, spread bets, and over/under, using our comprehensive data and analysis tools.',
     icon: '🎯',
   },
 ];
@@ -148,8 +148,8 @@ export default function ContactPage() {
           About Ideal Bet
         </h1>
         <p className="text-xl text-gray-300 text-center max-w-3xl mx-auto">
-          A sophisticated sports betting probability calculator that combines real-time odds,
-          historical data, and weather conditions to provide accurate predictions.
+          A sophisticated sports betting probability calculator that combines real-time odds and
+          historical data.
         </p>
       </motion.div>
       {/* Use Cases Section */}
