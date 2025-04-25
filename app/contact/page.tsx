@@ -1,11 +1,11 @@
+// @/app/contact/page.tsx
+
 'use client';
 
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import Header from '@/app/components/Header';
-import Footer from '@/app/components/Footer';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 
 import { VscVscode, } from "react-icons/vsc";
 import { SiNextdotjs, } from "react-icons/si";
@@ -16,8 +16,8 @@ import { FiFramer } from "react-icons/fi";
 import { SiFusionauth, SiGooglecloud, } from "react-icons/si";
 import { AiFillApi } from "react-icons/ai";
 
-
-
+import Header from '@/app/components/Header';
+import Footer from '@/app/components/Footer';
 
 const techStack = [
   {
@@ -126,7 +126,7 @@ const teamMembers = [
   {
     name: 'Jacob Greene',
     role: 'Fullstack Developer',
-    image: '/team/Jacob.jpg',
+    image: '/team/Jacob.png',
     github: 'https://jacobgreene-dev.github.io',
   },
   {
@@ -315,8 +315,8 @@ export default function ContactPage() {
                     <Image
                       src={member.image}
                       alt={member.name}
-                      width={160}
-                      height={160}
+                      width={150}
+                      height={150}
                       className="rounded-full object-cover w-full h-full relative z-10"
                     />
                   </div>

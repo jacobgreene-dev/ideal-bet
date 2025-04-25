@@ -1,3 +1,5 @@
+// @/lib/cache.tsx
+
 /**
  * Defines the structure of a cache entry, storing the data and the timestamp
  * when the data was cached.

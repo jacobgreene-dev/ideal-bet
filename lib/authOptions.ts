@@ -1,3 +1,5 @@
+// @/lib/authOptions.ts
+
 import { NextAuthOptions, Session, User } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { JWT } from "next-auth/jwt";

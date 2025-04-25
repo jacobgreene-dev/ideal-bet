@@ -1,4 +1,4 @@
-// app/components/PlayerHeadshots.tsx
+// @/app/components/PlayerHeadshots.tsx
 
 import Image from 'next/image';
 import { playerNameToId } from '@/lib/utils/playerNameMap';

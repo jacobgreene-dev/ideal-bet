@@ -1,4 +1,5 @@
 // @/app/analysis/page.tsx
+
 'use client';
 
 import { useSession, signIn } from 'next-auth/react';
@@ -9,7 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import { PrettyPredictionCard } from '@/app/components/PrettyPredictionDisplay';
-import { BetBuilderForm } from '../components/BetBuilderForm';
+import { BetBuilderForm } from '@/app/components/BetBuilderForm';
 import { fullNameToAbbreviation } from '@/lib/utils/teamNameMap';
 import { GameEvent } from '@/lib/types/apiTypes';
 import { PredictionResult, PrettyPredictionProps } from '@/lib/types/frontEndTypes';

@@ -1,7 +1,11 @@
+// @/app/players/page.tsx
+
+import { Suspense } from "react";
+
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import { PlayersPage } from "@/app/components/Players";
-import { Suspense } from "react";
+
 
 export default function App() {
     return (

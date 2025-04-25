@@ -1,8 +1,11 @@
+// @/app/components/SavedBetsPreview.tsx
+
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, useInView } from 'framer-motion';
+
 import { Bet } from '@/lib/types/apiTypes';
 
 export default function SavedBetsPreview() {

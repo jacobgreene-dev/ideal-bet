@@ -1,3 +1,5 @@
+// @/lib/firebaseAdmin.ts
+
 import { getApps, getApp, initializeApp, cert } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 

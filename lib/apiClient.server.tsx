@@ -1,3 +1,5 @@
+// @/lib/apiClient.server.tsx
+
 // Imports necessary TypeScript interfaces for type safety and structure
 import { TeamsApiResponse, PlayersAPIResponse, GameEvent, PredictionPayload, PredictionResponse } from '@/lib/types/apiTypes';
 
@@ -122,7 +124,6 @@ export async function getOddsScheduledGames(): Promise<GameEvent[]> {
   });
 }
 
-
 /**
  * 
  *
@@ -142,4 +143,3 @@ export async function postPredictionRequest(payload: PredictionPayload): Promise
 
   return await response.json();
 }
-

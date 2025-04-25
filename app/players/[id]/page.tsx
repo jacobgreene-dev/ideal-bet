@@ -1,9 +1,9 @@
-// app/player/[id]/page.tsx
+// @/app/player/[id]/page.tsx
+
 'use client';
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-
 import { motion } from 'framer-motion';
 
 import Header from '@/app/components/Header';

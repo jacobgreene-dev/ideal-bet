@@ -1,6 +1,9 @@
+// @/app/information/page.tsx
+
 'use client';
 
 import { motion } from 'framer-motion';
+
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 

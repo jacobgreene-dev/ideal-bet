@@ -53,16 +53,12 @@ export default function Header() {
   return (
 
     <header className="fixed top-0 left-0 z-20 text-nowrap w-full bg-gray-700 shadow-sm">
-
       <nav className="mx-auto flex max-w-8xl items-center justify-between px-4 py-4 sm:px-6" aria-label="Global">
         {/* Logo */}
         <div className="flex sm:flex-1">
           <Link href="/" className="flex items-center" />
           <p className="sr-only">Betting Analysis</p>
           <Link href='/'>
-
-            {/* Replace with up-to-date logo */}
-
             <Image
               width={100}
               height={100}
@@ -85,7 +81,6 @@ export default function Header() {
             <span className="sr-only">Open main menu</span>
             <Bars3Icon aria-hidden="true" className="h-6 w-6" />
           </button>
-
         </div>
 
         {/* Desktop Nav */}
@@ -148,7 +143,6 @@ export default function Header() {
                 </div>
               </PopoverPanel>
             </Popover>
-
             <a href="/information" className="text-md text-white hidden xl:block hover:text-gray-400">Sports Book Information</a>
             <a href="/helpline" className="text-md text-white hidden xl:block hover:text-gray-400">Gambling Helpline</a>
             <a href="/contact" className="text-md text-white hidden xl:block hover:text-gray-400">Contact</a>
@@ -195,13 +189,6 @@ export default function Header() {
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Betting Analysis</span>
-                {/* <Image
-                  src="/logo.svg"
-                  alt="Ideal Bet Logo"
-                  className="h-8 w-auto"
-                  height={80}
-                  width={80}
-                /> */}
               </a>
               <button
                 type="button"

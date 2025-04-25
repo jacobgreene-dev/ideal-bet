@@ -1,15 +1,17 @@
-// app/my-bets/page.tsx
+// @/app/savedbets/page.tsx
+
 'use client';
 
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import BetCard from '@/app/components/SavedBetCard';
 import { SavedBet } from '@/lib/types/apiTypes';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
 
 export default function MyBetsPage() {
     const { data: session, status } = useSession();
@@ -17,8 +19,10 @@ export default function MyBetsPage() {
     const [bets, setBets] = useState<SavedBet[]>([]);
     const [loading, setLoading] = useState(true);
 
+
+    // Wait for session
     useEffect(() => {
-        if (status === 'loading') return; // wait for session
+        if (status === 'loading') return;
         if (!session || !session.user?.email) {
             router.push('/login');
             return;
@@ -43,6 +47,7 @@ export default function MyBetsPage() {
         <div>
             <Header />
             <div className="min-h-screen pt-24 px-6 bg-gray-900 text-white">
+                {/* Loading skeleton / Empty SavedBets[] placeholder */}
                 {loading ? (
                     <p className="text-gray-400">Loading...</p>
                 ) : bets.length === 0 ? (

@@ -1,3 +1,5 @@
+// @/app/components/Players.tsx
+
 'use client';
 
 import { useSearchParams } from 'next/navigation';

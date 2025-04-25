@@ -1,8 +1,10 @@
+// @/app/login/page.tsx
+
 'use client';
 
 import { useEffect } from 'react';
 import { signIn, useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';

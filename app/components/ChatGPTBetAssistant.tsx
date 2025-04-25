@@ -1,3 +1,5 @@
+// @/app/components/ChatGPTBetAssistant.tsx
+
 'use client';
 
 import { useState } from 'react';

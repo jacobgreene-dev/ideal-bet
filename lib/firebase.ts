@@ -1,4 +1,5 @@
-// Import the functions you need from the SDKs you need
+// @/lib/firebase.ts
+
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
