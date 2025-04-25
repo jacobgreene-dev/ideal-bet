@@ -10,6 +10,18 @@ export default function SavedBetsPreview() {
   const router = useRouter();
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-300px' });
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    if (isInView && !hasAnimated) {
+      setHasAnimated(true);
+    } else if (!hasAnimated) {
+      const timer = setTimeout(() => {
+        setHasAnimated(true);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [isInView, hasAnimated]);
 
   useEffect(() => {
     const fetchBets = async () => {
@@ -29,21 +41,20 @@ export default function SavedBetsPreview() {
 
   return (
     <motion.section
-      ref={sectionRef}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6 }}
-      className="py-20 px-4 sm:px-8 max-w-6xl mx-auto text-white"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.7, ease: 'easeOut' }}
+      className="py-20 pt-40 flex items-center justify-center"
     >
-      <div className="flex flex-col lg:flex-row gap-12 items-start">
-        <div className="lg:w-1/2 w-full text-center lg:text-left">
-          <h2 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+      <div className="flex flex-col md:flex-row gap-10 items-start md:w-1/2 w-full justify-center align-center">
+        <div className="md:w-1/2 w-full text-center md:text-left">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
             Your Saved Bets
           </h2>
           <p className="text-gray-400 mt-4 text-lg max-w-xl">
             Review your most recent bet predictions powered by AI. Analyze past choices to make better calls going forward.
           </p>
-
           {recentBets.length === 0 && (
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
@@ -65,7 +76,7 @@ export default function SavedBetsPreview() {
         </div>
 
         {recentBets.length > 0 && (
-          <div className="lg:w-1/2 w-full space-y-6">
+          <div className="md:w-1/2 w-full space-y-6">
             {recentBets.map((b, idx) => {
               const bet = b.gameEvent;
               return (
