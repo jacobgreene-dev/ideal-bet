@@ -127,7 +127,7 @@ const teamMembers = [
     name: 'Jacob Greene',
     role: 'Fullstack Developer',
     image: '/team/Jacob.jpg',
-    github: 'https://github.com/jacobgreene-dev',
+    github: 'https://jacobgreene-dev.github.io',
   },
   {
     name: 'Caleb Youngdahl',
