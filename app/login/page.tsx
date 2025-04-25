@@ -1,13 +1,34 @@
 'use client';
 
-// import { useState } from 'react';
-// import Image from 'next/image';
-import { signIn } from 'next-auth/react';
+import { useEffect } from 'react';
+import { signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation'
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 
 
 export default function SignIn() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.push('/');
+    }
+  }, [status, router]);
+
+  if (status === 'loading') {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+        <div className="flex flex-col items-center space-y-6">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-blue-500"></div>
+          <p className="text-lg font-medium text-gray-300">Loading your session...</p>
+        </div>
+      </div>
+    );
+  }
+  
+
   return (
     <div className="min-h-screen flex flex-col pt-3 ">
       <Header />
